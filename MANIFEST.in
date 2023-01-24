@@ -1,0 +1,6 @@
+include LICENSE
+include librehtf/schema.sql
+graft librehtf/static
+graft librehtf/templates
+graft tests
+global-exclude *.pyc

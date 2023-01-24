@@ -29,7 +29,7 @@ def auth_required(view):
 
     @wraps(view)
     def wrapped_view(**kwargs):
-        if g.user is not None:
+        if g.user is None:
             if "Authorization" not in request.headers:
                 return {"message": "Token required."},  401
             token = request.headers.get("Authorization", None).replace("Bearer ", "")

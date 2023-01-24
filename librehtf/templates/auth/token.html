@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Token Generator{% endblock %}
+{% block main %}
+<h2>Generate API Access Token</h2>
+<p>For security reasons, the generated token will only appear once.</p>
+<form method="post" class="twocol">
+        <label for="expires_in">Expiration</label>
+        <select name="expires_in" required>
+                <option value=1800>30 Minutes</option>
+                <option value=86400>30 Days</option>
+                <option value=31536000>1 Year</option>
+        </select>
+        <button>Generate Token</button>
+</form>
+{% endblock %}

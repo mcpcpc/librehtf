@@ -67,7 +67,7 @@ def login():
         error = None
         if not request.form["username"]:
             error = "Username is required."
-        if not request.form["password"]:
+        elif not request.form["password"]:
             error = "Password is required."
         user = get_db().execute(
             "SELECT * FROM user WHERE username = ?", (request.form["username"],)
@@ -102,7 +102,7 @@ def register():
         error = None
         if not request.form["username"]:
             error = "Username is required."
-        if not request.form["password"]:
+        elif not request.form["password"]:
             error = "Password is required."
         if error is None:
             hashed_password = generate_password_hash(request.form["password"])

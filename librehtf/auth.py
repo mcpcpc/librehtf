@@ -20,7 +20,7 @@ from werkzeug.security import generate_password_hash
 
 from librehtf.db import get_db
 
-auth = Blueprint("auth", __name__, url_prefix="/api/auth")
+auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 def auth_required(view):
     """Authorization required wrapper."""

@@ -1,6 +1,6 @@
 # LibreHTF
 
-A minimal task manager for automated test.
+An open hardware test framework.
 
 ## Install
 

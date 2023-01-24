@@ -118,7 +118,7 @@ def register():
                 flash("User successfully registered.")
                 return redirect(url_for("auth.login"))
         flash(error)
-    return redirect(url_for("auth/register.html"))
+    return render_template("auth/register.html")
 
 
 @auth.route("/token", methods=("GET", "POST"))
@@ -145,4 +145,4 @@ def token():
             )
             return {"access_token": token}
         flash(error)
-    return request(url_for("auth/token.html"))
+    return render_template("auth/token.html")

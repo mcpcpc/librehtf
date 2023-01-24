@@ -31,7 +31,7 @@ def auth_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             if "Authorization" not in request.headers:
-                return {"message": "Token required."},  401
+                return {"message": "Authentication required to access this page."},  401
             token = request.headers.get("Authorization", None).replace("Bearer ", "")
             secret = current_app.config["SECRET_KEY"]
             try:

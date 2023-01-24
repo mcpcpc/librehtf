@@ -89,7 +89,6 @@ def logout():
     """Clear current session, including the stored user ID."""
 
     session.clear()
-    flash("User successfully logged out.")
     return redirect(url_for("auth.login"))
 
 

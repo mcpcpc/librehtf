@@ -129,15 +129,14 @@ def token():
 
     if request.method == "POST":
         error = None
-        expires_in = 600
-        if request.form["expiration"]:
-            try:
-                expires_in = int(request.form["expires_in"])
-            except ValueError:
-                error = "Expiration value invalid."
-        if expires_in > 31536000:
+        if not request.form["expires_in"]:
+            error = "Expiration is required."
+        elif not request.form["expires_in"].isdigit():
+            error = "Expiration is not numeric."
+        elif int(request.form["expires_in"]) > 31536000:
             error = "Expiration too big."
         if error is None:
+            expires_in = int(request.form["expires_in"])
             expiration = datetime.now(tz=timezone.utc) + timedelta(seconds=expires_in)
             token = encode(
                 {"confirm": session.get("user_id"), "exp": expiration},

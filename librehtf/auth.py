@@ -118,7 +118,7 @@ def register():
                 flash("User successfully registered.")
                 return redirect(url_for("auth.login"))
         flash(error)
-    return redict(url_for("auth/register.html"))
+    return redirect(url_for("auth/register.html"))
 
 
 @auth.route("/token", methods=("GET", "POST"))

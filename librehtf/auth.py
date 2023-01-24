@@ -9,6 +9,7 @@ from functools import wraps
 from flask import Blueprint
 from flask import current_app
 from flask import g
+from flask import redirect
 from flask import render_template
 from flask import request
 from flask import session

@@ -5,6 +5,7 @@ from os import path
 from os import makedirs
 
 from flask import Flask
+from flask import render_template
 
 from librehtf.auth import auth
 from librehtf.api import api
@@ -29,5 +30,10 @@ def create_app(test_config=None):
     init_app(app)
     app.register_blueprint(auth)
     app.register_blueprint(api)
+    
+    @app.route("/")
+    def index():
+        return render_template("index.html")
+    
     app.add_url_rule("/", endpoint="index")
     return app

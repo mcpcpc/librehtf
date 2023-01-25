@@ -1,13 +1,12 @@
 -- Initialize the database.
 -- Drop any existing data and create empty tables.
 
-DROP VIEW IF EXISTS task_v;
-DROP VIEW IF EXISTS user_v;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS permission;
 DROP TABLE IF EXISTS role_permission;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS device;
+DROP TABLE IF EXISTS test;
 DROP TABLE IF EXISTS task;
 
 CREATE TABLE role (
@@ -53,29 +52,24 @@ CREATE TABLE user (
 CREATE TABLE device (
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL UNIQUE,
-        description TEXT NOT NULL UNIQUE
+        description TEXT NOT NULL
+);
+
+CREATE TABLE test (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        description TEXT NOT NULL,
+        device_id INTEGER NOT NULL,
+        FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 CREATE TABLE task (
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         command TEXT NOT NULL,
-        device_id INTEGER NOT NULL,
-        FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE ON UPDATE NO ACTION
+        test_id INTEGER NOT NULL,
+        FOREIGN KEY(test_id) REFERENCES test(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
-
-CREATE VIEW task_v AS SELECT
-        device.name AS device_name,
-        device.description AS device_description,
-        task.id as task_id,
-        task.name AS task_name
-FROM device INNER JOIN task ON task.device_id = device.id;
-
-CREATE VIEW user_v AS SELECT
-        role.title as role_title,
-        user.id AS user_id,
-        user.username AS user_username
-FROM role INNER JOIN user ON user.role_id = role.id;
 
 INSERT INTO role (title, slug) VALUES ("Administrator", "admin"), ("Functional", "functional"), ("Public", "public");
 INSERT INTO permission (title, slug) VALUES ("read", "r"), ("update", "rw"), ("insert", "i"), ("delete", "x");

@@ -17,18 +17,18 @@ def create_task():
         return {"message": "Name is required."}, 401
     elif not request.form["command"]:
         return {"message": "Command is required."}, 401
-    elif not request.form["device_id"]:
-        return {"message": "Device ID is required."}, 401
+    elif not request.form["test_id"]:
+        return {"message": "Test ID is required."}, 401
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "INSERT INTO task (name, command, device_id) VALUES (?, ?, ?)",
-            (request.form["name"], request.form["command"], request.form["device_id"]),
+            "INSERT INTO task (name, command, test_id) VALUES (?, ?, ?)",
+            (request.form["name"], request.form["command"], request.form["test_id"]),
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Device ID does not exist."}, 401
+        return {"message": "Test ID does not exist."}, 401
     else:
         return {"message": "Task successfully created."}, 201
 
@@ -49,18 +49,18 @@ def update_task(id: int):
         return {"message": "Name is required."}, 401
     elif not request.form["command"]:
         return {"message": "Command is required."}, 401
-    elif not request.form["device_id"]:
-        return {"message": "Device ID is required."}, 401
+    elif not request.form["test_id"]:
+        return {"message": "Test ID is required."}, 401
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "UPDATE task SET device_id = ?, name = ?, command = ? WHERE id = ?",
-            (request.form["device_id"], request.form["name"], request.form["command"], id),
+            "UPDATE task SET test_id = ?, name = ?, command = ? WHERE id = ?",
+            (request.form["test_id"], request.form["name"], request.form["command"], id),
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Device ID does not exist."}, 401
+        return {"message": "Test ID does not exist."}, 401
     else:
         return {"message": "Task successfully updated."}, 201
 

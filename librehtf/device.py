@@ -34,10 +34,10 @@ def create_device():
 @device.route("/device/<int:id>", methods=("GET",))
 @token_required
 def read_device(id: int):
-    device = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
-    if not device:
+    row = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
+    if not row:
         return {"message": "Device does not exist."}, 401
-    return dict(device)
+    return dict(row)
 
 
 @device.route("/device/<int:id>", methods=("POST",))

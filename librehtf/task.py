@@ -36,10 +36,10 @@ def create_task():
 @task.route("/task/<int:id>", methods=("GET",))
 @token_required
 def read_task(id: int):
-    task = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
-    if not task:
+    row = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
+    if not row:
         return {"message": "Task does not exist"}, 401
-    return dict(task)
+    return dict(row)
 
 
 @task.route("/task/<int:id>", methods=("POST",))

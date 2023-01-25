@@ -48,7 +48,7 @@ def token_required(view):
                 request.args["token"],
                 current_app.config["SECRET_KEY"],
                 algorithms=["HS256"]
-            )
+            ).get("confirm")
         except Error as error:
             return {"message": f"{error}"}, 401
         user = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()

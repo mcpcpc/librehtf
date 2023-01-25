@@ -2,6 +2,9 @@
 {% block title %}Login{% endblock %}
 {% block main %}
 <h2>User Login</h2>
+{% if session['user_id'] %}
+<p>You are already logged in! If you would like to log in as another user, please log out first.</p>
+{% else %}
 <form method="post">
         <p>Welcome back! Please provide valid credentials to access additional tools.</p>
         <input name="username" placeholder="Username" required>
@@ -9,4 +12,5 @@
         <button>Log In</button>
         <small>If you do not have credentials or have forgotten your username or password, please contact a system administrator.</small>
 </form>
+{% endif %}
 {% endblock %}

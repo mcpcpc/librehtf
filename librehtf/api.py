@@ -5,13 +5,13 @@ from flask import Blueprint
 from flask import request
 
 from librehtf.db import get_db
-from librehtf.auth import auth_required
+from librehtf.auth import token_required
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
 
 @api.post("/task")
-@auth_required
+@token_required
 def create_task():
     if not request.form["name"]:
         return {"message": "Name is required."}, 401
@@ -34,7 +34,7 @@ def create_task():
 
 
 @api.get("/task/<int:id>")
-@auth_required
+@token_required
 def read_task(id: int):
     task = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     if not task:
@@ -43,7 +43,7 @@ def read_task(id: int):
 
 
 @api.post("/task/<int:id>")
-@auth_required
+@token_required
 def update_task(id: int):
     if not request.form["name"]:
         return {"message": "Name is required."}, 401
@@ -66,7 +66,7 @@ def update_task(id: int):
 
 
 @api.delete("/task/<int:id>")
-@auth_required
+@token_required
 def delete_task(id: int):
     db = get_db()
     db.execute("DELETE FROM task WHERE id = ?", (id,))
@@ -75,7 +75,7 @@ def delete_task(id: int):
 
 
 @api.post("/device")
-@auth_required
+@token_required
 def create_device():
     if not request.form["name"]:
         return {"message": "Name is required."}, 401
@@ -96,7 +96,7 @@ def create_device():
 
 
 @api.get("/device/<int:id>")
-@auth_required
+@token_required
 def read_device(id: int):
     device = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
     if not device:
@@ -105,7 +105,7 @@ def read_device(id: int):
 
 
 @api.post("/device/<int:id>")
-@auth_required
+@token_required
 def update_device(id: int):
     if not request.form["name"]:
         return {"message": "Name is required."}, 401
@@ -126,7 +126,7 @@ def update_device(id: int):
 
 
 @api.delete("/device/<int:id>")
-@auth_required
+@token_required
 def delete_device(id: int):
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")

@@ -24,6 +24,7 @@ from librehtf.db import get_db
 
 auth = Blueprint("auth", __name__, url_prefix="/auth")
 
+
 def login_required(view):
     """Login required wrapper."""
 

@@ -24,23 +24,36 @@ from librehtf.db import get_db
 
 auth = Blueprint("auth", __name__, url_prefix="/auth")
 
-def auth_required(view):
-    """Authorization required wrapper."""
+def login_required(view):
+    """Login required wrapper."""
 
     @wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            if "Authorization" not in request.headers:
-                return {"message": "Authentication required."},  401
-            token = request.headers.get("Authorization", None).replace("Bearer ", "")
-            secret = current_app.config["SECRET_KEY"]
-            try:
-                id = decode(token, secret, algorithms=["HS256"])
-            except Error as error:
-                return {"message": f"{error}"}, 401
-            user = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
-            if not user:
-                return {"message": "Invalid user authentication."}, 401
+            return redirect(url_for("auth.login"))
+        return view(**kwargs)
+
+    return wrapped_view
+
+
+def token_required(view):
+    """Token required wrapper."""
+
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        if not request.args.get("token", None):
+            return {"message": "Token required."},  401
+        try:
+            id = decode(
+                request.args["token"],
+                current_app.config["SECRET_KEY"],
+                algorithms=["HS256"]
+            )
+        except Error as error:
+            return {"message": f"{error}"}, 401
+        user = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
+        if not user:
+            return {"message": "Invalid user token."}, 401
         return view(**kwargs)
 
     return wrapped_view
@@ -93,7 +106,7 @@ def logout():
 
 
 @auth.route("/register", methods=("GET", "POST"))
-@auth_required
+@login_required
 def register():
     """Register new user."""
 
@@ -122,7 +135,7 @@ def register():
 
 
 @auth.route("/token", methods=("GET", "POST"))
-@auth_required
+@login_required
 def token():
     """Generate user token."""
 

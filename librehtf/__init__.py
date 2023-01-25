@@ -8,8 +8,9 @@ from flask import Flask
 from flask import render_template
 
 from librehtf.auth import auth
-from librehtf.api import api
 from librehtf.db import init_app
+from librehtf.device import device
+from librehtf.task import task
 
 
 def create_app(test_config=None):
@@ -29,7 +30,8 @@ def create_app(test_config=None):
         pass
     init_app(app)
     app.register_blueprint(auth)
-    app.register_blueprint(api)
+    app.register_blueprint(device)
+    app.register_blueprint(task)
     
     @app.route("/")
     def index():

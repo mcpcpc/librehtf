@@ -1,8 +1,4 @@
 :root {
-	--color-primary: #D81F70;
-	--color-primary-light: #FC83B0;
-	--color-secondary: #181E4B;
-	--color-secondary-light: #DDDFFA;
 	--color-foreground: #000000;
 	--color-background: #FFFFFF;
 }
@@ -119,7 +115,6 @@ button {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: var(--color-secondary-light);
 	animation: hideAnimation 0s ease-in 3s;
 	animation-fill-mode: forwards;
 }

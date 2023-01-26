@@ -13,16 +13,19 @@ device = Blueprint("device", __name__, url_prefix="/api")
 @device.route("/device", methods=("POST",))
 @token_required
 def create_device():
-    if not request.form["name"]:
+    if not request.form.get("name"):
         return {"message": "Name is required."}, 401
-    elif not request.form["description"]:
+    elif not request.form.get("description"):
         return {"message": "Description is required."}, 401
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
             "INSERT INTO device (name, description) VALUES (?, ?)",
-            (request.form["name"], request.form["description"]),
+            (
+                request.form.get("name"),
+                request.form.get("description"),
+            ),
         )
         db.commit()
     except db.IntegrityError:
@@ -43,16 +46,20 @@ def read_device(id: int):
 @device.route("/device/<int:id>", methods=("PUT",))
 @token_required
 def update_device(id: int):
-    if not request.form["name"]:
+    if not request.form.get("name"):
         return {"message": "Name is required."}, 401
-    elif not request.form["description"]:
+    elif not request.form.get("description"):
         return {"message": "Description is required."}, 401
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
             "UPDATE device SET name = ?, description = ? WHERE id = ?",
-            (request.form["name"], request.form["description"], id),
+            (
+                request.form.get("name"),
+                request.form.get("description"),
+                id
+            ),
         )
         db.commit()
     except db.IntegrityError:

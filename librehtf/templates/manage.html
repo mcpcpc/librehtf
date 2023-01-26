@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Manage{% endblock %}
+{% block main %}
+<h2>Management Panel</h2>
+<section>
+<h3>Users</h3>
+</section>
+<section>
+<h3>Devices</h3>
+<table>
+<tr>
+<th colspan="2">Device</th>
+</tr>
+{% for device in devices %}
+<tr>
+<td><em>{{ device.name }}</em><br /><small>{{ device.description }}</small></td>
+<td></td>
+</tr>
+{% endfor %}
+</table>
+</section>
+<section>
+<h3>Tests</h3>
+<table>
+<tr>
+<th colspan="2">Test</th>
+</tr>
+{% for test in tests %}
+<tr>
+<td><em>{{ test.name }}</em><br /><small>{{ test.description }}</small></td>
+<td></td>
+</tr>
+{% endfor %}
+</table>
+</section>
+<section>
+<h3>Tasks</h3>
+<table>
+<tr>
+<th colspan="2">Task</th>
+</tr>
+{% for task in tasks %}
+<tr>
+<td>{{ task.name }}</td>
+<td></td>
+</tr>
+{% endfor %}
+</table>
+</section>
+{% endblock %}

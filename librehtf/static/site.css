@@ -25,19 +25,13 @@ table {
 	width: 100%;
 	border-spacing: 0;
 	border: 1px solid #ddd;
+	border-radius: 5px;
+	overflow: hidden;
 }
 
 th, td {
 	text-align: left;
 	padding: 1em;
-	border-bottom: 1px solid #ddd
-}
-
-table td a {
-	color: var(--color-secondary);
-	border: 1px solid var(--color-secondary);
-	border-radius: 5px;
-	padding: 0.5em;
 }
 
 p {
@@ -58,7 +52,7 @@ header {
 	justify-content: space-between;
 	align-items: center;
 	padding: 30px 10%;
-	border-bottom: 1px solid var(--color-secondary);
+	border-bottom: 1px solid var(--color-foreground);
 }
 
 header ul li {
@@ -66,11 +60,7 @@ header ul li {
 	padding: 0 0.5rem;
 }
 
-h1, h2, h3 {
-	color: var(--color-secondary);
-}
-
-h1 {
+header h1 {
 	font-weight: 600;
 }
 
@@ -96,13 +86,13 @@ form {
 }
 
 input, button, select {
-	border: 1px solid var(--color-secondary);
+	border: 1px solid var(--color-foreground);
 	border-radius: calc(1rem * 0.3);
 	padding: calc(1rem * 0.5);	
 }
 
 button {
-	background-color: var(--color-secondary);
+	background-color: var(--color-foreground);
 	color: var(--color-background);
 	cursor: pointer;
 }
@@ -135,7 +125,15 @@ button {
 }
 
 .error {
-	background-color: var(--color-primary-light);
+	background-color: var(--color-error);
+}
+
+.warning {
+	background-color: var(--color-warning);
+}
+
+.success {
+	background-color: var(--color-success);
 }
 
 @keyframes hideAnimation {
@@ -144,8 +142,4 @@ button {
 		width: 0;
 		height: 0;
 	}
-}
-
-#session {
-	color: var(--color-secondary);
 }

@@ -13,15 +13,15 @@ task = Blueprint("task", __name__, url_prefix="/api")
 @task.route("/task", methods=("POST",))
 @token_required
 def create_task():
-    if not request.form["name"]:
+    if not request.form.get("name"):
         return {"message": "Name is required."}, 401
-    elif not request.form["command"]:
+    elif not request.form.get("command"):
         return {"message": "Command is required."}, 401
-    elif not request.form["test_id"]:
+    elif not request.form.get("test_id"):
         return {"message": "Test ID is required."}, 401
-    elif not request.form["operator_id"]:
+    elif not request.form.get("operator_id"):
         return {"message": "Operator ID is required."}, 401
-    elif not request.form["datatype_id"]:
+    elif not request.form.get("datatype_id"):
         return {"message": "Datatype ID is required."}, 401
     try:
         db = get_db()
@@ -29,11 +29,11 @@ def create_task():
         db.execute(
             "INSERT INTO task (name, command, test_id, operator_id, datatype_id) VALUES (?, ?, ?, ?, ?)",
             (
-                request.form["name"],
-                request.form["command"],
-                request.form["test_id"],
-                request.form["operator_id"],
-                request.form["datatype_id"],
+                request.form.get("name"),
+                request.form.get("command"),
+                request.form.get("test_id"),
+                request.form.get("operator_id"),
+                request.form.get("datatype_id"),
             ),
         )
         db.commit()
@@ -55,23 +55,27 @@ def read_task(id: int):
 @task.route("/task/<int:id>", methods=("PUT",))
 @token_required
 def update_task(id: int):
-    if not request.form["name"]:
+    if not request.form.get("name"):
         return {"message": "Name is required."}, 401
-    elif not request.form["command"]:
+    elif not request.form.get("command"):
         return {"message": "Command is required."}, 401
-    elif not request.form["test_id"]:
+    elif not request.form.get("test_id"):
         return {"message": "Test ID is required."}, 401
+    elif not request.form.get("operator_id"):
+        return {"message": "Operator ID is required."}, 401
+    elif not request.form.get("datatype_id"):
+        return {"message": "Datatype ID is required."}, 401
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
             "UPDATE task SET name = ?, command = ?, test_id = ?, operator_id = ?, datatype_id = ? WHERE id = ?",
             (
-                request.form["name"],
-                request.form["command"],
-                request.form["test_id"],
-                request.form["operator_id"],
-                request.form["datatype_id"],
+                request.form.get("name"),
+                request.form.get("command"),
+                request.form.get("test_id"),
+                request.form.get("operator_id"),
+                request.form.get("datatype_id"),
                 id,
             ),
         )

@@ -3,7 +3,7 @@
 {% block main %}
 {% if api == 'device' %}
 <h2>Create New Device</h2>
-<form action="{{ url_for('device.create') }}" method="post" class="twocol">
+<form action="{{ url_for('device.create_device') }}" method="post" class="twocol">
 	<label for="name">Name</label>
 	<input name="name" type="text" required>
 	<label for="description">Description</label>
@@ -12,7 +12,7 @@
 </form>
 {% elif api == 'test' %}
 <h2>Create New Test</h2>
-<form action="{{ url_for('test.create') }}"method="post" class="twocol">
+<form action="{{ url_for('test.create_test') }}"method="post" class="twocol">
 	<label for="device_id">Device</label>
 	<select name="device_id" required>
 		{% for device in devices %}
@@ -27,7 +27,7 @@
 </form>
 {% elif api == 'task' %}
 <h2>Create New Task</h2>
-<form action="{{ url_for('task.create') }}" method="post" class="twocol">
+<form action="{{ url_for('task.create_task') }}" method="post" class="twocol">
 	<label for="test_id">Device</label>
 	<select name="test_id" required>
 		{% for test in tests %}

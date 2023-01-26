@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Create{% endblock %}
 {% block main %}
-{% if format == 'device' %}
+{% if api == 'device' %}
 <h2>Create New Device</h2>
 <form action="{{ url_for('device.create') }}" method="post" class="twocol">
 	<label for="name">Name</label>
@@ -10,7 +10,7 @@
 	<input name="description" type="text" required>
 	<button>Create</button>
 </form>
-{% elif format == 'test' %}
+{% elif api == 'test' %}
 <h2>Create New Test</h2>
 <form action="{{ url_for('test.create') }}"method="post" class="twocol">
 	<label for="device_id">Device</label>
@@ -25,7 +25,7 @@
 	<input name="description" type="text" required>
 	<button>Create</button>
 </form>
-{% elif format == 'task' %}
+{% elif api == 'task' %}
 <h2>Create New Task</h2>
 <form action="{{ url_for('task.create') }}" method="post" class="twocol">
 	<label for="test_id">Device</label>

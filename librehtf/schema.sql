@@ -89,8 +89,7 @@ CREATE TABLE datatype (
 INSERT INTO datatype (slug, title) VALUES
         ("str", "string"),
         ("int", "integer"),
-        ("float", "floating point"),  
-);
+        ("float", "floating point");
 
 CREATE TABLE device (
         id INTEGER PRIMARY KEY,

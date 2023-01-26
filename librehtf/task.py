@@ -19,16 +19,26 @@ def create_task():
         return {"message": "Command is required."}, 401
     elif not request.form["test_id"]:
         return {"message": "Test ID is required."}, 401
+    elif not request.form["operator_id"]:
+        return {"message": "Operator ID is required."}, 401
+    elif not request.form["datatype_id"]:
+        return {"message": "Datatype ID is required."}, 401
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "INSERT INTO task (name, command, test_id) VALUES (?, ?, ?)",
-            (request.form["name"], request.form["command"], request.form["test_id"]),
+            "INSERT INTO task (name, command, test_id, operator_id, datatype_id) VALUES (?, ?, ?, ?, ?)",
+            (
+                request.form["name"],
+                request.form["command"],
+                request.form["test_id"],
+                request.form["operator_id"],
+                request.form["datatype_id"],
+            ),
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Test ID does not exist."}, 401
+        return {"message": "Task already exists."}, 401
     else:
         return {"message": "Task successfully created."}, 201
 
@@ -55,12 +65,19 @@ def update_task(id: int):
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "UPDATE task SET test_id = ?, name = ?, command = ? WHERE id = ?",
-            (request.form["test_id"], request.form["name"], request.form["command"], id),
+            "UPDATE task SET name = ?, command = ?, test_id = ?, operator_id = ?, datatype_id = ? WHERE id = ?",
+            (
+                request.form["name"],
+                request.form["command"],
+                request.form["test_id"],
+                request.form["operator_id"],
+                request.form["datatype_id"],
+                id,
+            ),
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Test ID does not exist."}, 401
+        return {"message": "Task already exists."}, 401
     else:
         return {"message": "Task successfully updated."}, 201
 

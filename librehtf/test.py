@@ -21,21 +21,15 @@ def create_test():
         return {"message": "Description is required."}, 401
     elif not request.form["device_id"]:
         return {"message": "Device ID is required."}, 401
-    elif not request.form["operator_id"]:
-        return {"message": "Operator ID is required."}, 401
-    elif not request.form["datatype_id"]:
-        return {"message": "Datatype ID is required."}, 401 
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "INSERT INTO test (name, description, device_id, operator_id, datatype_id) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO test (name, description, device_id) VALUES (?, ?, ?)",
             (
                 request.form["name"],
                 request.form["description"],
                 request.form["device_id"],
-                request.form["operator_id"],
-                request.form["datatype_id"],
             ),
         )
         db.commit()
@@ -75,13 +69,11 @@ def update_test(id: int):
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "UPDATE test SET name = ?, description = ?, device_id = ?, operator_id = ?, datatype_id = ? WHERE id = ?",
+            "UPDATE test SET name = ?, description = ?, device_id = ? WHERE id = ?",
             (
                 request.form["name"],
                 request.form["description"],
                 request.form["device_id"],
-                request.form["operator_id"],
-                request.form["datatype_id"],
                 id,
             ),
         )

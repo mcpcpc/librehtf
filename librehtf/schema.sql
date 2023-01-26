@@ -72,13 +72,13 @@ CREATE TABLE operator (
 );
 
 INSERT INTO operator (slug, title) VALUES
-        ("none", "not specified"),
-        ("gt", "greater than"),
-        ("ge", "greater than or equal"),
-        ("lt", "less than"),
-        ("le", "less than or equal"),
-        ("eq", "equal"),
-        ("ne", "not equal");
+        ("none", "unspecified"),
+        ("__gt__", "greater than"),
+        ("__ge__", "greater than or equal"),
+        ("__lt__", "less than"),
+        ("__le__", "less than or equal"),
+        ("__eq__", "equal"),
+        ("__ne__", "not equal");
 
 CREATE TABLE datatype (
         id INTEGER PRIMARY KEY,
@@ -108,6 +108,8 @@ CREATE TABLE test (
 CREATE TABLE task (
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
+        reference TEXT DEFAULT NULL,
+        unit TEXT DEFAULT NULL,
         command TEXT NOT NULL,
         test_id INTEGER NOT NULL,
         operator_id INTEGER NOT NULL,

@@ -15,11 +15,11 @@ test = Blueprint("test", __name__, url_prefix="/api")
 def create_test():
     """Create test."""
     
-    if not request.form["name"]:
+    if not request.form.get("name"):
         return {"message": "Name is required."}, 401
-    elif not request.form["description"]:
+    elif not request.form.get("description"):
         return {"message": "Description is required."}, 401
-    elif not request.form["device_id"]:
+    elif not request.form.get("device_id"):
         return {"message": "Device ID is required."}, 401
     try:
         db = get_db()
@@ -27,9 +27,9 @@ def create_test():
         db.execute(
             "INSERT INTO test (name, description, device_id) VALUES (?, ?, ?)",
             (
-                request.form["name"],
-                request.form["description"],
-                request.form["device_id"],
+                request.get("name"),
+                request.get("description"),
+                request.get("device_id"),
             ),
         )
         db.commit()
@@ -57,23 +57,19 @@ def update_test(id: int):
     
     if not request.form["name"]:
         return {"message": "Name is required."}, 401
-    elif not request.form["description"]:
+    elif not request.form.get("description"):
         return {"message": "Description is required."}, 401
-    elif not request.form["device_id"]:
+    elif not request.form.get("device_id"):
         return {"message": "Device ID is required."}, 401
-    elif not request.form["operator_id"]:
-        return {"message": "Operator ID is required."}, 401
-    elif not request.form["datatype_id"]:
-        return {"message": "Datatype ID is required."}, 401
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
             "UPDATE test SET name = ?, description = ?, device_id = ? WHERE id = ?",
             (
-                request.form["name"],
-                request.form["description"],
-                request.form["device_id"],
+                request.form.get("name"),
+                request.form.get("description"),
+                request.form.get("device_id"),
                 id,
             ),
         )

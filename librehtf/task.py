@@ -52,7 +52,7 @@ def read_task(id: int):
     return dict(row)
 
 
-@task.route("/task/<int:id>", methods=("POST",))
+@task.route("/task/<int:id>", methods=("PUT",))
 @token_required
 def update_task(id: int):
     if not request.form["name"]:

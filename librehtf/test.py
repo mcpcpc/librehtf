@@ -50,7 +50,7 @@ def read_test(id: int):
     return dict(row)
 
 
-@test.route("/test/<int:id>", methods=("POST",))
+@test.route("/test/<int:id>", methods=("PUT",))
 @token_required
 def update_test(id: int):
     """Update test."""

@@ -40,7 +40,7 @@ def read_device(id: int):
     return dict(row)
 
 
-@device.route("/device/<int:id>", methods=("POST",))
+@device.route("/device/<int:id>", methods=("PUT",))
 @token_required
 def update_device(id: int):
     if not request.form["name"]:

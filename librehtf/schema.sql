@@ -68,7 +68,7 @@ INSERT INTO user (role_id, username, password) VALUES
 CREATE TABLE operator (
         id INTEGER PRIMARY KEY,
         title TEXT UNIQUE NOT NULL,
-        slug TEXT UNIQUE NOT NULL,
+        slug TEXT UNIQUE NOT NULL
 );
 
 INSERT INTO operator (slug, title) VALUES
@@ -83,7 +83,7 @@ INSERT INTO operator (slug, title) VALUES
 CREATE TABLE datatype (
         id INTEGER PRIMARY KEY,
         title TEXT UNIQUE NOT NULL,
-        slug TEXT UNIQUE NOT NULL,
+        slug TEXT UNIQUE NOT NULL
 );
 
 INSERT INTO datatype (slug, title) VALUES

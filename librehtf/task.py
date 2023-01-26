@@ -27,9 +27,11 @@ def create_task():
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "INSERT INTO task (name, command, test_id, operator_id, datatype_id) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO task (name, reference, unit, command, test_id, operator_id, datatype_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
             (
                 request.form.get("name"),
+                request.form.get("reference", None),
+                request.form.get("unit", None),
                 request.form.get("command"),
                 request.form.get("test_id"),
                 request.form.get("operator_id"),
@@ -69,9 +71,11 @@ def update_task(id: int):
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "UPDATE task SET name = ?, command = ?, test_id = ?, operator_id = ?, datatype_id = ? WHERE id = ?",
+            "UPDATE task SET name = ?, reference = ?, unit = ?, command = ?, test_id = ?, operator_id = ?, datatype_id = ? WHERE id = ?",
             (
                 request.form.get("name"),
+                request.form.get("reference", None),
+                request.form.get("unit", None),
                 request.form.get("command"),
                 request.form.get("test_id"),
                 request.form.get("operator_id"),

@@ -25,7 +25,7 @@ def index():
 @manage.route("/manage/create", methods=("GET",))
 @login_required
 def create():
-     db = get_db()
+    db = get_db()
     if request.args.get("api") == "device":
         devices = db.execute("SELECT * FROM device").fetchall()
         return render_template("manage/create.html", devices=devices, api="device")

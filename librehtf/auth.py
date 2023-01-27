@@ -26,7 +26,7 @@ auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 def login_required(view):
-    """Login required wrapper."""
+    """Login required decorator function."""
 
     @wraps(view)
     def wrapped_view(**kwargs):
@@ -38,7 +38,7 @@ def login_required(view):
 
 
 def token_required(view):
-    """Token required wrapper."""
+    """Token required decorator function."""
 
     @wraps(view)
     def wrapped_view(**kwargs):

@@ -27,9 +27,9 @@ def create_test():
         db.execute(
             "INSERT INTO test (name, description, device_id) VALUES (?, ?, ?)",
             (
-                request.get("name"),
-                request.get("description"),
-                request.get("device_id"),
+                request.form.get("name"),
+                request.form.get("description"),
+                request.form.get("device_id"),
             ),
         )
         db.commit()

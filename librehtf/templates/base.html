@@ -11,25 +11,15 @@
         </head>
         <body>
                 <header>
-                        <a href="{{ url_for('index') }}"><h1>LibreHTF</h1></a>
-                        <ul>
-                                <li><a href="#">Evaluate</a></li>
-                                {% if session['user_id'] %}
-                                <li><a href="#">Manage</a></li>
-                                {% endif %}
-                        </ul>
-                        <ul>
-                                {% if session['user_id'] %}
-                                <li id="session"><small>{{ g['user']['username'] }}</small></li>
-                                {% endif %}
-                                <li>
-                                        {% if session['user_id'] %}
-                                        <a href="{{ url_for('auth.logout') }}"><button>Log Out</button></a>
-                                        {% else %}
-                                        <a href="{{ url_for('auth.login') }}"><button>Log In</button></a>
-                                        {% endif %}
-                                </li>
-                        </ul>
+                        <nav>
+                                <a class="{%if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Getting Started</a>
+                                <a class="{%if request.endpoint == 'runner.index' %}active{% endif %}" href="{{ url_for('runner.index') }}">Evaluate</a>
+                        </nav>
+                        {% if session['user_id'] %}
+                        <a href="{{ url_for('auth.logout') }}"><button>Log Out</button></a>
+                        {% else %}
+                        <a href="{{ url_for('auth.login') }}"><button>Log In</button></a>
+                        {% endif %}
                 </header>
                 <main>
                         {% block main %}{% endblock %}

@@ -7,6 +7,7 @@
         --color-text-danger: #AE2A19;
         --color-text-warning: #994F0C;
         --color-text-success: #216E4E;
+        --color-text-information: #05C;
         --color-background: #FFFFFF;
         --color-background-brand: #E9F2FF;
         --color-background-brand-bold: #0C66E4;
@@ -14,11 +15,16 @@
         --color-background-neutral: #091E420F;
         --color-background-neutral-hovered: #091E4224;
         --color-background-neutral-pressed: #091E424F;
+        --color-background-danger: #FFEDEB;
+        --color-background-warning: #FFF7D6;
+        --color-background-success: #DFFCF0;
+        --color-background-information: #E9F2FF;
         --color-border: #091e4224;
         --color-border-focused: #388BFF;
         --color-border-danger: #E34935;
         --color-border-warning: #D97008;
         --color-border-success: #22A06B;
+        --color-border-information: #E9F2FF;
 }
 
 * {
@@ -181,9 +187,25 @@ form button:hover {
         animation-fill-mode: forwards;
 }
 
-.error {background-color: var(--color-error)}
-.warning {background-color: var(--color-warning)}
-.success {background-color: var(--color-success)}
+.error {
+        color: var(--color-text-error);
+        background-color: var(--color-background-error);
+}
+
+.warning {
+        color: var(--color-warning-warning);
+        background-color: var(--color-background-warning);
+}
+
+.success {
+        color: var(--color-warning-success);
+        background-color: var(--color-background-success);
+}
+
+.information {
+        color: var(--color-warning-success);
+        background-color: var(--color-background-information);
+}
 
 @keyframes hideAnimation {
         to {

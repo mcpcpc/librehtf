@@ -34,7 +34,7 @@ def create_test():
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Test already exists."}, 401
+        return {"message": "Invalid device ID."}, 401
     else:
         return {"message": "Test successfully created."}, 201
 
@@ -75,7 +75,7 @@ def update_test(id: int):
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Test already exists."}, 401
+        return {"message": "Invalid device ID."}, u401
     else:
         return {"message": "Test successfully updated."}, 201
 

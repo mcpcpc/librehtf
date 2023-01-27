@@ -118,21 +118,3 @@ CREATE TABLE task (
         FOREIGN KEY(operator_id) REFERENCES operator(id) ON DELETE CASCADE ON UPDATE NO ACTION
         FOREIGN KEY(datatype_id) REFERENCES datatype(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
-
-CREATE VIEW runner_v AS SELECT
-        device.name AS device_name,
-        device.description AS device_description,
-        task.id AS task_id,
-        task.name AS task_name,
-        task.unit AS task_unit,
-        task.reference AS task_reference,
-        task.command AS task_command,
-        test.name AS test_name,
-        test.description AS test_description,
-        operator.slug AS operator_slug,
-        datatype.slug AS datatype_slug
-FROM device
-        INNER JOIN test ON test.device_id = device.id
-        INNER JOIN task ON task.test_id = test.id
-        INNER JOIN operator ON operator.id = task.operator_id
-        INNER JOIN datatype ON datatype.id = task.datatype_id;

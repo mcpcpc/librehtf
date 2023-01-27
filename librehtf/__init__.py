@@ -10,6 +10,7 @@ from flask import render_template
 from librehtf.auth import auth
 from librehtf.db import init_app
 from librehtf.device import device
+from librehtf.runner import runner
 from librehtf.test import test
 from librehtf.task import task
 
@@ -33,6 +34,7 @@ def create_app(test_config=None):
     init_app(app)
     app.register_blueprint(auth)
     app.register_blueprint(device)
+    app.register_blueprint(runner)
     app.register_blueprint(test)
     app.register_blueprint(task)
     

@@ -8,7 +8,7 @@ from flask import request
 from librehtf.auth import login_required
 from librehtf.db import get_db
 
-runner = Blueprint("runner", __name__)
+evaluate = Blueprint("evaluate", __name__)
 
 query = """
 SELECT
@@ -31,8 +31,8 @@ FROM device
 """
 
 
-@runner.route("/runner", methods=("GET", "POST"))
+@evaluate.route("/evaluate", methods=("GET", "POST"))
 @login_required
 def index():
     rows = get_db().execute(query).fetchall()
-    return render_template("runner.html", rows=rows)
+    return render_template("evaluate.html", rows=rows)

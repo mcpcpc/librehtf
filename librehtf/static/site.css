@@ -1,140 +1,194 @@
 :root {
-	--color-foreground: #000000;
-	--color-background: #FFFFFF;
+        --color-link: #0052CC;
+        --color-text: #172B4D;
+        --color-text-selected: #0C66E4;
+        --color-text-subtle: #44546F;
+        --color-link-pressed: #05c;
+        --color-text-danger: #AE2A19;
+        --color-text-warning: #994F0C;
+        --color-text-success: #216E4E;
+        --color-background: #FFFFFF;
+        --color-background-brand: #E9F2FF;
+        --color-background-brand-bold: #0C66E4;
+        --color-background-brand-bold-hovered: #05C;
+        --color-background-neutral: #091E420F;
+        --color-background-neutral-hovered: #091E4224;
+        --color-background-neutral-pressed: #091E424F;
+        --color-border: #091e4224;
+        --color-border-focused: #388BFF;
+        --color-border-danger: #E34935;
+        --color-border-warning: #D97008;
+        --color-border-success: #22A06B;
 }
 
 * {
-	font-size: 1em;
-	text-decoration: none;
-	font-family: system-ui, sans-serif;
-	color: var(--color-foreground);
-	border: 0;
-	margin: 0;
-	padding: 0;
+        font-size: 14px;
+        box-sizing: inherit;
+        text-decoration: none;
+        font-family: system-ui, sans-serif;
+        font-weight: 400;
+        color: var(--color-text);
+        border: 0;
+        margin: 0;
+        padding: 0;
 }
 
-@media only screen and (max-width: 600px) {
-	#session {display: none}
+nav {
+        display: flex;
+        flex-grow: 1;
+        height: inherit;
+        align-items: center;
+}
+
+nav a {
+        color: var(--color-text-subtle);
+        border-radius: calc(1rem * 0.3);
+        line-height:  calc(1rem * 2);
+        cursor: pointer;
+        padding: 0 calc(1rem * 0.5);
+        margin: 0 0.5rem;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+        flex-direction: column;
+        justify-content: center;
+}
+
+
+nav a:hover {
+        background-color: var(--color-background-neutral-hovered);
+}
+
+main a:hover {
+        text-decoration: underline;
+}
+
+main a {
+        color: var(--color-link);
+}
+
+input, button, select {
+        border-radius: calc(1rem * 0.3);
+        padding: calc(1rem * 0.5);
 }
 
 table {
-	width: 100%;
-	border-spacing: 0;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	overflow: hidden;
+        width: 100%;
+        border-spacing: 0;
+        border: 1px solid var(--color-border);
+        border-radius: calc(1rem * 0.3);
+        overflow: hidden !important;
+}
+
+th {
+        border-bottom: 1px solid var(--color-border);
+
 }
 
 th, td {
-	text-align: left;
-	padding: 1em;
+        text-align: left;
+        padding: 1rem;
 }
 
 p {
-	line-height: 1.75rem;
-	margin-bottom: 1rem;
+        line-height: 1.75rem;
+        margin-bottom: 1rem;
 }
 
 main {
-	margin: 90px 10%; 
-}
-
-small {
-	font-size: 0.8rem;
+        margin: 57px 10%;
 }
 
 header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 30px 10%;
-	border-bottom: 1px solid var(--color-foreground);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 56px;
+        padding: 0 10%;
+        border-bottom: 1px solid var(--color-border);
 }
 
-header ul li {
-	display: inline-block;
-	padding: 0 0.5rem;
+header button {
+        background-color: var(--color-background-neutral);
+        white-space: nowrap;
+        color: var(--color-text);
+        cursor: pointer;
+        font-weight: 500;
 }
 
-header h1 {
-	font-weight: 600;
+header button:hover {
+        background-color: var(--color-background-neutral-hovered);
 }
 
-h2, h3 {
-	margin-bottom: 1rem;
+h1, h2, h3 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
 }
 
-h2 {
-	font-size: 2rem;
-}
-
-li, a, button, select {
-	font-weight: 500;
-}
+h1 {font-size: 2rem}
+h2 {font-size: 1.25rem}
 
 section {margin-top: 2.5rem}
 
 form {
-	max-width:450px;
-	display: grid;
-	align-items: center;
-	grid-gap: calc(1rem * 1);
+        max-width:450px;
+        display: grid;
+        align-items: center;
+        grid-gap: calc(1rem * 1);
 }
 
-input, button, select {
-	border: 1px solid var(--color-foreground);
-	border-radius: calc(1rem * 0.3);
-	padding: calc(1rem * 0.5);	
+form input, form select {
+        border: 2px solid var(--color-border);
 }
 
-button {
-	background-color: var(--color-foreground);
-	color: var(--color-background);
-	cursor: pointer;
+form input:focus, form select:focus {
+        border: 2px solid var(--color-border-focused);
 }
 
-.command {
-	display: flex;
-	justify-content: flex-end;
-	gap: 0.5em;
+form button {
+        background-color: var(--color-background-brand-bold);
+        border: 2px solid var(--color-background-brand-bold);
+        color: var(--color-background);
+        cursor: pointer;
+}
+
+form button:hover {
+        background-color: var(--color-background-brand-bold-hovered);
+        border: 2px solid var(--color-background-brand-bold-hovered);
+}
+
+.active {
+        color: var(--color-text-selected);
 }
 
 .twocol label {
-	grid-column-start: 1;
-	grid-column-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
 }
 
 .twocol input, .twocol button, .twocol select{
-	grid-column-start: 2;
-	grid-column-end: 3;
+        grid-column-start: 2;
+        grid-column-end: 3;
 }
 
 .flash {
-	padding: 1.5rem;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	animation: hideAnimation 0s ease-in 3s;
-	animation-fill-mode: forwards;
+        padding: 1.5rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        animation: hideAnimation 0s ease-in 3s;
+        animation-fill-mode: forwards;
 }
 
-.error {
-	background-color: var(--color-error);
-}
-
-.warning {
-	background-color: var(--color-warning);
-}
-
-.success {
-	background-color: var(--color-success);
-}
+.error {background-color: var(--color-error)}
+.warning {background-color: var(--color-warning)}
+.success {background-color: var(--color-success)}
 
 @keyframes hideAnimation {
-	to {
-		visibility: hidden;
-		width: 0;
-		height: 0;
-	}
+        to {
+                visibility: hidden;
+                width: 0;
+                height: 0;
+        }
 }

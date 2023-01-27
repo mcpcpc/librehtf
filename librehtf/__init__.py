@@ -12,7 +12,6 @@ from librehtf.db import init_app
 from librehtf.device import device
 from librehtf.test import test
 from librehtf.task import task
-from librehtf.manage import manage
 
 
 def create_app(test_config=None):
@@ -36,7 +35,6 @@ def create_app(test_config=None):
     app.register_blueprint(device)
     app.register_blueprint(test)
     app.register_blueprint(task)
-    app.register_blueprint(manage)
     
     @app.route("/")
     def index():

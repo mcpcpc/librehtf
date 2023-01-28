@@ -14,6 +14,7 @@
                         <nav>
                                 <a class="{%if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Getting Started</a>
                                 <a class="{%if request.endpoint == 'evaluate.index' %}active{% endif %}" href="{{ url_for('evaluate.index') }}">Evaluate</a>
+                                <a class="{%if request.endpoint == 'manage.index' %}active{% endif %}" href="{{ url_for('manage.index') }}">Manage</a>
                         </nav>
                         {% if session['user_id'] %}
                         <a href="{{ url_for('auth.logout') }}"><button>Log Out</button></a>

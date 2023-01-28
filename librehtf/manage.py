@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Blueprint
+from flask import flash
 from flask import render_template
 from flask import redirect
 from flask import request
@@ -91,6 +92,7 @@ def create(api: str):
             db.commit()
         else:
             flash("Invalid endpoint.", "error")
+        return redirect(url_for(".index"))
     return render_template(
         "manage/create.html",
         api=api,

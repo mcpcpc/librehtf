@@ -10,7 +10,10 @@ from flask import url_for
 
 from librehtf.auth import login_required
 from librehtf.db import get_db
+from librehtf.device import create_device
 from librehtf.device import delete_device
+from librehtf.device import update_device
+
 
 manage = Blueprint("manage", __name__)
 
@@ -56,16 +59,18 @@ def create(api: str):
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
     if request.method == "POST":
         if api == "device":
-            db = get_db()
-            db.execute("PRAGMA foreign_keys = ON")
-            db.execute(
-                "INSERT INTO device (name, description) VALUES (?, ?)",
-                (
-                    request.form.get("name"),
-                    request.form.get("description"),
-                ),
-            )
-            db.commit()
+            resp = create_device.__wrapped__(id)
+            print(resp)
+            #db = get_db()
+            #db.execute("PRAGMA foreign_keys = ON")
+            #db.execute(
+            #    "INSERT INTO device (name, description) VALUES (?, ?)",
+            #    (
+            #        request.form.get("name"),
+            #        request.form.get("description"),
+            #    ),
+            #)
+            #db.commit()
         elif api == "test":
             db = get_db()
             db.execute("PRAGMA foreign_keys = ON")

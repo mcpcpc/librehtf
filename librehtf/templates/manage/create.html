@@ -12,6 +12,19 @@
 </form>
 {% elif api == 'test' %}
 <h1>Create New Test</h1>
+<form method="post" class="twocol">
+	<label for="device_id">Device</label>
+	<select name="device_id" required>
+		{% for device in devices %}
+		<option value={{ device.id }}>{{ device.name }}</option>
+		{% endfor %}
+	</select>
+	<label for="name">Name</label>
+	<input name="name" type="text" required>
+	<label for="description">Description</label>
+	<input name="description" type="text" required>
+	<button>Create</button>
+</form>
 {% elif api == 'task' %}
 <h1>Create New Task</h1>
 {% endif %}

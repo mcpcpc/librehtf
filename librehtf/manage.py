@@ -9,16 +9,26 @@ from flask import url_for
 
 from librehtf.auth import login_required
 from librehtf.db import get_db
+from librehtf.device import create_device
+from librehtf.device import update_device
+from librehtf.device import delete_device
+from librehtf.test import create_test
+from librehtf.test import update_test
+from librehtf.test import delete_test
+from librehtf.task import create_task
+from librehtf.task import update_task
+from librehtf.task import delete_task
 
 manage = Blueprint("manage", __name__)
 
 
-@manage.route("/manage", methods=("GET", "POST"))
+@manage.route("/manage", methods=("GET",))
 @login_required
 def index():
-    devices = get_db().execute("SELECT * FROM device").fetchall()
-    tests = get_db().execute("SELECT * FROM test").fetchall()
-    tasks = get_db().execute("SELECT * FROM task").fetchall()
+    db = get_db((
+    devices = db.execute("SELECT * FROM device").fetchall()
+    tests = db.execute("SELECT * FROM test").fetchall()
+    tasks = db.execute("SELECT * FROM task").fetchall()
     return render_template("manage.html", devices=devices, tests=tests, tasks=tasks)
 
 
@@ -36,7 +46,7 @@ def delete(api: str, id: int):
         db.execute("DELETE FROM test WHERE id = ?", (id,))
         db.commit()
     else:
-        flash("Invalid API", "error")
+        flash("Invalid endpoint.", "error")
     return redirect(url_for(".index"))
 
 
@@ -44,6 +54,14 @@ def delete(api: str, id: int):
 @login_required
 def create(api: str):
     db = get_db()
+    tests = get_db().execute("SELECT * FROM test").fetchall()
+    tasks = get_db().execute("SELECT * FROM task").fetchall()
     if request.method == "POST":
-        pass
-    return render_template("manage/create.html", api=api)
+        if api == "device":
+            response = create_device()
+        elif api == "test":
+            response = create_test()
+        elif api == "task":
+            response = create_task()
+        print(response) 
+    return render_template("manage/create.html", api=api, tests=tests, tasks=tasks)

@@ -136,6 +136,8 @@ h2 {font-size: 1.25rem}
 
 section {margin-top: 2.5rem}
 
+small {font-size: 0.8rem}
+
 form {
         max-width:450px;
         display: grid;

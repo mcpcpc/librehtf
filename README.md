@@ -85,3 +85,11 @@ coverage run -m pytest
 coverage report
 coverage html  # open htmlcov/index.html in a browser
 ```
+
+## Nomenclature 
+
+OpenHTF is architected to allow inherent branching of tests.  At the core, there are three tiers of organization: device, test and task.
+
+### Device
+
+Devices refer to specific to hardware versions or product configurations. These are typically descriptive in nature and are useful when organizing hardware test interfaces that are intended to be used with multiple product offerings. Each device may have one or multiple *test* configurations. 

@@ -13,10 +13,12 @@ device = Blueprint("device", __name__, url_prefix="/api")
 @device.route("/device", methods=("POST",))
 @token_required
 def create_device():
+    """Create task."""
+    
     if not request.form.get("name"):
-        return {"message": "Name is required."}, 401
+        return "Name is required.", 400
     elif not request.form.get("description"):
-        return {"message": "Description is required."}, 401
+        return "Description is required.", 400
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
@@ -29,27 +31,31 @@ def create_device():
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Device already exists."}, 401
+        return "Device already exists.", 400
     else:
-        return {"message": "Device successfully created."}, 201
+        return "Device successfully created.", 201
 
 
 @device.route("/device/<int:id>", methods=("GET",))
 @token_required
 def read_device(id: int):
+    """Read task."""
+    
     row = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
     if not row:
-        return {"message": "Device does not exist."}, 401
+        return "Device does not exist.", 404
     return dict(row)
 
 
 @device.route("/device/<int:id>", methods=("PUT",))
 @token_required
 def update_device(id: int):
+    """Update task."""
+    
     if not request.form.get("name"):
-        return {"message": "Name is required."}, 401
+        return "Name is required.", 400
     elif not request.form.get("description"):
-        return {"message": "Description is required."}, 401
+        return "Description is required.", 400
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
@@ -63,16 +69,18 @@ def update_device(id: int):
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Device already exists."}, 401
+        return "Device already exists.", 400
     else:
-        return {"message": "Device successfully updated."}, 201
+        return "Device successfully updated.", 201
 
 
 @device.route("/device/<int:id>", methods=("DELETE",))
 @token_required
 def delete_device(id: int):
+    """Delete task."""
+    
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")
     db.execute("DELETE FROM device WHERE id = ?", (id,))
     db.commit()
-    return {"message": "Device successfully deleted."}
+    return "Device successfully deleted."

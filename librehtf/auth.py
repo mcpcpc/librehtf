@@ -43,7 +43,7 @@ def token_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
         if not request.args.get("token", None):
-            return {"message": "Token required."},  401
+            return "Token required.",  401
         try:
             id = decode(
                 request.args["token"],
@@ -51,10 +51,10 @@ def token_required(view):
                 algorithms=["HS256"]
             ).get("confirm")
         except Exception as error:
-            return {"message": f"{error}"}, 401
+            return f"{error}", 401
         user = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
         if not user:
-            return {"message": "Invalid user token."}, 401
+            return "Invalid user token.", 401
         return view(**kwargs)
 
     return wrapped_view

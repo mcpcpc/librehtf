@@ -16,11 +16,11 @@ def create_test():
     """Create test."""
     
     if not request.form.get("name"):
-        return {"message": "Name is required."}, 401
+        return "Name is required.", 400
     elif not request.form.get("description"):
-        return {"message": "Description is required."}, 401
+        return "Description is required.", 400
     elif not request.form.get("device_id"):
-        return {"message": "Device ID is required."}, 401
+        return "Device ID is required.", 400
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
@@ -34,9 +34,9 @@ def create_test():
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Invalid device ID."}, 401
+        return "Invalid device ID.", 400
     else:
-        return {"message": "Test successfully created."}, 201
+        return "Test successfully created.", 201
 
 
 @test.route("/test/<int:id>", methods=("GET",))
@@ -46,7 +46,7 @@ def read_test(id: int):
     
     row = get_db().execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
     if not row:
-        return {"message": "Test does not exist"}, 401
+        return "Test does not exist", 404
     return dict(row)
 
 
@@ -56,11 +56,11 @@ def update_test(id: int):
     """Update test."""
     
     if not request.form["name"]:
-        return {"message": "Name is required."}, 401
+        return "Name is required.", 400
     elif not request.form.get("description"):
-        return {"message": "Description is required."}, 401
+        return "Description is required.", 400
     elif not request.form.get("device_id"):
-        return {"message": "Device ID is required."}, 401
+        return "Device ID is required.", 400
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
@@ -75,9 +75,9 @@ def update_test(id: int):
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Invalid device ID."}, u401
+        return "Invalid device ID.", 400
     else:
-        return {"message": "Test successfully updated."}, 201
+        return "Test successfully updated.", 201
 
 
 @test.route("/test/<int:id>", methods=("DELETE",))
@@ -88,4 +88,4 @@ def delete_test(id: int):
     db = get_db()
     db.execute("DELETE FROM test WHERE id = ?", (id,))
     db.commit()
-    return {"message": "Test successfully deleted."}
+    return "Test successfully deleted."

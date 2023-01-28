@@ -13,16 +13,18 @@ task = Blueprint("task", __name__, url_prefix="/api")
 @task.route("/task", methods=("POST",))
 @token_required
 def create_task():
+    """Create task."""
+    
     if not request.form.get("name"):
-        return {"message": "Name is required."}, 401
+        return "Name is required.", 400
     elif not request.form.get("command"):
-        return {"message": "Command is required."}, 401
+        return "Command is required.", 400
     elif not request.form.get("test_id"):
-        return {"message": "Test ID is required."}, 401
+        return "Test ID is required.", 400
     elif not request.form.get("operator_id"):
-        return {"message": "Operator ID is required."}, 401
+        return "Operator ID is required.", 400
     elif not request.form.get("datatype_id"):
-        return {"message": "Datatype ID is required."}, 401
+        return "Datatype ID is required.", 400
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
@@ -40,33 +42,37 @@ def create_task():
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Invalid test, operator or datatype ID."}, 401
+        return "Invalid test, operator or datatype ID.", 400
     else:
-        return {"message": "Task successfully created."}, 201
+        return "Task successfully created.", 201
 
 
 @task.route("/task/<int:id>", methods=("GET",))
 @token_required
 def read_task(id: int):
+    """Read task."""
+    
     row = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     if not row:
-        return {"message": "Task does not exist"}, 401
+        return "Task does not exist", 404
     return dict(row)
 
 
 @task.route("/task/<int:id>", methods=("PUT",))
 @token_required
 def update_task(id: int):
+    """Update task."""
+    
     if not request.form.get("name"):
-        return {"message": "Name is required."}, 401
+        return "Name is required.", 400
     elif not request.form.get("command"):
-        return {"message": "Command is required."}, 401
+        return "Command is required.", 400
     elif not request.form.get("test_id"):
-        return {"message": "Test ID is required."}, 401
+        return "Test ID is required.", 400
     elif not request.form.get("operator_id"):
-        return {"message": "Operator ID is required."}, 401
+        return "Operator ID is required.", 400
     elif not request.form.get("datatype_id"):
-        return {"message": "Datatype ID is required."}, 401
+        return "Datatype ID is required.", 400
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
@@ -85,15 +91,17 @@ def update_task(id: int):
         )
         db.commit()
     except db.IntegrityError:
-        return {"message": "Invalid test, operator or datatype ID."}, 401
+        return "Invalid test, operator or datatype ID.", 400
     else:
-        return {"message": "Task successfully updated."}, 201
+        return "Task successfully updated.", 201
 
 
 @task.route("/task/<int:id>", methods=("DELETE",))
 @token_required
 def delete_task(id: int):
+    """Delete task."""
+    
     db = get_db()
     db.execute("DELETE FROM task WHERE id = ?", (id,))
     db.commit()
-    return {"message": "Task successfully deleted."}
+    return "Task successfully deleted."

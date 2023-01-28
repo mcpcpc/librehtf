@@ -101,3 +101,67 @@ def create(api: str):
         operators=operators,
         datatypes=datatypes,
     )
+
+
+@manage.route("/manage/<api>/update", methods=("GET", "POST"))
+@login_required
+def create(api: str):
+    db = get_db()
+    tests = db.execute("SELECT * FROM test").fetchall()
+    devices = db.execute("SELECT * FROM device").fetchall()
+    operators = db.execute("SELECT * FROM operator").fetchall()
+    datatypes = db.execute("SELECT * FROM datatype").fetchall()
+    if request.method == "POST":
+        if api == "device":
+            db = get_db()
+            db.execute("PRAGMA foreign_keys = ON")
+            db.execute(
+                "UPDATE device SET name = ?, description = ? WHERE id = ?",
+                (
+                    request.form.get("name"),
+                    request.form.get("description"),
+                    id
+                ),
+            )
+        db.commit()
+        elif api == "test":
+            db = get_db()
+            db.execute("PRAGMA foreign_keys = ON")
+            db.execute(
+                "UPDATE test SET name = ?, description = ?, device_id = ? WHERE id = ?",
+                (
+                    request.form.get("name"),
+                    request.form.get("description"),
+                    request.form.get("device_id"),
+                    id,
+                ),
+            )
+            db.commit()
+        elif api == "task":
+            db = get_db()
+            db.execute("PRAGMA foreign_keys = ON")
+            db.execute(
+                "UPDATE task SET name = ?, reference = ?, unit = ?, command = ?, test_id = ?, operator_id = ?, datatype_id = ? WHERE id = ?",
+                (
+                    request.form.get("name"),
+                    request.form.get("reference", None),
+                    request.form.get("unit", None),
+                    request.form.get("command"),
+                    request.form.get("test_id"),
+                    request.form.get("operator_id"),
+                    request.form.get("datatype_id"),
+                    id,
+                ),
+            )
+            db.commit()
+        else:
+            flash("Invalid endpoint.", "error")
+        return redirect(url_for(".index"))
+    return render_template(
+        "manage/create.html",
+        api=api,
+        tests=tests,
+        devices=devices,
+        operators=operators,
+        datatypes=datatypes,
+    )

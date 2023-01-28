@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Create {{ api }}{% endblock %}
 {% block main %}
-<h1>Create New {{ api }}</h1>
+{% if api == 'device' %}
+<h1>Create New Device</h1>
+<form>
+
+</form>
+{% elif api == 'test' %}
+<h1>Create New Test</h1>
+{% elif api == 'task' %}
+<h1>Create New Task</h1>
+{% endif %}
 {% endblock %}

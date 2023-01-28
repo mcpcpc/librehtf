@@ -101,6 +101,10 @@ p {
         margin-bottom: 1rem;
 }
 
+small {
+        font-size: 0.8rem;
+}
+
 main {
         margin: 57px 10%;
 }

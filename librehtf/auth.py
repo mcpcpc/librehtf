@@ -43,9 +43,7 @@ def token_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
         if not request.args.get("token", None):
-            if g.user is None: # no need for token if logged in
-                return "Token required.",  401
-            return view(**kwargs)
+            return "Token required.", 401
         try:
             id = decode(
                 request.args["token"],

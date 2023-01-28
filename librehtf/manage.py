@@ -9,15 +9,6 @@ from flask import url_for
 
 from librehtf.auth import login_required
 from librehtf.db import get_db
-from librehtf.device import create_device
-from librehtf.device import update_device
-from librehtf.device import delete_device
-from librehtf.test import create_test
-from librehtf.test import update_test
-from librehtf.test import delete_test
-from librehtf.task import create_task
-from librehtf.task import update_task
-from librehtf.task import delete_task
 
 manage = Blueprint("manage", __name__)
 
@@ -35,12 +26,16 @@ def index():
 @manage.route("/manage/<api>/<int:id>/delete", methods=("GET",))
 @login_required
 def delete(api: str, id: int):
+    db = get_db()
     if api == "device":
-        response = delete_device(id)
+        db.execute("DELETE FROM device WHERE id = ?", (id,))
+        db.commit()
     elif api == "test":
-        response = delete_test(id)
+        db.execute("DELETE FROM test WHERE id = ?", (id,))
+        db.commit()
     elif api == "task":
-        response = delete_task(id)
+        db.execute("DELETE FROM task WHERE id = ?", (id,))
+        db.commit()
     else:
         flash("Invalid endpoint.", "error")
     return redirect(url_for(".index"))
@@ -56,12 +51,46 @@ def create(api: str):
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
     if request.method == "POST":
         if api == "device":
-            response = create_device()
+            db = get_db()
+            db.execute("PRAGMA foreign_keys = ON")
+            db.execute(
+                "INSERT INTO device (name, description) VALUES (?, ?)",
+                (
+                    request.form.get("name"),
+                    request.form.get("description"),
+                ),
+            )
+            db.commit()
         elif api == "test":
-            response = create_test()
+            db = get_db()
+            db.execute("PRAGMA foreign_keys = ON")
+            db.execute(
+                "INSERT INTO test (name, description, device_id) VALUES (?, ?, ?)",
+                (
+                    request.form.get("name"),
+                    request.form.get("description"),
+                    request.form.get("device_id"),
+                ),
+            )
+            db.commit()
         elif api == "task":
-            response = create_task()
-        print(response) 
+            db = get_db()
+            db.execute("PRAGMA foreign_keys = ON")
+            db.execute(
+                "INSERT INTO task (name, reference, unit, command, test_id, operator_id, datatype_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (
+                    request.form.get("name"),
+                    request.form.get("reference", None),
+                    request.form.get("unit", None),
+                    request.form.get("command"),
+                    request.form.get("test_id"),
+                    request.form.get("operator_id"),
+                    request.form.get("datatype_id"),
+                ),
+            )
+            db.commit()
+        else:
+            flash("Invalid endpoint.", "error")
     return render_template(
         "manage/create.html",
         api=api,

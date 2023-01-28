@@ -35,16 +35,12 @@ def index():
 @manage.route("/manage/<api>/<int:id>/delete", methods=("GET",))
 @login_required
 def delete(api: str, id: int):
-    db = get_db()
     if api == "device":
-        db.execute("DELETE FROM device WHERE id = ?", (id,))
-        db.commit()
+        response = delete_device()
     elif api == "test":
-        db.execute("DELETE FROM test WHERE id = ?", (id,))
-        db.commit()
+        response = delete_test()
     elif api == "task":
-        db.execute("DELETE FROM test WHERE id = ?", (id,))
-        db.commit()
+        response = delete_task()
     else:
         flash("Invalid endpoint.", "error")
     return redirect(url_for(".index"))

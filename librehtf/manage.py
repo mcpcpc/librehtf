@@ -10,6 +10,7 @@ from flask import url_for
 
 from librehtf.auth import login_required
 from librehtf.db import get_db
+from librehtf.device import delete_device
 
 manage = Blueprint("manage", __name__)
 
@@ -27,14 +28,17 @@ def index():
 @manage.route("/manage/<api>/<int:id>/delete", methods=("GET",))
 @login_required
 def delete(api: str, id: int):
-    db = get_db()
     if api == "device":
-        db.execute("DELETE FROM device WHERE id = ?", (id,))
-        db.commit()
+        resp = delete_device.__wrapped__(id)
+        print(resp)
+        # db.execute("DELETE FROM device WHERE id = ?", (id,))
+        # db.commit()
     elif api == "test":
+        db = get_db()
         db.execute("DELETE FROM test WHERE id = ?", (id,))
         db.commit()
     elif api == "task":
+        db = get_db()
         db.execute("DELETE FROM task WHERE id = ?", (id,))
         db.commit()
     else:

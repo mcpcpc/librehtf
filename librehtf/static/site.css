@@ -52,7 +52,7 @@ nav a {
         line-height:  calc(1rem * 2);
         cursor: pointer;
         padding: 0 calc(1rem * 0.5);
-        margin: 0 0.5rem;
+        margin: 0 calc(1rem * 0.25);
         font-weight: 500;
         white-space: nowrap;
         transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
@@ -73,7 +73,7 @@ main a {
         color: var(--color-link);
 }
 
-input, button, select {
+input, button, select, textarea {
         border-radius: calc(1rem * 0.3);
         padding: calc(1rem * 0.5);
 }
@@ -128,7 +128,7 @@ header button:hover {
 
 h1, h2, h3 {
         font-weight: 600;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
 }
 
 h1 {font-size: 2rem}
@@ -143,7 +143,7 @@ form {
         grid-gap: calc(1rem * 1);
 }
 
-form input, form select {
+form input, form select, form textarea {
         border: 2px solid var(--color-border);
 }
 
@@ -172,7 +172,7 @@ form button:hover {
         grid-column-end: 2;
 }
 
-.twocol input, .twocol button, .twocol select{
+.twocol input, .twocol button, .twocol select, .twocol textarea {
         grid-column-start: 2;
         grid-column-end: 3;
 }

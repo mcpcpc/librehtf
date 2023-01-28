@@ -29,7 +29,7 @@ def index():
 @login_required
 def delete(api: str, id: int):
     if api == "device":
-        resp = delete_device.__wrapped__(id)
+        resp = delete_device(id)
         print(resp)
         # db.execute("DELETE FROM device WHERE id = ?", (id,))
         # db.commit()

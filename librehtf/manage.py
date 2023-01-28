@@ -21,10 +21,10 @@ def index():
     tasks = get_db().execute("SELECT * FROM task").fetchall()
     return render_template("manage.html", devices=devices, tests=tests, tasks=tasks)
 
-#@manage.route("/manage/<api>/create", methods=("GET", "POST"))
-#@login_required
-#def create(api: str):
-#    db = get_db()
-#    if request.method == "POST":
-#        pass
-#    return render_template("manage/create.html", api=api)
+@manage.route("/manage/<api>/create", methods=("GET", "POST"))
+@login_required
+def create(api: str):
+    db = get_db()
+    if request.method == "POST":
+        pass
+    return render_template("manage/create.html", api=api)

@@ -29,7 +29,7 @@ def index():
 @login_required
 def delete(api: str, id: int):
     if api == "device":
-        resp = delete_device(id)
+        resp = delete_device.__wrapped__(id)
         print(resp)
         # db.execute("DELETE FROM device WHERE id = ?", (id,))
         # db.commit()
@@ -109,7 +109,7 @@ def create(api: str):
 
 @manage.route("/manage/<api>/update", methods=("GET", "POST"))
 @login_required
-def create(api: str):
+def update(api: str):
     db = get_db()
     tests = db.execute("SELECT * FROM test").fetchall()
     devices = db.execute("SELECT * FROM device").fetchall()

@@ -36,11 +36,11 @@ def index():
 @login_required
 def delete(api: str, id: int):
     if api == "device":
-        response = delete_device()
+        response = delete_device(id)
     elif api == "test":
-        response = delete_test()
+        response = delete_test(id)
     elif api == "task":
-        response = delete_task()
+        response = delete_task(id)
     else:
         flash("Invalid endpoint.", "error")
     return redirect(url_for(".index"))

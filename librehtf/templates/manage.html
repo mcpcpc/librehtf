@@ -52,7 +52,7 @@
         <tr>
             <td>{{ task.name }}</td>
             <td>
-                <a href="{{ url_for('manage.update', api='task', id=test['id']) }}">update</a> | 
+                <a href="{{ url_for('manage.update', api='task', id=task['id']) }}">update</a> | 
                 <a href="{{ url_for('manage.delete', api='task', id=task['id']) }}">delete</a>
             </td>
         </tr>

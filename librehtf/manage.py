@@ -105,6 +105,7 @@ def update(api: str, id: int):
     return render_template(
         "manage/create.html",
         api=api,
+        row=row,
         tests=tests,
         devices=devices,
         operators=operators,

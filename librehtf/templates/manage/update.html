@@ -4,7 +4,20 @@
 {% if api == 'device' %}
 
 {% elif api == 'test' %}
-
+<h1>Update Existing Test</h1>
+<form method="post" class="twocol">
+	<label for="device_id">Device ID</label>
+	<select name="device_id" required>
+		{% for device in devices %}
+		<option value={{ device.id }} {% if row.device_id == device.id %}selected{% endif %}>{{ device.name }}</option>
+		{% endfor %}
+	</select>
+	<label for="name">Name</label>
+	<input name="name" type="text" value="{{ row.name }}" required>
+	<label for="description">Command</label>
+	<input name="description" type="text" value="{{ row.description }}" required>
+	<button>Update</button>
+</form>
 {% elif api == 'task' %}
 <h1>Update Existing Task</h1>
 <form method="post" class="twocol">

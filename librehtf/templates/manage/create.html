@@ -26,6 +26,35 @@
 	<button>Create</button>
 </form>
 {% elif api == 'task' %}
+<form method="post" class="twocol">
+	<label for="test_id">Device</label>	
+	<select name="test_id" required>
+		{% for test in tests %}
+		<option value={{ test.id }}>{{ test.name }}</option>
+		{% endfor %}
+	</select>
+	<label for="name">Name</label>
+	<input name="name" type="text" required>
+	<label for="command">Command</label>
+	<textarea name="command" rows=5 required></textarea>
+	<label for="reference">Limit</label>
+	<input name="reference" type="text">
+	<label for="unit">Unit</label>
+	<input name="unit" type="text">
+	<label for="operator_is">Operator</label>
+	<select name="operator_id" required>
+		{% for operator in operators %}
+		<option value={{ operator.id }}>{{ operator.title }}</option>
+		{% endfor %}
+	</select>
+	<label for="datatype_id">Data Type</label>
+	<select name="datatype_id" required>
+		{% for datatype in datatypes %}
+		<option value={{ datatype.id }}>{{ datatype.title }}</option>
+		{% endfor %}
+	</select>
+	<button>Create</button>
+</form>
 <h1>Create New Task</h1>
 {% endif %}
 {% endblock %}

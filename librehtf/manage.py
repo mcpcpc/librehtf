@@ -54,8 +54,10 @@ def delete(api: str, id: int):
 @login_required
 def create(api: str):
     db = get_db()
-    tests = get_db().execute("SELECT * FROM test").fetchall()
-    tasks = get_db().execute("SELECT * FROM task").fetchall()
+    tests = db.execute("SELECT * FROM test").fetchall()
+    devices = db.execute("SELECT * FROM device").fetchall()
+    operators = db.execute("SELECT * FROM operator").fetchall()
+    datatypes = db.execute("SELECT * FROM datatype").fetchall()
     if request.method == "POST":
         if api == "device":
             response = create_device()
@@ -64,4 +66,11 @@ def create(api: str):
         elif api == "task":
             response = create_task()
         print(response) 
-    return render_template("manage/create.html", api=api, tests=tests, tasks=tasks)
+    return render_template(
+        "manage/create.html",
+        api=api,
+        tests=tests,
+        devices=devices,
+        operators=operators,
+        datatypes=datatypes,
+    )

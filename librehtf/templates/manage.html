@@ -16,7 +16,7 @@
                 <p>{{ device.name }}</p>
                 <small>
                 <a href="{{ url_for('manage.update', api='device', id=device['id']) }}">update</a> | 
-                <a href="{{ url_for('manage.delete', api='device', id=device['id']) }}">delete</a>)
+                <a href="{{ url_for('manage.delete', api='device', id=device['id']) }}">delete</a>
                 </small>
             </td>
         </tr>
@@ -33,9 +33,12 @@
         </tr>
         {% for test in tests %}
         <tr>
-            <td>{{ test.name }} (
+            <td>
+                <p>{{ test.name }}</p>
+                <small>
                 <a href="{{ url_for('manage.update', api='test', id=test['id']) }}">update</a> | 
-                <a href="{{ url_for('manage.delete', api='test', id=test['id']) }}">delete</a>)
+                <a href="{{ url_for('manage.delete', api='test', id=test['id']) }}">delete</a>
+                </small>
             </td>
         </tr>
         {% endfor %}
@@ -51,9 +54,12 @@
         </tr>
         {% for task in tasks %}
         <tr>
-            <td>{{ task.name }} (
+            <td>
+                <p>{{ task.name }}</p>
+                <small>
                 <a href="{{ url_for('manage.update', api='task', id=task['id']) }}">update</a> | 
-                <a href="{{ url_for('manage.delete', api='task', id=task['id']) }}">delete</a>)
+                <a href="{{ url_for('manage.delete', api='task', id=task['id']) }}">delete</a>
+                </small>
             </td>
         </tr>
         {% endfor %}

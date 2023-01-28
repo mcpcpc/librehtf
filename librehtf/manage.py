@@ -59,7 +59,7 @@ def create(api: str):
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
     if request.method == "POST":
         if api == "device":
-            resp = create_device.__wrapped__(id)
+            resp = create_device.__wrapped__()
             print(resp)
             #db = get_db()
             #db.execute("PRAGMA foreign_keys = ON")

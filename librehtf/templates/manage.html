@@ -12,7 +12,7 @@
         <tr>
             <td>{{ device.name }}</td>
             <td><a href="#">update</a></td>
-            <td><a href="#">delete</a></td>
+            <td><a href="{{ url_for('manage.delete', api='device', id=device['id']) }}">delete</a></td>
         </tr>
         {% endfor %}
     </table>
@@ -27,7 +27,7 @@
         <tr>
             <td>{{ test.name }}</td>
             <td><a href="#">update</a></td>
-            <td><a href="#">delete</a></td>
+            <td><a href="{{ url_for('manage.delete', api='test', id=test['id']) }}">delete</a></td>
         </tr>
         {% endfor %}
     </table>
@@ -42,7 +42,7 @@
         <tr>
             <td>{{ task.name }}</td>
             <td><a href="#">update</a></td>
-            <td><a href="#">delete</a></td>
+            <td><a href="{{ url_for('manage.delete', api='task', id=task['id']) }}">delete</a></td>
         </tr>
         {% endfor %}
     </table>

@@ -21,6 +21,25 @@ def index():
     tasks = get_db().execute("SELECT * FROM task").fetchall()
     return render_template("manage.html", devices=devices, tests=tests, tasks=tasks)
 
+
+@manage.route("/manage/<api>/<int:id>/delete", methods=("GET",))
+@login_required
+def delete(api: str, id: int):
+    db = get_db()
+    if api == "device":
+        db.execute("DELETE FROM device WHERE id = ?", (id,))
+        db.commit()
+    elif api == "test":
+        db.execute("DELETE FROM test WHERE id = ?", (id,))
+        db.commit()
+    elif api == "task":
+        db.execute("DELETE FROM test WHERE id = ?", (id,))
+        db.commit()
+    else:
+        flash("Invalid API", "error")
+    return redirect(url_for(".index"))
+
+
 @manage.route("/manage/<api>/create", methods=("GET", "POST"))
 @login_required
 def create(api: str):

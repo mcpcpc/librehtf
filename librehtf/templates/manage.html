@@ -3,11 +3,11 @@
 {% block main %}
 <h1>Management Panel</h1>
 <section>
+    <h3>Devices</h3>
     <table>
         <tr>
             <th colspan="3">
-                <h3>Devices</h3>
-                <a href="{{ url_for('manage.create', api='device') }}">add</a>
+                <a href="{{ url_for('manage.create', api='device') }}">add device</a>
             </th>
         </tr>
         {% for device in devices %}
@@ -20,11 +20,11 @@
     </table>
 </section>
 <section>
+    <h3>Tests</h3>
     <table>
         <tr>
             <th colspan="3">
-                <h3>Tests</h3>
-                <a href="{{ url_for('manage.create', api='test') }}">add</a>
+                <a href="{{ url_for('manage.create', api='test') }}">add test</a>
             </th>
         </tr>
         {% for test in tests %}
@@ -37,11 +37,11 @@
     </table>
 </section>
 <section>
+    <h3>Tasks</h3>
     <table>
         <tr>
-            <th colspan=2>
-                <h3>Tasks</h3>
-                <a href="{{ url_for('manage.create', api='task') }}">add</a>
+            <th colspan="3">
+                <a href="{{ url_for('manage.create', api='task') }}">add task</a>
             </th>
         </tr>
         {% for task in tasks %}

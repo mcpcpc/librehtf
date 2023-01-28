@@ -106,7 +106,7 @@ def update(api: str, id: int):
             flash("Invalid endpoint.", "error")
         return redirect(url_for(".index"))
     return render_template(
-        "manage/create.html",
+        "manage/update.html",
         api=api,
         row=row,
         tests=tests,

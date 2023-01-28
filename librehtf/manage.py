@@ -11,9 +11,14 @@ from flask import url_for
 from librehtf.auth import login_required
 from librehtf.db import get_db
 from librehtf.device import create_device
-from librehtf.device import delete_device
 from librehtf.device import update_device
-
+from librehtf.device import delete_device
+from librehtf.test import create_test
+from librehtf.test import update_test
+from librehtf.test import delete_test
+from librehtf.task import create_task
+from librehtf.task import update_task
+from librehtf.task import delete_task
 
 manage = Blueprint("manage", __name__)
 
@@ -33,17 +38,10 @@ def index():
 def delete(api: str, id: int):
     if api == "device":
         resp = delete_device.__wrapped__(id)
-        print(resp)
-        # db.execute("DELETE FROM device WHERE id = ?", (id,))
-        # db.commit()
     elif api == "test":
-        db = get_db()
-        db.execute("DELETE FROM test WHERE id = ?", (id,))
-        db.commit()
+        resp = delete_test.__wrapped__(id)
     elif api == "task":
-        db = get_db()
-        db.execute("DELETE FROM task WHERE id = ?", (id,))
-        db.commit()
+        resp = delete_task.__wrapped__(id)
     else:
         flash("Invalid endpoint.", "error")
     return redirect(url_for(".index"))
@@ -62,33 +60,11 @@ def create(api: str):
             resp = create_device.__wrapped__()
             print(resp)
         elif api == "test":
-            db = get_db()
-            db.execute("PRAGMA foreign_keys = ON")
-            db.execute(
-                "INSERT INTO test (name, description, device_id) VALUES (?, ?, ?)",
-                (
-                    request.form.get("name"),
-                    request.form.get("description"),
-                    request.form.get("device_id"),
-                ),
-            )
-            db.commit()
+            resp = create_test.__wrapped__()
+            print(resp)
         elif api == "task":
-            db = get_db()
-            db.execute("PRAGMA foreign_keys = ON")
-            db.execute(
-                "INSERT INTO task (name, reference, unit, command, test_id, operator_id, datatype_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (
-                    request.form.get("name"),
-                    request.form.get("reference", None),
-                    request.form.get("unit", None),
-                    request.form.get("command"),
-                    request.form.get("test_id"),
-                    request.form.get("operator_id"),
-                    request.form.get("datatype_id"),
-                ),
-            )
-            db.commit()
+            resp = create_task.__wrapped__()
+            print(resp)
         else:
             flash("Invalid endpoint.", "error")
         return redirect(url_for(".index"))
@@ -115,35 +91,11 @@ def update(api: str, id: int):
             resp = update_device.__wrapped__(id)
             print(resp)
         elif api == "test":
-            db = get_db()
-            db.execute("PRAGMA foreign_keys = ON")
-            db.execute(
-                "UPDATE test SET name = ?, description = ?, device_id = ? WHERE id = ?",
-                (
-                    request.form.get("name"),
-                    request.form.get("description"),
-                    request.form.get("device_id"),
-                    id,
-                ),
-            )
-            db.commit()
+            resp = update_test.__wrapped__(id)
+            print(resp)
         elif api == "task":
-            db = get_db()
-            db.execute("PRAGMA foreign_keys = ON")
-            db.execute(
-                "UPDATE task SET name = ?, reference = ?, unit = ?, command = ?, test_id = ?, operator_id = ?, datatype_id = ? WHERE id = ?",
-                (
-                    request.form.get("name"),
-                    request.form.get("reference", None),
-                    request.form.get("unit", None),
-                    request.form.get("command"),
-                    request.form.get("test_id"),
-                    request.form.get("operator_id"),
-                    request.form.get("datatype_id"),
-                    id,
-                ),
-            )
-            db.commit()
+            resp = update_task.__wrapped__(id)
+            print(resp)
         else:
             flash("Invalid endpoint.", "error")
         return redirect(url_for(".index"))

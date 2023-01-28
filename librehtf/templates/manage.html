@@ -13,9 +13,11 @@
         {% for device in devices %}
         <tr>
             <td>
-                {{ device.name }} (
+                <p>{{ device.name }}</p>
+                <small>
                 <a href="{{ url_for('manage.update', api='device', id=device['id']) }}">update</a> | 
                 <a href="{{ url_for('manage.delete', api='device', id=device['id']) }}">delete</a>)
+                </small>
             </td>
         </tr>
         {% endfor %}

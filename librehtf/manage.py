@@ -25,7 +25,7 @@ manage = Blueprint("manage", __name__)
 @manage.route("/manage", methods=("GET",))
 @login_required
 def index():
-    db = get_db((
+    db = get_db()
     devices = db.execute("SELECT * FROM device").fetchall()
     tests = db.execute("SELECT * FROM test").fetchall()
     tasks = db.execute("SELECT * FROM task").fetchall()

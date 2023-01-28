@@ -6,16 +6,16 @@
     <h3>Devices</h3>
     <table>
         <tr>
-            <th colspan="2">
+            <th>
                 <a href="{{ url_for('manage.create', api='device') }}">add</a>
             </th>
         </tr>
         {% for device in devices %}
         <tr>
-            <td>{{ device.name }}</td>
             <td>
+                {{ device.name }} (
                 <a href="{{ url_for('manage.update', api='device', id=device['id']) }}">update</a> | 
-                <a href="{{ url_for('manage.delete', api='device', id=device['id']) }}">delete</a>
+                <a href="{{ url_for('manage.delete', api='device', id=device['id']) }}">delete</a>)
             </td>
         </tr>
         {% endfor %}

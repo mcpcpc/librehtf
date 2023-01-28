@@ -127,7 +127,7 @@ def create(api: str):
                     id
                 ),
             )
-        db.commit()
+            db.commit()
         elif api == "test":
             db = get_db()
             db.execute("PRAGMA foreign_keys = ON")

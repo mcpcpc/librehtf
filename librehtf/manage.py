@@ -61,16 +61,6 @@ def create(api: str):
         if api == "device":
             resp = create_device.__wrapped__()
             print(resp)
-            #db = get_db()
-            #db.execute("PRAGMA foreign_keys = ON")
-            #db.execute(
-            #    "INSERT INTO device (name, description) VALUES (?, ?)",
-            #    (
-            #        request.form.get("name"),
-            #        request.form.get("description"),
-            #    ),
-            #)
-            #db.commit()
         elif api == "test":
             db = get_db()
             db.execute("PRAGMA foreign_keys = ON")
@@ -112,9 +102,9 @@ def create(api: str):
     )
 
 
-@manage.route("/manage/<api>/update", methods=("GET", "POST"))
+@manage.route("/manage/<api>/<int:id>/update", methods=("GET", "POST"))
 @login_required
-def update(api: str):
+def update(api: str, id: int):
     db = get_db()
     tests = db.execute("SELECT * FROM test").fetchall()
     devices = db.execute("SELECT * FROM device").fetchall()
@@ -122,17 +112,8 @@ def update(api: str):
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
     if request.method == "POST":
         if api == "device":
-            db = get_db()
-            db.execute("PRAGMA foreign_keys = ON")
-            db.execute(
-                "UPDATE device SET name = ?, description = ? WHERE id = ?",
-                (
-                    request.form.get("name"),
-                    request.form.get("description"),
-                    id
-                ),
-            )
-            db.commit()
+            resp = update_device.__wrapped__(id)
+            print(resp)
         elif api == "test":
             db = get_db()
             db.execute("PRAGMA foreign_keys = ON")

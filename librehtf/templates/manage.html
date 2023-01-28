@@ -25,16 +25,15 @@
     <h3>Tests</h3>
     <table>
         <tr>
-            <th colspan="2">
+            <th>
                 <a href="{{ url_for('manage.create', api='test') }}">add</a>
             </th>
         </tr>
         {% for test in tests %}
         <tr>
-            <td>{{ test.name }}</td>
-            <td>
+            <td>{{ test.name }} (
                 <a href="{{ url_for('manage.update', api='test', id=test['id']) }}">update</a> | 
-                <a href="{{ url_for('manage.delete', api='test', id=test['id']) }}">delete</a>
+                <a href="{{ url_for('manage.delete', api='test', id=test['id']) }}">delete</a>)
             </td>
         </tr>
         {% endfor %}
@@ -44,16 +43,15 @@
     <h3>Tasks</h3>
     <table>
         <tr>
-            <th colspan="2">
+            <th>
                 <a href="{{ url_for('manage.create', api='task') }}">add</a>
             </th>
         </tr>
         {% for task in tasks %}
         <tr>
-            <td>{{ task.name }}</td>
-            <td>
+            <td>{{ task.name }} (
                 <a href="{{ url_for('manage.update', api='task', id=task['id']) }}">update</a> | 
-                <a href="{{ url_for('manage.delete', api='task', id=task['id']) }}">delete</a>
+                <a href="{{ url_for('manage.delete', api='task', id=task['id']) }}">delete</a>)
             </td>
         </tr>
         {% endfor %}

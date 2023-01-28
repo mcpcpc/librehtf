@@ -86,17 +86,20 @@ def update(api: str, id: int):
     devices = db.execute("SELECT * FROM device").fetchall()
     operators = db.execute("SELECT * FROM operator").fetchall()
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
+    if api == "device":
+        row = db.execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
+    elif api == "test":
+        row = db.execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
+    elif api == "task":
+        row = db.execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     if request.method == "POST":
         if api == "device":
-            row = db.execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
             resp = update_device.__wrapped__(id)
             print(resp)
         elif api == "test":
-            row = db.execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
             resp = update_test.__wrapped__(id)
             print(resp)
         elif api == "task":
-            row = db.execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
             resp = update_task.__wrapped__(id)
             print(resp)
         else:

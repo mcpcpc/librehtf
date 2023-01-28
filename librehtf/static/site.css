@@ -103,7 +103,7 @@ p {
 
 main {
         /*margin: 57px 10%;*/
-        margin: 57px calc(1rem * 0.5);
+        margin: 57px calc(1rem * 1);
 }
 
 header {

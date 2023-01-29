@@ -10,10 +10,10 @@
                                 <small>{{ (results|first)['test_description'] }}</small>
                         </th>
                 </tr>
-                {% for task in tasks %}
+                {% for res in results %}
                 <tr>
-                        <td>{{ task.task_name }}</td>
-                        <td class={% if task.observation == 'PASS' %}success{% elif task.observation == 'FAIL' %}error{% else %}information{% endif %}" style="text-align: center; font-weight: 600;">{{ task.observation }}</td>
+                        <td>{{ res.task_name }}</td>
+                        <td class={% if res.observation == 'PASS' %}success{% elif res.observation == 'FAIL' %}error{% else %}information{% endif %}" style="text-align: center; font-weight: 600;">{{ res.observation }}</td>
                 </tr>
                 {% endfor %}
         </table>

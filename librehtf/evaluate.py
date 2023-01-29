@@ -14,6 +14,7 @@ query = """
 SELECT
     device.name AS device_name,
     device.description AS device_description,
+    test.id AS test_id,
     test.name AS test_name,
     test.description AS test_description,
     task.id AS task_id,
@@ -27,7 +28,7 @@ FROM device
     INNER JOIN test ON test.device_id = device.id
     INNER JOIN task ON task.test_id = test.id
     INNER JOIN operator ON operator.id = task.operator_id
-    INNER JOIN datatype ON datatype.id = task.datatype_id;
+    INNER JOIN datatype ON datatype.id = task.datatype_id
 """
 
 
@@ -45,11 +46,14 @@ def index():
     return render_template("evaluate.html", rows=rows)
 
 
-@evaluate.route("/evaluate/<int:task_id>", methods=("GET",))
+@evaluate.route("/evaluate/<int:test_id>", methods=("GET",))
 @login_required
 def run(task_id: int):
-    task = get_db().execute("SELECT * FROM task WHERE id = ?", (task_id,)).fetchone()
-    measured = measure(task["command"])
-    if "measured" in measured:
-        return measured
-    return "Invalid command.", 400 
+    rows = get_db().execute(query + " WHERE test_id = ?", (test_id,)).fetchone()
+    results = {}
+    for row in rows:
+        measured = measure(row["command"])
+        if "measured" not in measured:
+            return "Invalid command.", 400
+        results[row["task_id"]] = measured
+    return results

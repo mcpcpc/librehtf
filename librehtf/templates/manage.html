@@ -55,7 +55,7 @@
         {% for task in tasks %}
         <tr>
             <td>
-                <p>{{ task.name }}<br><b><small>Limit: {{ task.reference }}, Unit: {{ task.unit }}</small></b></p>
+                <p>{{ task.name }}<br><b><small>{% if task.reference %}Limit: {{ task.reference }}, {% endif %}{% if task.unit %}Unit: {{ task.unit }}{% endif %}</small></b></p>
                 <small>
                     <a href="{{ url_for('manage.update', api='task', id=task['id']) }}">update</a> | 
                     <a href="{{ url_for('manage.delete', api='task', id=task['id']) }}">delete</a>

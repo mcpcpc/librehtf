@@ -33,7 +33,7 @@ FROM device
 
 def measure(command: str):
     result = {}
-    cc = compile(task["command"], "<string>", "exec")
+    cc = compile(command, "<string>", "exec")
     exec(cc, globals(), result)
     return result
 

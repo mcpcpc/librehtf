@@ -65,7 +65,7 @@ def results(test_id: int):
     results = []
     for row in rows:
         result = dict(row)
-        result["measure"] = measure(row["task_command"])
+        result["measured"] = measure(row["task_command"])
         if "measured" not in result:
             return "Invalid command.", 400
         result["observation"] = "INFO" # temporary

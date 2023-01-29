@@ -4,23 +4,20 @@
 <h1>Evaluation Panel</h1>
 {% for device_name, tests in rows|groupby('device_name') %}
 <section>
-        <h2>{{ device_name }}</h2>
-        {% for test_name, tasks in tests|groupby('test_name') %}
         <table>
                 <tr>
                         <th colspan="2">
-                                <h4>{{ test_name }}</h4>
-                                <small>{{ (tasks|first)['test_description'] }}</small>
+                                <h4>{{ device_name }}</h4>
+                                <small>{{ (tests|first)['device_description'] }}</small>
                         </th>
                 </tr>
-                {% for task in tasks %}
+                {% for test in tests %}
                 <tr>
-                        <td>{{ task.task_name }}</td>
-                        <td class="information" style="font-weight: 600; text-align: center;">WAIT</td>
+                        <td>{{ test.test_name }}</td>
+                        <td style="text-align: center;"><a href="{{ url_for('evaluate.results', test_id=test['test_id']) }}">run</a></td>
                 </tr>
                 {% endfor %}
         </table>
-        {% endfor %}
 </section>
 {% endfor %}
 {% endblock %}

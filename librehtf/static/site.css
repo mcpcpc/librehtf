@@ -120,6 +120,7 @@ header button {
         color: var(--color-text);
         cursor: pointer;
         font-weight: 500;
+        line-height:  calc(1rem * 2);
 }
 
 header button:hover {

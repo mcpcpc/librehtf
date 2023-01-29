@@ -69,7 +69,7 @@ def results(test_id: int):
             return "Invalid command.", 400
         result["test_name"] = row["test_name"]
         result["task_name"] = row["task_name"]
-        result["task_description"] = row["task_description"]
+        result["test_description"] = row["test_description"]
         result["observation"] = "INFO" # temporary
         results[row["task_id"]] = result
     return render_template("evaluate/results.html", results=results)

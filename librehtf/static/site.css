@@ -32,7 +32,7 @@
         box-sizing: inherit;
         text-decoration: none;
         font-family: system-ui, sans-serif;
-        font-weight: 400;
+        /*font-weight: 400;*/
         color: var(--color-text);
         border: 0;
         margin: 0;

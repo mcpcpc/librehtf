@@ -32,9 +32,7 @@
         box-sizing: inherit;
         text-decoration: none;
         font-family: system-ui, sans-serif;
-        /*font-weight: 400;*/
         color: var(--color-text);
-        /*border: 0;*/
         margin: 0;
         padding: 0;
 }
@@ -169,6 +167,10 @@ form button:hover {
 
 .active {
         color: var(--color-text-selected);
+}
+
+.subtle {
+        color: var(--color-text-subtle);
 }
 
 .twocol label {

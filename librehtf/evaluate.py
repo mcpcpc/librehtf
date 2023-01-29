@@ -40,8 +40,8 @@ def index():
 
 @evaluate.route("/evaluate/<int:task_id>", methods=("GET",))
 @login_required
-def measure(task_id: int):
+def run(task_id: int):
     task = get_db().execute("SELECT * FROM task WHERE id = ?", (task_id,)).fetchone()
     cc = compile(task["command"], "<string>", "single")
     measured = eval(cc)
-    return measured
+    return str(measured)

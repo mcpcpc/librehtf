@@ -48,7 +48,7 @@ def index():
 
 @evaluate.route("/evaluate/<int:test_id>", methods=("GET",))
 @login_required
-def run(task_id: int):
+def run(test_id: int):
     rows = get_db().execute(query + " WHERE test_id = ?", (test_id,)).fetchone()
     results = {}
     for row in rows:

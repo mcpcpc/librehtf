@@ -43,7 +43,7 @@ def index():
 def run(task_id: int):
     task = get_db().execute("SELECT * FROM task WHERE id = ?", (task_id,)).fetchone()
     measured = None
-    print(measured)
+    print(task["command"])
     cc = compile(task["command"], "<string>", "exec")
     exec(cc)
     return str(measured)

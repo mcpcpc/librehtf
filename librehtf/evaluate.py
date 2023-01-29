@@ -49,7 +49,7 @@ def index():
 @evaluate.route("/evaluate/<int:test_id>", methods=("GET",))
 @login_required
 def run(test_id: int):
-    rows = get_db().execute(query + " WHERE test_id = ?", (test_id,)).fetchone()
+    rows = get_db().execute(query + " WHERE test_id = ?", (test_id,)).fetchall()
     results = {}
     for row in rows:
         measured = measure(row["command"])

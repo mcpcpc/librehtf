@@ -33,12 +33,12 @@ SELECT
     task.command AS task_command,
     operator.slug AS operator_slug,
     datatype.slug AS datatype_slug
-FROM device
+FROM test
     INNER JOIN task ON task.test_id = test.id
     INNER JOIN operator ON operator.id = task.operator_id
     INNER JOIN datatype ON datatype.id = task.datatype_id
 WHERE
-    test.id = ? 
+    test_id = ? 
 """
 
 

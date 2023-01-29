@@ -64,6 +64,7 @@ def results(test_id: int):
         return "Invalid test identifier.", 400
     results = []
     for row in rows:
+        result = row.copy()
         result = measure(row["task_command"])
         if "measured" not in result:
             return "Invalid command.", 400

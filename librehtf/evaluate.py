@@ -38,7 +38,7 @@ FROM device
     INNER JOIN operator ON operator.id = task.operator_id
     INNER JOIN datatype ON datatype.id = task.datatype_id
 WHERE
-    test_id = ? 
+    test.id = ? 
 """
 
 

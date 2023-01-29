@@ -62,7 +62,7 @@ def results(test_id: int):
     rows = get_db().execute(query_test_id, (test_id,)).fetchall()
     if rows is None:
         return "Invalid test identifier.", 400
-    results = {}
+    results = []
     for row in rows:
         result = measure(row["task_command"])
         if "measured" not in result:
@@ -71,6 +71,6 @@ def results(test_id: int):
         result["task_name"] = row["task_name"]
         result["test_description"] = row["test_description"]
         result["observation"] = "INFO" # temporary
-        results[row["task_id"]] = result
+        results.append(result)
     print(results)
     return render_template("evaluate/results.html", results=results)

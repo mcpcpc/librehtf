@@ -45,4 +45,4 @@ def run(task_id: int):
     measured = None
     cc = compile(task["command"], "<string>", "exec")
     exec(cc)
-    return measured
+    return str(measured)

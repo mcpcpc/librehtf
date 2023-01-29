@@ -52,6 +52,7 @@ def run(test_id: int):
     rows = get_db().execute(query + " WHERE test_id = ?", (test_id,)).fetchall()
     results = {}
     for row in rows:
+        print(dict(row))
         measured = measure(row["command"])
         if "measured" not in measured:
             return "Invalid command.", 400

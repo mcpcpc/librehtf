@@ -72,4 +72,5 @@ def results(test_id: int):
         result["test_description"] = row["test_description"]
         result["observation"] = "INFO" # temporary
         results[row["task_id"]] = result
+    print(results)
     return render_template("evaluate/results.html", results=results)

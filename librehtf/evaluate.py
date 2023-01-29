@@ -31,8 +31,17 @@ FROM device
 """
 
 
-@evaluate.route("/evaluate", methods=("GET", "POST"))
+@evaluate.route("/evaluate", methods=("GET",))
 @login_required
 def index():
     rows = get_db().execute(query).fetchall()
     return render_template("evaluate.html", rows=rows)
+
+
+@evaluate.route("/evaluate/<int:task_id>", methods=("GET",))
+@login_required
+def measure(task_id: int):
+    task = get_db().execute("SELECT * FROM task WHERE id = ?", (task_id,)).fetchone()
+    cc = compile(task["command"], "<string>", "single")
+    measured = eval(cc)
+    return measured

@@ -68,7 +68,10 @@ def results(test_id: int):
         result["measured"] = measure(row["task_command"])
         if "measured" not in result:
             return "Invalid command.", 400
-        result["observation"] = "INFO" # temporary
+        if row["operator_slug"] != "none":
+            result["observation"] = "PASS" # temporary
+        else: 
+            result["observation"] = "INFO"
         results.append(result)
     print(results)
     return render_template("evaluate/results.html", results=results)

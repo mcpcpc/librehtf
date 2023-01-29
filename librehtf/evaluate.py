@@ -42,6 +42,7 @@ def index():
 @login_required
 def run(task_id: int):
     task = get_db().execute("SELECT * FROM task WHERE id = ?", (task_id,)).fetchone()
-    cc = compile(task["command"], "<string>", "single")
-    measured = eval(cc)
-    return str(measured)
+    cc = compile(task["command"], "<string>", "exec")
+    measured = None
+    eval(cc)
+    return measured

@@ -7,7 +7,7 @@
 	<label for="name">Name</label>
 	<input name="name" type="text" value="{{ row.name }}" required>
 	<label for="description">Description</label>
-	<input name="description" type="text" value="{{ row.description }}" required>
+	<textarea name="description" rows=5 required>{{ row.description }}</textarea>
 	<button>Update</button>
 </form>
 {% elif api == 'test' %}
@@ -22,7 +22,7 @@
 	<label for="name">Name</label>
 	<input name="name" type="text" value="{{ row.name }}" required>
 	<label for="description">Description</label>
-	<input name="description" type="text" value="{{ row.description }}" required>
+	<textarea name="description" rows=5 required>{{ row.description }}</textarea>
 	<button>Update</button>
 </form>
 {% elif api == 'task' %}

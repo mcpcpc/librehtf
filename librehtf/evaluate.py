@@ -45,7 +45,7 @@ def run(task_id: int):
     measured = {}
     cc = compile(task["command"], "<string>", "exec")
     exec(cc, globals(), measured)
+    print(measured)
     if "measured" in measured:
         return measured
-    else:
-        return "Invalid command.", 400 
+    return "Invalid command.", 400 

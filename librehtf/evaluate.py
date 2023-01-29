@@ -31,6 +31,13 @@ FROM device
 """
 
 
+def measure(command: str):
+    result = {}
+    cc = compile(task["command"], "<string>", "exec")
+    exec(cc, globals(), result)
+    return result
+
+
 @evaluate.route("/evaluate", methods=("GET",))
 @login_required
 def index():
@@ -42,9 +49,7 @@ def index():
 @login_required
 def run(task_id: int):
     task = get_db().execute("SELECT * FROM task WHERE id = ?", (task_id,)).fetchone()
-    measured = {}
-    cc = compile(task["command"], "<string>", "exec")
-    exec(cc, globals(), measured)
+    measured = measure(task["command"])
     if "measured" in measured:
         return measured
     return "Invalid command.", 400 

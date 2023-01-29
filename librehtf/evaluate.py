@@ -64,13 +64,10 @@ def results(test_id: int):
         return "Invalid test identifier.", 400
     results = []
     for row in rows:
-        result = row.copy()
-        result = measure(row["task_command"])
+        result = dict(row)
+        result["measure"] = measure(row["task_command"])
         if "measured" not in result:
             return "Invalid command.", 400
-        result["test_name"] = row["test_name"]
-        result["task_name"] = row["task_name"]
-        result["test_description"] = row["test_description"]
         result["observation"] = "INFO" # temporary
         results.append(result)
     print(results)

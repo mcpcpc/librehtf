@@ -25,6 +25,7 @@
         --color-border-warning: #D97008;
         --color-border-success: #22A06B;
         --color-border-information: #E9F2FF;
+        --color-form-label-text: #6B778C;
 }
 
 * {
@@ -38,9 +39,12 @@
         border: 0;
 }
 
+input, button, select, textarea, nav a, label {
+        padding: calc(1rem * 0.5);
+}
+
 input, button, select, textarea, nav a {
         border-radius: calc(1rem * 0.3);
-        padding: calc(1rem * 0.5);
 }
 
 nav {
@@ -139,7 +143,7 @@ small {font-size: 0.8rem}
 form {
         max-width:450px;
         display: grid;
-        align-items: center;
+        align-items: flex-start;
         grid-gap: calc(1rem * 1);
 }
 
@@ -172,6 +176,8 @@ form button:hover {
 }
 
 .twocol label {
+        color: var(--color-form-label-text);
+        font-weight: 600;
         grid-column-start: 1;
         grid-column-end: 2;
 }

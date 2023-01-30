@@ -29,6 +29,7 @@
         --color-form-field-text: #172B4D;
         --color-form-field-background: #FAFBFC;
         --color-form-select-background: #EBECF1;
+        --color-form-description-text: #6B778C;
 }
 
 * {
@@ -42,11 +43,11 @@
         border: 0;
 }
 
-input, button, select, textarea, nav a, label {
+input, .cancel, .button, select, textarea, nav a, label {
         padding: calc(1rem * 0.5);
 }
 
-input, button, select, textarea, nav a {
+input, .button, select, textarea, nav a {
         border-radius: calc(1rem * 0.3);
 }
 
@@ -105,7 +106,6 @@ p {
 }
 
 main {
-        /*margin: 57px 10%;*/
         margin: 57px calc(1rem * 1);
 }
 
@@ -114,20 +114,20 @@ header {
         justify-content: space-between;
         align-items: center;
         height: 56px;
-        /*padding: 0 10%;*/
         padding: 0 calc(1rem * 1);
         border-bottom: 1px solid var(--color-border);
 }
 
-header button {
+.button {
         background-color: var(--color-background-neutral);
+        transition: background-color 0.1s ease-out;
         white-space: nowrap;
         color: var(--color-text);
         cursor: pointer;
         font-weight: 500;
 }
 
-header button:hover {
+.button:hover {
         background-color: var(--color-background-neutral-hovered);
 }
 
@@ -144,18 +144,6 @@ section {margin-top: 2.5rem}
 
 small {font-size: 0.8rem}
 
-form {
-        display: grid;
-        align-items: flex-start;
-        grid-gap: calc(1rem * 1);
-        max-width: max-content;
-}
-
-form input, form select, form textarea {
-        border: 2px solid var(--color-border);
-        color: var(--color-form-field-text);
-}
-
 form input, form textarea {
         background-color: var(--color-form-field-background);
 }
@@ -168,18 +156,6 @@ form input:focus, form select:focus, form textarea:focus {
         border: 2px solid var(--color-border-focused);
 }
 
-form button {
-        background-color: var(--color-background-brand-bold);
-        border: 2px solid var(--color-background-brand-bold);
-        color: var(--color-background);
-        cursor: pointer;
-}
-
-form button:hover {
-        background-color: var(--color-background-brand-bold-hovered);
-        border: 2px solid var(--color-background-brand-bold-hovered);
-}
-
 .active {
         color: var(--color-text-selected);
 }
@@ -188,24 +164,47 @@ form button:hover {
         color: var(--color-text-subtle);
 }
 
-.twocol label {
-        color: var(--color-form-label-text);
-        font-weight: 600;
+form label {
         width: 130px;
-        grid-column-start: 1;
-        grid-column-end: 2;
+        text-align: right;
+        font-weight: 500;
+        color: var(--color-form-label-text);
+        float: left;
+        margin-left: -145px;
 }
 
-.twocol input, .twocol button, .twocol select, .twocol textarea {
-        grid-column-start: 2;
-        grid-column-end: 3;
+.field-group {
+        box-sizing: border-box;
+        clear: both;
+        padding: 0.5rem 0 0.5rem 145px;
+        position: relative;
+        width: 100%;
 }
 
-.min-field {width: 75px; width: 75px}
-.short-field {max-width: 150px; width: 150px}
-.medium-field {max-width: 250px; width: 250px}
-.long-field {max-width: 350px; width: 350px}
-.max-field {max-width: 500px; width: 500px}
+.buttons-container {
+        box-sizing: border-box;
+        clear: both;
+        width: 100%;
+        padding: 1rem 0 1rem 145px;
+}
+
+.description {
+        font-size: 0.8rem;
+        line-height: 1.8rem;
+        color: var(--color-form-description-text);
+}
+
+.text {
+        width: 100%;
+        max-width: 250px;
+        border: 2px solid var(--color-border);
+        color: var(--color-form-field-text);
+}
+.min-field {max-width: 75px}
+.short-field {max-width: 150px}
+.medium-field {max-width: 250px}
+.long-field {max-width: 350px}
+.max-field {max-width: 500px}
 
 .flash {
         padding: 1.5rem;

@@ -194,8 +194,8 @@ form button:hover {
 }
 
 .error {
-        color: var(--color-text-error);
-        background-color: var(--color-background-error);
+        color: var(--color-text-danger);
+        background-color: var(--color-background-danger);
 }
 
 .warning {

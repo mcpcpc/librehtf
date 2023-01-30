@@ -70,7 +70,7 @@ def results(test_id: int):
             return "Invalid command.", 400
         result["measured"] = measured["measured"]
         if row["operator_slug"] != "none":
-            print(__builtins__)
+            print(__builtins__["str"])
             datatype = getattr(__builtins__, row["datatype_slug"])
             operator = getattr(datatype, row["operator_slug"]) 
             if operator(datatype(result["measured"]), datatype(row["reference"])):

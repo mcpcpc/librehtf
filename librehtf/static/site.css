@@ -201,11 +201,11 @@ form button:hover {
         grid-column-end: 3;
 }
 
-.min-field {width: 75px}
-.short-field {width: 150px}
-.medium-field {width: 250px}
-.long-field {width: 350px}
-.max-field {width: 500px}
+.min-field {width: 75px; width: 75px}
+.short-field {max-width: 150px; width: 150px}
+.medium-field {max-width: 250px; width: 250px}
+.long-field {max-width: 350px; width: 350px}
+.max-field {max-width: 500px; width: 500px}
 
 .flash {
         padding: 1.5rem;

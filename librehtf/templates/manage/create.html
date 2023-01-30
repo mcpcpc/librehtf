@@ -5,10 +5,10 @@
 <h1>Create New Device</h1>
 <form method="post" class="twocol">
 	<label for="name">Name</label>
-	<input name="name" type="text" required>
+	<input class="long-field" name="name" type="text" required>
 	<label for="description">Description</label>
-	<textarea name="description" rows=5 required></textarea>
-	<button>Create</button>
+	<textarea class="long-field" name="description" rows=5 required></textarea>
+	<button class="medium-field">Create</button>
 </form>
 {% elif api == 'test' %}
 <h1>Create New Test</h1>
@@ -20,10 +20,10 @@
 		{% endfor %}
 	</select>
 	<label for="name">Name</label>
-	<input name="name" type="text" required>
+	<input class="long-field" name="name" type="text" required>
 	<label for="description">Description</label>
-	<textarea name="description" rows=5 required></textarea>
-	<button>Create</button>
+	<textarea class="long-field" name="description" rows=5 required></textarea>
+	<button class="medium-field">Create</button>
 </form>
 {% elif api == 'task' %}
 <h1>Create New Task</h1>

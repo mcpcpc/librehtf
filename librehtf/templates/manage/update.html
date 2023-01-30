@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Update {{ api }}{% endblock %}
+{% block title %}Update{% endblock %}
 {% block main %}
+<section>
 {% if api == 'device' %}
-<h1>Update Existing Device</h1>
 <form method="post">
+        <h3>Update Existing Device</h3>
         <fieldset>
                 <div class="field-group">
                         <label for="name">Name</label>
@@ -20,8 +21,8 @@
         </div>
 </form>
 {% elif api == 'test' %}
-<h1>Update Existing Test</h1>
 <form method="post">
+        <h3>Update Existing Test</h3>
         <fieldset>
                 <div class="field-group">
                         <label for="device_id">Device ID</label>
@@ -46,8 +47,8 @@
         </div>
 </form>
 {% elif api == 'task' %}
-<h1>Update Existing Task</h1>
 <form method="post">
+        <h3>Update Existing Test</h3>
         <fieldset>
                 <div class="field-group">
                         <label for="test_id">Device ID</label>
@@ -96,4 +97,5 @@
         </div>
 </form>
 {% endif %}
+</section>
 {% endblock %}

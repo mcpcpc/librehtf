@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Create {{ api }}{% endblock %}
+{% block title %}Create{% endblock %}
 {% block main %}
+<section>
 {% if api == 'device' %}
-<h1>Create New Device</h1>
 <form method="post">
+        <h3>Create New Device</h3>
         <fieldset>
                 <div class="field-group">
                         <label for="name">Name</label>
@@ -20,8 +21,8 @@
         </div>
 </form>
 {% elif api == 'test' %}
-<h1>Create New Test</h1>
 <form method="post">
+        <h3>Create New Test</h3>
         <fieldset>
                 <div class="field-group">
                         <label for="device_id">Device</label>
@@ -48,8 +49,8 @@
         </div>
 </form>
 {% elif api == 'task' %}
-<h1>Create New Task</h1>
 <form method="post">
+        <h3>Create New Task</h3>
         <fieldset>
                 <div class="field-group">
                         <label for="test_id">Device</label>
@@ -98,4 +99,5 @@
         </div>
 </form>
 {% endif %}
+</section>
 {% endblock %}

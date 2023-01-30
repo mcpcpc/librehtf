@@ -145,7 +145,6 @@ section {margin-top: 2.5rem}
 small {font-size: 0.8rem}
 
 form {
-        max-width:450px;
         display: grid;
         align-items: flex-start;
         grid-gap: calc(1rem * 1);

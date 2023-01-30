@@ -29,7 +29,7 @@
 <h1>Create New Task</h1>
 <form method="post" class="twocol">
 	<label for="test_id">Device</label>	
-	<select name="test_id" required>
+	<select lass="long-field" name="test_id" required>
 		{% for test in tests %}
 		<option value={{ test.id }}>{{ test.name }}</option>
 		{% endfor %}

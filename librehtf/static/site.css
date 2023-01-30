@@ -35,6 +35,13 @@
         color: var(--color-text);
         margin: 0;
         padding: 0;
+        border: 0;
+}
+
+input, button, select, textarea, nav a {
+        border-radius: calc(1rem * 0.3);
+        padding: 0 calc(1rem * 0.5);
+        line-height: calc(1rem * 2);
 }
 
 nav {
@@ -46,10 +53,7 @@ nav {
 
 nav a {
         color: var(--color-text-subtle);
-        border-radius: calc(1rem * 0.3);
-        line-height: calc(1rem * 2);
         cursor: pointer;
-        padding: 0 calc(1rem * 0.5);
         margin: 0 calc(1rem * 0.25);
         font-weight: 500;
         white-space: nowrap;
@@ -69,12 +73,6 @@ main a:hover {
 
 main a {
         color: var(--color-link);
-}
-
-input, button, select, textarea {
-        border-radius: calc(1rem * 0.3);
-        padding: 0 calc(1rem * 0.5);
-        line-height: calc(1rem * 2);
 }
 
 table {

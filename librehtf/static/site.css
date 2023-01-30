@@ -40,8 +40,7 @@
 
 input, button, select, textarea, nav a {
         border-radius: calc(1rem * 0.3);
-        padding: 0 calc(1rem * 0.5);
-        line-height: calc(1rem * 2);
+        padding: calc(1rem * 0.5);
 }
 
 nav {
@@ -148,7 +147,7 @@ form input, form select, form textarea {
         border: 2px solid var(--color-border);
 }
 
-form input:focus, form select:focus {
+form input:focus, form select:focus, form textarea:focus {
         border: 2px solid var(--color-border-focused);
 }
 

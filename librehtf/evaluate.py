@@ -72,7 +72,7 @@ def results(test_id: int):
         if row["operator_slug"] != "none":
             datatype = __builtins__[row["datatype_slug"]]
             operator = getattr(datatype, row["operator_slug"])
-            reference = row["reference"]
+            reference = row["task_reference"]
             if operator(datatype(measured), datatype(reference)):
                 result["observation"] = "PASS"
             else:

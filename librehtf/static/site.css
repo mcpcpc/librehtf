@@ -147,6 +147,8 @@ section {padding: 2rem}
         padding: 3rem 2rem:
 }
 
+.banner-neutral p {font-size: 1.33rem;}
+
 small {font-size: 0.8rem}
 
 form input, form textarea {

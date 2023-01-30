@@ -65,13 +65,18 @@ def results(test_id: int):
     results = []
     for row in rows:
         result = dict(row)
-        result["measured"] = measure(row["task_command"])
-        if "measured" not in result:
+        measured = measure(row["task_command"])
+        if "measured" not in measured:
             return "Invalid command.", 400
+        result["measured"] = measured["measured"]
         if row["operator_slug"] != "none":
-            result["observation"] = "PASS" # temporary
+            datatype = getattr(__builtin__, row["datatype_slug"]
+            operator = getattr(datatype, row["operator_slug"]) 
+            if operator(datatype(result["measured"], datatype(row["reference"])):
+                result["observation"] = "PASS"
+            else:
+                result["observation"] = "FAIL"
         else: 
             result["observation"] = "INFO"
         results.append(result)
-    print(results)
     return render_template("evaluate/results.html", results=results)

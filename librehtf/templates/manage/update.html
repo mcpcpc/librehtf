@@ -5,56 +5,56 @@
 <h1>Update Existing Device</h1>
 <form method="post" class="twocol">
 	<label for="name">Name</label>
-	<input name="name" type="text" value="{{ row.name }}" required>
+	<input class="long-field" name="name" type="text" value="{{ row.name }}" required>
 	<label for="description">Description</label>
-	<textarea name="description" rows=5 required>{{ row.description }}</textarea>
-	<button>Update</button>
+	<textarea class="long-field" name="description" rows=5 required>{{ row.description }}</textarea>
+	<button class="long-field">Update</button>
 </form>
 {% elif api == 'test' %}
 <h1>Update Existing Test</h1>
 <form method="post" class="twocol">
 	<label for="device_id">Device ID</label>
-	<select name="device_id" required>
+	<select class="long-field" name="device_id" required>
 		{% for device in devices %}
 		<option value={{ device.id }} {% if row.device_id == device.id %}selected{% endif %}>{{ device.name }}</option>
 		{% endfor %}
 	</select>
 	<label for="name">Name</label>
-	<input name="name" type="text" value="{{ row.name }}" required>
+	<input class="long-field" name="name" type="text" value="{{ row.name }}" required>
 	<label for="description">Description</label>
-	<textarea name="description" rows=5 required>{{ row.description }}</textarea>
-	<button>Update</button>
+	<textarea class="long-field" name="description" rows=5 required>{{ row.description }}</textarea>
+	<button class="long-field">Update</button>
 </form>
 {% elif api == 'task' %}
 <h1>Update Existing Task</h1>
 <form method="post" class="twocol">
 	<label for="test_id">Device ID</label>
-	<select name="test_id" required>
+	<select lass="long-field" name="test_id" required>
 		{% for test in tests %}
 		<option value={{ test.id }} {% if row.test_id == test.id %}selected{% endif %}>{{ test.name }}</option>
 		{% endfor %}
 	</select>
 	<label for="name">Name</label>
-	<input name="name" type="text" value="{{ row.name }}" required>
+	<input class="long-field" name="name" type="text" value="{{ row.name }}" required>
 	<label for="command">Command</label>
-	<textarea name="command" rows=5 required>{{ row.command }}</textarea>
+	<textarea class="long-field" name="command" rows=5 required>{{ row.command }}</textarea>
 	<label for="reference">Limit</label>
 	<input name="reference" type="text" value="{{ row.reference }}">
 	<label for="unit">Unit</label>
-	<input name="unit" type="text" value="{{ row.unit }}">
+	<input class="short-field" name="unit" type="text" value="{{ row.unit }}">
 	<label for="operator_is">Operator</label>
-	<select name="operator_id" required>
+	<select class="short-field" name="operator_id" required>
 		{% for operator in operators %}
 		<option value={{ operator.id }} {% if row.operator_id == operator.id %}selected{% endif %}>{{ operator.title }}</option>
 		{% endfor %}
 	</select>
 	<label for="datatype_id">Data Type</label>
-	<select name="datatype_id" required>
+	<select class="short-field" name="datatype_id" required>
 		{% for datatype in datatypes %}
 		<option value={{ datatype.id }} {% if row.datatype_id == datatype.id %}selected{% endif %}>{{ datatype.title }}</option>
 		{% endfor %}
 	</select>
-	<button>Update</button>
+	<button class="long-field">Update</button>
 </form>
 {% endif %}
 {% endblock %}

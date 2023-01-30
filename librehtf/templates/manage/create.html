@@ -14,7 +14,7 @@
 <h1>Create New Test</h1>
 <form method="post" class="twocol">
 	<label for="device_id">Device</label>
-	<select name="device_id" required>
+	<select class="long-field" name="device_id" required>
 		{% for device in devices %}
 		<option value={{ device.id }}>{{ device.name }}</option>
 		{% endfor %}

@@ -35,7 +35,7 @@
 		{% endfor %}
 	</select>
 	<label for="name">Name</label>
-	<input class="medium-field" name="name" type="text" required>
+	<input class="long-field" name="name" type="text" required>
 	<label for="command">Command</label>
 	<textarea class="long-field" name="command" rows=5 required></textarea>
 	<label for="reference">Limit</label>
@@ -49,7 +49,7 @@
 		{% endfor %}
 	</select>
 	<label for="datatype_id">Data Type</label>
-	<select class="long-field" name="datatype_id" required>
+	<select class="short-field" name="datatype_id" required>
 		{% for datatype in datatypes %}
 		<option value={{ datatype.id }}>{{ datatype.title }}</option>
 		{% endfor %}

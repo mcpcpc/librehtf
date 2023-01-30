@@ -8,7 +8,7 @@
 	<input class="long-field" name="name" type="text" required>
 	<label for="description">Description</label>
 	<textarea class="long-field" name="description" rows=5 required></textarea>
-	<button class="medium-field">Create</button>
+	<button class="long-field">Create</button>
 </form>
 {% elif api == 'test' %}
 <h1>Create New Test</h1>
@@ -23,7 +23,7 @@
 	<input class="long-field" name="name" type="text" required>
 	<label for="description">Description</label>
 	<textarea class="long-field" name="description" rows=5 required></textarea>
-	<button class="medium-field">Create</button>
+	<button class="long-field">Create</button>
 </form>
 {% elif api == 'task' %}
 <h1>Create New Task</h1>
@@ -35,26 +35,26 @@
 		{% endfor %}
 	</select>
 	<label for="name">Name</label>
-	<input name="name" type="text" required>
+	<input class="medium-field" name="name" type="text" required>
 	<label for="command">Command</label>
-	<textarea name="command" rows=5 required></textarea>
+	<textarea class="long-field" name="command" rows=5 required></textarea>
 	<label for="reference">Limit</label>
-	<input name="reference" type="text">
+	<input class="long-field" name="reference" type="text">
 	<label for="unit">Unit</label>
-	<input name="unit" type="text">
+	<input class="short-field" name="unit" type="text">
 	<label for="operator_is">Operator</label>
-	<select name="operator_id" required>
+	<select class="short-field" name="operator_id" required>
 		{% for operator in operators %}
 		<option value={{ operator.id }}>{{ operator.title }}</option>
 		{% endfor %}
 	</select>
 	<label for="datatype_id">Data Type</label>
-	<select name="datatype_id" required>
+	<select class="long-field" name="datatype_id" required>
 		{% for datatype in datatypes %}
 		<option value={{ datatype.id }}>{{ datatype.title }}</option>
 		{% endfor %}
 	</select>
-	<button>Create</button>
+	<button class="long-field">Create</button>
 </form>
 {% endif %}
 {% endblock %}

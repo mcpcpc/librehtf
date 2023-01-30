@@ -78,11 +78,11 @@ nav a:hover {
         background-color: var(--color-background-neutral-hovered);
 }
 
-main a:hover {
+section a:hover {
         text-decoration: underline;
 }
 
-main a {
+sectiom a {
         color: var(--color-link);
 }
 
@@ -107,10 +107,6 @@ th, td {
 p {
         line-height: 1.75rem;
         margin-bottom: 1rem;
-}
-
-main {
-        margin: 57px calc(1rem * 1);
 }
 
 header {
@@ -144,7 +140,7 @@ h1 {font-size: calc(1rem * 2)}
 h2 {font-size: calc(1rem * 1.5)}
 h3 {font-size: calc(1rem * 1.3)}
 
-section {margin-top: 2.5rem}
+section {margin: 2rem}
 
 small {font-size: 0.8rem}
 

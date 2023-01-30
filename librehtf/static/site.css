@@ -1,6 +1,7 @@
 :root {
         --color-link: #0052CC;
         --color-text: #172B4D;
+        --color-focus: #2684FF;
         --color-text-selected: #0C66E4;
         --color-text-subtle: #44546F;
         --color-link-pressed: #05c;
@@ -28,6 +29,9 @@
         --color-form-label-text: #6B778C;
         --color-form-field-text: #172B4D;
         --color-form-field-background: #FAFBFC;
+        --color-form-field-background-focus: #FFF;
+        --color-form-field-background-hover: #EBECF1;
+        --color-form-field-border-hover: #DFE1E6;
         --color-form-select-background: #EBECF1;
         --color-form-description-text: #6B778C;
 }
@@ -199,7 +203,19 @@ form label {
         max-width: 250px;
         border: 2px solid var(--color-border);
         color: var(--color-form-field-text);
+        transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
+
+.text:active {
+
+}
+
+.text:focus {
+        outline: none;
+        background-color: var(--color-form-field-background-focus);
+        border: 2px solid var(--color-focus) !important;
+}
+
 .min-field {max-width: 75px}
 .short-field {max-width: 150px}
 .medium-field {max-width: 250px}

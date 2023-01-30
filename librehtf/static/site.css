@@ -75,7 +75,7 @@ nav a {
 
 
 nav a:hover {
-        background-color: var(--color-background-neutral-hovered);
+        background-color: var(--color-background-neutral);
 }
 
 section a:hover {

@@ -80,4 +80,6 @@ def results(test_id: int):
         else: 
             result["observation"] = "INFO"
         results.append(result)
+    if "raw" in request.args:
+        return results
     return render_template("evaluate/results.html", results=results)

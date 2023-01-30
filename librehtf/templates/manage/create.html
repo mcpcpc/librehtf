@@ -3,58 +3,99 @@
 {% block main %}
 {% if api == 'device' %}
 <h1>Create New Device</h1>
-<form method="post" class="twocol">
-	<label for="name">Name</label>
-	<input class="long-field" name="name" type="text" required>
-	<label for="description">Description</label>
-	<textarea class="long-field" name="description" rows=5 required></textarea>
-	<button class="long-field">Create</button>
+<form method="post">
+        <fieldset>
+                <div class="field-group">
+                        <label for="name">Name</label>
+                        <input class="text long-field" name="name" type="text" required>
+                </div>
+                <div class="field-group">
+                        <label for="description">Description</label>
+                        <textarea class="text long-field" name="description" rows=5 required></textarea>
+                </div>
+        </fieldset>
+        <div class="buttons-container">
+                <input class="button submit" type="submit" value="Submit">
+                <a class="cancel" href="{{ url_for('manage.index') }}">Back</a>
+        </div>
 </form>
 {% elif api == 'test' %}
 <h1>Create New Test</h1>
-<form method="post" class="twocol">
-	<label for="device_id">Device</label>
-	<select class="long-field" name="device_id" required>
-		{% for device in devices %}
-		<option value={{ device.id }}>{{ device.name }}</option>
-		{% endfor %}
-	</select>
-	<label for="name">Name</label>
-	<input class="long-field" name="name" type="text" required>
-	<label for="description">Description</label>
-	<textarea class="long-field" name="description" rows=5 required></textarea>
-	<button class="long-field">Create</button>
+<form method="post">
+        <fieldset>
+                <div class="field-group">
+                        <label for="device_id">Device</label>
+                        <select class="text long-field" name="device_id" required>
+                                {% for device in devices %}
+                                <option value={{ device.id }}>{{ device.name }}</option>
+                                {% endfor %}
+                        </select>
+                </div>
+                <div class="field-group">
+                        <label for="name">Name</label>
+                        <input class="text long-field" name="name" type="text" required>
+                        <div class="description">A short description name of the test class.</div>
+                </div>
+                <div class="field-group">
+                        <label for="description">Description</label>
+                        <textarea class="text long-field" name="description" rows=5 required></textarea>
+                        <div class="description">A longer-format description of the test class.</div>
+                </div>
+        </fieldset>
+        <div class="buttons-container">
+                <input class="button submit" type="submit" value="Submit">
+                <a class="cancel" href="{{ url_for('manage.index') }}">Back</a>
+        </div>
 </form>
 {% elif api == 'task' %}
 <h1>Create New Task</h1>
-<form method="post" class="twocol">
-	<label for="test_id">Device</label>	
-	<select lass="long-field" name="test_id" required>
-		{% for test in tests %}
-		<option value={{ test.id }}>{{ test.name }}</option>
-		{% endfor %}
-	</select>
-	<label for="name">Name</label>
-	<input class="long-field" name="name" type="text" required>
-	<label for="command">Command</label>
-	<textarea class="long-field" name="command" rows=5 required></textarea>
-	<label for="reference">Reference or Limit</label>
-	<input class="long-field" name="reference" type="text">
-	<label for="unit">Unit</label>
-	<input class="short-field" name="unit" type="text">
-	<label for="operator_is">Operator</label>
-	<select class="short-field" name="operator_id" required>
-		{% for operator in operators %}
-		<option value={{ operator.id }}>{{ operator.title }}</option>
-		{% endfor %}
-	</select>
-	<label for="datatype_id">Data Type</label>
-	<select class="short-field" name="datatype_id" required>
-		{% for datatype in datatypes %}
-		<option value={{ datatype.id }}>{{ datatype.title }}</option>
-		{% endfor %}
-	</select>
-	<button class="long-field">Create</button>
+<form method="post">
+        <fieldset>
+                <div class="field-group">
+                        <label for="test_id">Device</label>
+                        <select class="text long-field" name="test_id" required>
+                                {% for test in tests %}
+                                <option value={{ test.id }}>{{ test.name }}</option>
+                                {% endfor %}
+                        </select>
+                </div>
+                <div class="field-group">
+                        <label for="name">Name</label>
+                        <input class="text long-field" name="name" type="text" required>
+                </div>
+                <div class="field-group">
+                        <label for="command">Command</label>
+                        <textarea class="text long-field" name="command" rows=5 required></textarea>
+                </div>
+                <div class="field-group">
+                        <label for="reference">Reference or Limit</label>
+                        <input class="text long-field" name="reference" type="text">
+                </div>
+                <div class="field-group">
+                        <label for="unit">Unit</label>
+                        <input class="text short-field" name="unit" type="text">
+                </div>
+                <div class="field-group">
+                        <label for="operator_is">Operator</label>
+                        <select class="text short-field" name="operator_id" required>
+                                {% for operator in operators %}
+                                <option value={{ operator.id }}>{{ operator.title }}</option>
+                                {% endfor %}
+                        </select>
+                </div>
+                <div class="field-group">
+                        <label for="datatype_id">Data Type</label>
+                        <select class="text short-field" name="datatype_id" required>
+                                {% for datatype in datatypes %}
+                                <option value={{ datatype.id }}>{{ datatype.title }}</option>
+                                {% endfor %}
+                        </select>
+                </div>
+        </fieldset>
+        <div class="buttons-container">
+                <input class="button submit" type="submit" value="Submit">
+                <a class="cancel" href="{{ url_for('manage.index') }}">Back</a>
+        </div>
 </form>
 {% endif %}
 {% endblock %}

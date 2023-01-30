@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Evaluate{% endblock %}
 {% block main %}
-<section>
+<section class="banner-neutral">
 <h1>Evaluation Panel</h1>
 </section>
 {% for device_name, tests in rows|groupby('device_name') %}

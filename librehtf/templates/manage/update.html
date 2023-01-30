@@ -51,7 +51,7 @@
         <fieldset>
                 <div class="field-group">
                         <label for="test_id">Device ID</label>
-                        <select class="long-field" name="test_id" required>
+                        <select class="text long-field" name="test_id" required>
                                 {% for test in tests %}
                                 <option value={{ test.id }} {% if row.test_id == test.id %}selected{% endif %}>{{ test.name }}</option>
                                 {% endfor %}

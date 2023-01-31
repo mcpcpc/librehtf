@@ -6,6 +6,26 @@
     <p>Main administrative panel for creating, modifying devices, tests or tasks.</p>
 </section>
 <section>
+    <h2>Users</h2>
+    <table>
+        <tr>
+            <th>
+                <a href="{{ url_for('auth.register') }}">add</a>
+            </th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>
+                <p>{{ user.username }}</p>
+                <small>
+                    <a href="{{ url_for('auth.update', id=user['id']) }}">update</a> | 
+                </small>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+<section>
     <h2>Devices</h2>
     <table>
         <tr>

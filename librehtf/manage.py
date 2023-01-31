@@ -27,10 +27,11 @@ manage = Blueprint("manage", __name__)
 @login_required
 def index():
     db = get_db()
+    users = db.execute("SELECT * FROM user").fetchall()
     devices = db.execute("SELECT * FROM device").fetchall()
     tests = db.execute("SELECT * FROM test").fetchall()
     tasks = db.execute("SELECT * FROM task").fetchall()
-    return render_template("manage.html", devices=devices, tests=tests, tasks=tasks)
+    return render_template("manage.html", users=users, devices=devices, tests=tests, tasks=tasks)
 
 
 @manage.route("/manage/<api>/<int:id>/delete", methods=("GET",))

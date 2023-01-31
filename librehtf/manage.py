@@ -50,6 +50,7 @@ def delete(api: str, id: int):
 @manage.route("/manage/<api>/create", methods=("GET", "POST"))
 @login_required
 def create(api: str):
+    error = None
     db = get_db()
     tests = db.execute("SELECT * FROM test").fetchall()
     devices = db.execute("SELECT * FROM device").fetchall()

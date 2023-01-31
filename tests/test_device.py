@@ -36,6 +36,6 @@ class DeviceTestCase(TestCase):
         db = connect(self.db)
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        data = self.client.post("/token/create", data={"expires_in": 600})
-        response = self.client.get("/api/device/1", data={"token":data.json['access_token']})
+        data = self.client.post("/auth/token", data={"expires_in": 600})
+        response = self.client.get("/api/device/1", data={"token":data.json['token']})
         self.assertEqual(response.status_code, 200)

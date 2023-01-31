@@ -39,3 +39,11 @@ class DeviceTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.get(f"/api/device/1?token={data.json['access_token']}")
         self.assertEqual(response.status_code, 200)
+
+    def test_delete_device(self):
+        db = connect(self.db)
+        db.executescript(self._preload)
+        self.client.post("/auth/login", data={"username": "test", "password": "test"})
+        data = self.client.post("/auth/token", data={"expires_in": 600})
+        response = self.client.get(f"/api/device/1/delete?token={data.json['access_token']}")
+        self.assertEqual(response.status_code, 200)

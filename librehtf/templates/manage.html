@@ -19,6 +19,7 @@
                 <p>{{ user.username }}</p>
                 <small>
                     <a href="{{ url_for('auth.update', id=user['id']) }}">update</a> | 
+                    <a href="{{ url_for('auth.delete', id=user['id']) }}">delete</a>
                 </small>
             </td>
         </tr>

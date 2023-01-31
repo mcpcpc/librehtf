@@ -66,8 +66,12 @@ def create(api: str):
             resp = create_task.__wrapped__()
             print(resp)
         else:
-            flash("Invalid endpoint.", "error")
-        return redirect(url_for(".index"))
+            error = "Invalid endpoint."
+        if resp[1] >= 300:
+            error = resp[0]
+        if error = None:
+            return redirect(url_for(".index"))
+        flash(error, "error")
     return render_template(
         "manage/create.html",
         api=api,
@@ -81,6 +85,7 @@ def create(api: str):
 @manage.route("/manage/<api>/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(api: str, id: int):
+    error = None
     db = get_db()
     tests = db.execute("SELECT * FROM test").fetchall()
     devices = db.execute("SELECT * FROM device").fetchall()
@@ -95,16 +100,17 @@ def update(api: str, id: int):
     if request.method == "POST":
         if api == "device":
             resp = update_device.__wrapped__(id)
-            print(resp)
         elif api == "test":
             resp = update_test.__wrapped__(id)
-            print(resp)
         elif api == "task":
             resp = update_task.__wrapped__(id)
-            print(resp)
         else:
-            flash("Invalid endpoint.", "error")
-        return redirect(url_for(".index"))
+            error = "Invalid endpoint."
+        if resp[1] >= 300:
+            error = resp[0]
+        if error = None:
+            return redirect(url_for(".index"))
+        flash(error, "error")
     return render_template(
         "manage/update.html",
         api=api,

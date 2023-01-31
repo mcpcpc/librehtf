@@ -152,7 +152,7 @@ class AuthTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         response = self.client.post("/auth/token", data={"expires_in": 600})
-        self.assertIn(b"token", response.data)
+        self.assertIn("access_token", response.json)
 
     def test_token_post_flash(self):
         db = connect(self.db)

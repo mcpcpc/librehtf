@@ -121,6 +121,7 @@ def register():
             hashed_password = generate_password_hash(request.form["password"])
             try:
                 db = get_db()
+                db.execute("PRAGMA foreign_keys = ON")
                 db.execute(
                     "INSERT INTO user (username, password, role_id) VALUES (?, ?, 3)",
                     (request.form["username"], hashed_password),
@@ -151,6 +152,7 @@ def update(id: int):
         if error is None:
             hashed_password = generate_password_hash(request.form["password"])
             try:
+                db.execute("PRAGMA foreign_keys = ON")
                 db.execute(
                     "UPDATE user SET password = ?, role_id = ? WHERE id = ?",
                     (hashed_password, request.form["role_id"], id),

@@ -83,7 +83,7 @@ class AuthTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         response = self.client.post("/auth/2/update", data={"role_id": 3, "password": "pass1_"})
-        self.assertEqual(response.headers["location"], "/auth/login")
+        self.assertEqual(response.headers["location"], "/auth/logout")
 
     def test_update_flash(self):
         db = connect(self.db)

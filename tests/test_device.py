@@ -39,9 +39,9 @@ class DeviceTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.post(
             f"/api/device?token={data.json['access_token']}",
-            data={"name": "name1", "description": "description1"}
+            data={"name": "name2", "description": "description2"}
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
     def test_read_device(self):
         db = connect(self.db)

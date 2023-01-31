@@ -69,7 +69,7 @@ def create(api: str):
             error = "Invalid endpoint."
         if resp[1] >= 300:
             error = resp[0]
-        if error = None:
+        if error is None:
             return redirect(url_for(".index"))
         flash(error, "error")
     return render_template(
@@ -108,7 +108,7 @@ def update(api: str, id: int):
             error = "Invalid endpoint."
         if resp[1] >= 300:
             error = resp[0]
-        if error = None:
+        if error is None:
             return redirect(url_for(".index"))
         flash(error, "error")
     return render_template(

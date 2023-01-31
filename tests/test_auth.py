@@ -109,7 +109,7 @@ class AuthTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         response = self.client.get("/auth/2/delete")
-        self.assertEqual(response.headers["location"], "/logout")
+        self.assertEqual(response.headers["location"], "/auth/logout")
 
     def test_login_get(self):
         response = self.client.get("/auth/login")

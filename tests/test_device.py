@@ -32,6 +32,17 @@ class DeviceTestCase(TestCase):
     def tearDown(self):
         self.ctx.pop()
 
+    def test_create_device(self):
+        db = connect(self.db)
+        db.executescript(self._preload)
+        self.client.post("/auth/login", data={"username": "test", "password": "test"})
+        data = self.client.post("/auth/token", data={"expires_in": 600})
+        response = self.client.post(
+            f"/api/device?token={data.json['access_token']}",
+            data={"name": "name1", "description": "description1"}
+        )
+        self.assertEqual(response.status_code, 200)
+
     def test_read_device(self):
         db = connect(self.db)
         db.executescript(self._preload)

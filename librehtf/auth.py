@@ -106,6 +106,36 @@ def logout():
     return redirect(url_for("auth.login"))
 
 
+@auth.route("<int:id>/update", methods=("GET", "POST"))
+@login_required
+def update(id: int):
+    """Update existing user."""
+
+    db = get_db()
+    user = db.execute("SELECT username, role_id FROM user WHERE id = ?", (id,)).fetchone()
+    roles = db.execute("SELECT * FROM role").fetchall()
+    if request.method == "POST":
+        error = None
+        if not request.form["password"]:
+            error = "Password is required."
+        elif not request.form["password"]:
+            error = "Role ID is required."
+        if error is None:
+            hashed_password = generate_password_hash(request.form["password"])
+            try:
+                db.execute(
+                    "UPDATE user SET password = ?, role_id = ? WHERE id = ?",
+                    (hashed_password, request.form["role_id"], id),
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = f"User {request.form['username']} already exists."
+            else:
+                return redirect(url_for("auth.login"))
+        flash(error)
+    return render_template("auth/update.html", user=user, roles=roles)
+
+
 @auth.route("/register", methods=("GET", "POST"))
 @login_required
 def register():
@@ -129,7 +159,6 @@ def register():
             except db.IntegrityError:
                 error = f"User {request.form['username']} already exists."
             else:
-                flash("User successfully registered.")
                 return redirect(url_for("auth.login"))
         flash(error)
     return render_template("auth/register.html")

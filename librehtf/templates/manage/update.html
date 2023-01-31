@@ -48,10 +48,10 @@
         </form>
         {% elif api == 'task' %}
         <form method="post">
-                <h3>Update Existing Test</h3>
+                <h3>Update Existing Task</h3>
                 <fieldset>
                         <div class="field-group">
-                                <label for="test_id">Device ID</label>
+                                <label for="test_id">Test ID</label>
                                 <select class="text long-field" name="test_id" required>
                                         {% for test in tests %}
                                         <option value={{ test.id }} {% if row.test_id == test.id %}selected{% endif %}>{{ test.name }}</option>
@@ -65,7 +65,7 @@
                         <div class="field-group">
                                 <label for="command">Command</label>
                                 <textarea class="text long-field" name="command" rows=5 style="font-family: monospace" required>{{ row.command }}</textarea>
-                                <div class="description">Must return a value for `measured`</div>
+                                <div class="description">Must return a value for `measured`.</div>
                         </div>
                         <div class="field-group">
                                 <label for="reference">Reference or Limit</label>

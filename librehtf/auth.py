@@ -103,7 +103,7 @@ def logout():
     """Clear current session, including the stored user ID."""
 
     session.clear()
-    return redirect(url_for("auth.login"))
+    return redirect(url_for(".login"))
 
 
 @auth.route("<int:id>/update", methods=("GET", "POST"))
@@ -131,7 +131,9 @@ def update(id: int):
             except db.IntegrityError:
                 error = f"User {request.form['username']} already exists."
             else:
-                return redirect(url_for("auth.login"))
+                if g.user["id"] == id:
+                    return redirect(url_for(".logout"))
+                return redirect(url_for(".login"))
         flash(error)
     return render_template("auth/update.html", user=user, roles=roles)
 
@@ -159,7 +161,7 @@ def register():
             except db.IntegrityError:
                 error = f"User {request.form['username']} already exists."
             else:
-                return redirect(url_for("auth.login"))
+                return redirect(url_for(".login"))
         flash(error)
     return render_template("auth/register.html")
 

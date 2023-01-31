@@ -106,6 +106,34 @@ def logout():
     return redirect(url_for(".login"))
 
 
+@auth.route("/register", methods=("GET", "POST"))
+@login_required
+def register():
+    """Register new user."""
+
+    if request.method == "POST":
+        error = None
+        if not request.form["username"]:
+            error = "Username is required."
+        elif not request.form["password"]:
+            error = "Password is required."
+        if error is None:
+            hashed_password = generate_password_hash(request.form["password"])
+            try:
+                db = get_db()
+                db.execute(
+                    "INSERT INTO user (username, password, role_id) VALUES (?, ?, 3)",
+                    (request.form["username"], hashed_password),
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = f"User {request.form['username']} already exists."
+            else:
+                return redirect(url_for(".login"))
+        flash(error)
+    return render_template("auth/register.html")
+
+
 @auth.route("<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id: int):
@@ -138,32 +166,17 @@ def update(id: int):
     return render_template("auth/update.html", user=user, roles=roles)
 
 
-@auth.route("/register", methods=("GET", "POST"))
+@auth.route("<int:id>/delete", methods=("GET",))
 @login_required
-def register():
-    """Register new user."""
+def delete(id: int):
+    """Delete existing user."""
 
-    if request.method == "POST":
-        error = None
-        if not request.form["username"]:
-            error = "Username is required."
-        elif not request.form["password"]:
-            error = "Password is required."
-        if error is None:
-            hashed_password = generate_password_hash(request.form["password"])
-            try:
-                db = get_db()
-                db.execute(
-                    "INSERT INTO user (username, password, role_id) VALUES (?, ?, 3)",
-                    (request.form["username"], hashed_password),
-                )
-                db.commit()
-            except db.IntegrityError:
-                error = f"User {request.form['username']} already exists."
-            else:
-                return redirect(url_for(".login"))
-        flash(error)
-    return render_template("auth/register.html")
+    db = get_db()
+    db.execute("DELETE FROM user WHERE id = ?", (id,))
+    db.commit()
+    if g.user["id"] == id:
+        return redirect(url_for(".logout"))
+    return redirect(url_for("index"))
 
 
 @auth.route("/token", methods=("GET", "POST"))

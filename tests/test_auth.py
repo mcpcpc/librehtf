@@ -139,3 +139,36 @@ class AuthTestCase(TestCase):
                     follow_redirects=True,
                 )
                 self.assertIn(message, response.data)
+
+    def test_token_get(self):
+        db = connect(self.db)
+        db.executescript(self._preload)
+        self.client.post("/auth/login", data={"username": "test", "password": "test"})
+        response = self.client.get("/auth/token")
+        self.assertEqual(response.status_code, 200)
+
+    def test_token_post(self):
+        db = connect(self.db)
+        db.executescript(self._preload)
+        self.client.post("/auth/login", data={"username": "test", "password": "test"})
+        response = self.client.post("/auth/token", data={"expires_in": 600})
+        self.assertIn("token", response.data)
+
+    def test_token_post_flash(self):
+        db = connect(self.db)
+        db.executescript(self._preload)
+        self.client.post("/auth/login", data={"username": "test", "password": "test"})
+        parameters = [
+            ("", b"Expiration is required."),
+            ("a", b"Expiration is not numeric."),
+            (31536001, b"Expiration too big."),
+        ]
+        for parameter in parameters:
+            with self.subTest(parameter=parameter):
+                expires_in, message = parameter
+                response = self.client.post(
+                    "/auth/token",
+                    data={"expires_in": expires_in},
+                    follow_redirects=True,
+                )
+                self.assertIn(message, response.data)

@@ -65,9 +65,12 @@ def results(test_id: int):
     results = []
     for row in rows:
         result = dict(row)
-        measured = measure(row["task_command"])
+        try:
+            measured = measure(row["task_command"])
+        except Exception as e:
+            return f"{e}", 400
         if "measured" not in measured:
-            return "Invalid command.", 400
+            return "Measure value is missing from result.", 400
         result["measured"] = measured["measured"]
         if row["operator_slug"] != "none":
             datatype = __builtins__[row["datatype_slug"]]

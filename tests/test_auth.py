@@ -90,15 +90,16 @@ class AuthTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         parameters = [
-            ("", "pass1_", b"RoleID is required."),
+            ("", "pass1_", b"Role ID is required."),
             (2, "", b"Password is required."),
+            (3, "", b"Username or Role ID does not exist."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):
                 role_id, password, message = parameter
                 response = self.client.post(
                     "/auth/2/update",
-                    data={"": role_id, "password": password},
+                    data={"role_id": role_id, "password": password},
                     follow_redirects=True,
                 )
                 self.assertIn(message, response.data)

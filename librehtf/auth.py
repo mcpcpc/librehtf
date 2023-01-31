@@ -157,7 +157,7 @@ def update(id: int):
                 )
                 db.commit()
             except db.IntegrityError:
-                error = f"User {request.form['username']} already exists."
+                error = f"Username or Role ID does not exist."
             else:
                 if g.user["id"] == id:
                     return redirect(url_for(".logout"))

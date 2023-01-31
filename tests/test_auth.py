@@ -8,7 +8,7 @@ from unittest import TestCase
 
 from flask import session
 
-from taskbox import create_app
+from librehtf import create_app
 
 
 class AuthTestCase(TestCase):

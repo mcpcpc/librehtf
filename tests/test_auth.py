@@ -92,7 +92,7 @@ class AuthTestCase(TestCase):
         parameters = [
             ("", "pass1_", b"Role ID is required."),
             (2, "", b"Password is required."),
-            (3, "", b"Username or Role ID does not exist."),
+            (3, "pass1_", b"Username or Role ID does not exist."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):

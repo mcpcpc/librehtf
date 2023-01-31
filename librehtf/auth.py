@@ -147,7 +147,7 @@ def update(id: int):
         error = None
         if not request.form["password"]:
             error = "Password is required."
-        elif not request.form["password"]:
+        elif not request.form["role_id"]:
             error = "Role ID is required."
         if error is None:
             hashed_password = generate_password_hash(request.form["password"])

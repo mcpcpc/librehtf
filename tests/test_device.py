@@ -60,7 +60,7 @@ class DeviceTestCase(TestCase):
             f"/api/device/1?token={data.json['access_token']}",
             data={"name": "name2_", "description": "description2_"}
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
     def test_delete_device(self):
         db = connect(self.db)

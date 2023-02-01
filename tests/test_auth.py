@@ -33,9 +33,11 @@ class AuthTestCase(TestCase):
         self.ctx.pop()
 
     def test_login_protected_endpoints(self):
-        for endpoint in ("/auth/register", "/auth/update", "auth/delete", "auth/token"):
-            with self.subTest(parameter=endpoint):
-                response = self.client.get(endpoint)
+        db = connect(self.db)
+        parameters = ("/auth/register", "/auth/update", "auth/delete", "auth/token")
+        for parameter in parameters:
+            with self.subTest(parameter=parameter):
+                response = self.client.get(parameter)
                 self.assertEqual(response.headers["Location"], "/auth/login")
 
     def test_register_get(self):

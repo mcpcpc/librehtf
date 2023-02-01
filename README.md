@@ -81,7 +81,7 @@ python3 -m unittest
 Run with coverage report.
 
 ```shell
-coverage run -m pytest
+coverage run -m unittest
 coverage report
 coverage html  # open htmlcov/index.html in a browser
 ```

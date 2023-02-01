@@ -68,7 +68,7 @@ def delete_task(id: int):
 def create_device(api: str):
     if request.method == "POST":
         response = api_create_device.__wrapped__()
-        if response[1] < 300
+        if response[1] < 300:
             return redirect(url_for(".index"))
         flash(response[0])
     return render_template("manage/create_device.html")
@@ -79,7 +79,7 @@ def create_device(api: str):
 def create_test(api: str):
     if request.method == "POST":
         response = api_create_test.__wrapped__()
-        if response[1] < 300
+        if response[1] < 300:
             return redirect(url_for(".index"))
         flash(response[0])
     devices = get_db().execute("SELECT * FROM device").fetchall()
@@ -91,7 +91,7 @@ def create_test(api: str):
 def create_task(api: str):
     if request.method == "POST":
         response = api_create_task.__wrapped__()
-        if response[1] < 300
+        if response[1] < 300:
             return redirect(url_for(".index"))
         flash(response[0])
     db = get_db()

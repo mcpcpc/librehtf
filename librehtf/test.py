@@ -46,7 +46,7 @@ def read_test(id: int):
     
     row = get_db().execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
     if not row:
-        return "Test does not exist", 404
+        return "Test does not exist.", 404
     return dict(row)
 
 

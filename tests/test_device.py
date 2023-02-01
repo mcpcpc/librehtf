@@ -83,7 +83,7 @@ class DeviceTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.put(
             f"/api/device/1?token={data.json['access_token']}",
-            data={"name": "name2_", "description": "description2_"}
+            data={"name": "name1_", "description": "description1_"}
         )
         self.assertEqual(response.status_code, 201)
 
@@ -94,7 +94,7 @@ class DeviceTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         self.client.post(
             f"/api/device?token={data.json['access_token']}",
-            data={"name": "name2_", "description": "description2_"}
+            data={"name": "name2", "description": "description2"}
         )
         parameters = [
             ("", "description2_", b"Name is required."),

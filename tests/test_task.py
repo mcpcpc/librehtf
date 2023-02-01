@@ -124,7 +124,9 @@ class TestTestCase(TestCase):
             ("name1", "command1", 1, 9, 1, b"Task already exists or test, operation or datatype ID invalid."),
             ("name1", "command1", 1, 1, 9, b"Task already exists or test, operation or datatype ID invalid."),
         ]
-        name, description, device_id, operation_id, datatype_id, message = parameter
+        for parameter in parameters:
+            with self.subTest(parameter=parameter):
+                name, description, device_id, operation_id, datatype_id, message = parameter
                 response = self.client.put(
                     f"/api/task/2?token={data.json['access_token']}",
                     data={

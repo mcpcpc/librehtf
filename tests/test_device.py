@@ -92,8 +92,8 @@ class DeviceTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        self.client.put(
-            f"/api/device/1?token={data.json['access_token']}",
+        self.client.post(
+            f"/api/device?token={data.json['access_token']}",
             data={"name": "name2_", "description": "description2_"}
         )
         parameters = [

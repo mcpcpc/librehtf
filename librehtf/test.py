@@ -34,7 +34,7 @@ def create_test():
         )
         db.commit()
     except db.IntegrityError:
-        return "Invalid device ID.", 400
+        return "Test already exists or device ID invalid.", 400
     else:
         return "Test successfully created.", 201
 
@@ -75,7 +75,7 @@ def update_test(id: int):
         )
         db.commit()
     except db.IntegrityError:
-        return "Invalid device ID.", 400
+        return "Test already exists or device ID invalid.", 400
     else:
         return "Test successfully updated.", 201
 

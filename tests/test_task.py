@@ -85,7 +85,7 @@ class TestTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        response = self.client.get(f"/api/task/2?token={data.json['access_token']}")
+        response = self.client.get(f"/api/task/3?token={data.json['access_token']}")
         self.assertIn(b"Task does not exist.", response.data)
 
     def test_update_task(self):

@@ -24,7 +24,7 @@ manage = Blueprint("manage", __name__)
 
 
 @manage.route("/manage", methods=("GET",))
-@login_required
+@login_required(permissions=None)
 def index():
     db = get_db()
     users = db.execute("SELECT * FROM user").fetchall()
@@ -37,7 +37,7 @@ def index():
 
 
 @manage.route("/manage/device/<int:id>/delete", methods=("GET",))
-@login_required
+@login_required(permissions=None)
 def delete_device(id: int):
     response = api_delete_device.__wrapped__(id)
     if response[1] >= 300:
@@ -46,7 +46,7 @@ def delete_device(id: int):
 
 
 @manage.route("/manage/test/<int:id>/delete", methods=("GET",))
-@login_required
+@login_required(permissions=None)
 def delete_test(id: int):
     response = api_delete_test.__wrapped__(id)
     if response[1] >= 300:
@@ -55,7 +55,7 @@ def delete_test(id: int):
 
 
 @manage.route("/manage/task/<int:id>/delete", methods=("GET",))
-@login_required
+@login_required(permissions=None)
 def delete_task(id: int):
     response = api_delete_task.__wrapped__(id)
     if response[1] >= 300:
@@ -64,7 +64,7 @@ def delete_task(id: int):
 
 
 @manage.route("/manage/device/create", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def create_device():
     if request.method == "POST":
         response = api_create_device.__wrapped__()
@@ -75,7 +75,7 @@ def create_device():
 
 
 @manage.route("/manage/test/create", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def create_test():
     if request.method == "POST":
         response = api_create_test.__wrapped__()
@@ -87,7 +87,7 @@ def create_test():
 
 
 @manage.route("/manage/task/create", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def create_task():
     if request.method == "POST":
         response = api_create_task.__wrapped__()
@@ -102,7 +102,7 @@ def create_task():
 
 
 @manage.route("/manage/device/<int:id>/update", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def update_device(id: int):
     if request.method == "POST":
         response = api_update_device.__wrapped__(id)
@@ -114,7 +114,7 @@ def update_device(id: int):
 
 
 @manage.route("/manage/test/<int:id>/update", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def update_test(id: int):
     if request.method == "POST":
         response = api_update_test.__wrapped__(id)
@@ -128,7 +128,7 @@ def update_test(id: int):
 
 
 @manage.route("/manage/task/<int:id>/update", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def update_task(id: int):
     if request.method == "POST":
         response = api_update_task.__wrapped__(id)

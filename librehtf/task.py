@@ -54,7 +54,7 @@ def read_task(id: int):
     
     row = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     if not row:
-        return "Task does not exist", 404
+        return "Task does not exist.", 404
     return dict(row)
 
 

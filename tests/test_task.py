@@ -57,9 +57,9 @@ class TestTestCase(TestCase):
             ("name2", "command2", 1, "", 1, b"Operation ID is required."),
             ("name2", "command2", 1, 1, "", b"Datatype ID is required."),
             ("name1", "command1", 1, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name1", "command1", 9, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name1", "command1", 1, 9, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name1", "command1", 1, 1, 9, b"Task already exists or test, operation or datatype ID invalid."),
+            ("name2", "command2", 9, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
+            ("name2", "command2", 1, 9, 1, b"Task already exists or test, operation or datatype ID invalid."),
+            ("name2", "command2", 1, 1, 9, b"Task already exists or test, operation or datatype ID invalid."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):
@@ -120,9 +120,9 @@ class TestTestCase(TestCase):
             ("name2", "command2", 1, "", 1, b"Operation ID is required."),
             ("name2", "command2", 1, 1, "", b"Datatype ID is required."),
             ("name1", "command1", 1, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name1", "command1", 9, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name1", "command1", 1, 9, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name1", "command1", 1, 1, 9, b"Task already exists or test, operation or datatype ID invalid."),
+            ("name2", "command2", 9, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
+            ("name2", "command2", 1, 9, 1, b"Task already exists or test, operation or datatype ID invalid."),
+            ("name2", "command2", 1, 1, 9, b"Task already exists or test, operation or datatype ID invalid."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):

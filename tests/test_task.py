@@ -54,12 +54,12 @@ class TestTestCase(TestCase):
             ("", "command2", 1, b"Name is required."),
             ("name2", "", 1, 1, 1, b"Command is required."),
             ("name2", "command2", "", 1, 1, b"Test ID is required."),
-            ("name2", "command2", 1, "", 1, b"Operation ID is required."),
+            ("name2", "command2", 1, "", 1, b"Operator ID is required."),
             ("name2", "command2", 1, 1, "", b"Datatype ID is required."),
-            ("name1", "command1", 1, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name2", "command2", 9, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name2", "command2", 1, 9, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name2", "command2", 1, 1, 9, b"Task already exists or test, operation or datatype ID invalid."),
+            ("name1", "command1", 1, 1, 1, b"Task already exists or test, operator or datatype ID invalid."),
+            ("name2", "command2", 9, 1, 1, b"Task already exists or test, operator or datatype ID invalid."),
+            ("name2", "command2", 1, 9, 1, b"Task already exists or test, operator or datatype ID invalid."),
+            ("name2", "command2", 1, 1, 9, b"Task already exists or test, operator or datatype ID invalid."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):
@@ -117,12 +117,12 @@ class TestTestCase(TestCase):
             ("", "command2", 1, b"Name is required."),
             ("name2", "", 1, 1, 1, b"Command is required."),
             ("name2", "command2", "", 1, 1, b"Test ID is required."),
-            ("name2", "command2", 1, "", 1, b"Operation ID is required."),
+            ("name2", "command2", 1, "", 1, b"Operator ID is required."),
             ("name2", "command2", 1, 1, "", b"Datatype ID is required."),
-            ("name1", "command1", 1, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name2", "command2", 9, 1, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name2", "command2", 1, 9, 1, b"Task already exists or test, operation or datatype ID invalid."),
-            ("name2", "command2", 1, 1, 9, b"Task already exists or test, operation or datatype ID invalid."),
+            ("name1", "command1", 1, 1, 1, b"Task already exists or test, operator or datatype ID invalid."),
+            ("name2", "command2", 9, 1, 1, b"Task already exists or test, operator or datatype ID invalid."),
+            ("name2", "command2", 1, 9, 1, b"Task already exists or test, operator or datatype ID invalid."),
+            ("name2", "command2", 1, 1, 9, b"Task already exists or test, operator or datatype ID invalid."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):

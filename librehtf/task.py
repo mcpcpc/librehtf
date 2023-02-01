@@ -42,7 +42,7 @@ def create_task():
         )
         db.commit()
     except db.IntegrityError:
-        return "Task already exists or test, operation or datatype ID invalid.", 400
+        return "Task already exists or test, operator or datatype ID invalid.", 400
     else:
         return "Task successfully created.", 201
 
@@ -91,7 +91,7 @@ def update_task(id: int):
         )
         db.commit()
     except db.IntegrityError:
-        return "Task already exists or test, operation or datatype ID invalid.", 400
+        return "Task already exists or test, operator or datatype ID invalid.", 400
     else:
         return "Task successfully updated.", 201
 

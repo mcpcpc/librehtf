@@ -75,13 +75,13 @@ def results(test_id: int):
         if row["operator_slug"] != "none":
             datatype = __builtins__[row["datatype_slug"]]
             operator = getattr(datatype, row["operator_slug"])
-            reference = row["task_reference"] 
+            reference = row["task_reference"]
             value = measured["measured"]
             if operator(datatype(value), datatype(reference)):
                 result["observation"] = "PASS"
             else:
                 result["observation"] = "FAIL"
-        else: 
+        else:
             result["observation"] = "INFO"
         results.append(result)
     if "raw" in request.args:

@@ -14,7 +14,7 @@ task = Blueprint("task", __name__, url_prefix="/api")
 @token_required
 def create_task():
     """Create task."""
-    
+
     if not request.form.get("name"):
         return "Name is required.", 400
     elif not request.form.get("command"):
@@ -51,7 +51,7 @@ def create_task():
 @token_required
 def read_task(id: int):
     """Read task."""
-    
+
     row = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     if not row:
         return "Task does not exist.", 404
@@ -62,7 +62,7 @@ def read_task(id: int):
 @token_required
 def update_task(id: int):
     """Update task."""
-    
+
     if not request.form.get("name"):
         return "Name is required.", 400
     elif not request.form.get("command"):
@@ -100,7 +100,7 @@ def update_task(id: int):
 @token_required
 def delete_task(id: int):
     """Delete task."""
-    
+
     db = get_db()
     db.execute("DELETE FROM task WHERE id = ?", (id,))
     db.commit()

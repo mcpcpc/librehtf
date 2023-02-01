@@ -37,7 +37,13 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.post(
             f"/api/task?token={data.json['access_token']}",
-            data={"name": "name3", "command": "command3", "test_id": 1, "operator_id": 1, "datatype_id": 1}
+            data={
+                "name": "name3",
+                "command": "command3",
+                "test_id": 1,
+                "operator_id": 1,
+                "datatype_id": 1,
+            },
         )
         self.assertEqual(response.status_code, 201)
 
@@ -52,9 +58,30 @@ class TestTestCase(TestCase):
             ("name2", "command2", "", 1, 1, b"Test ID is required."),
             ("name2", "command2", 1, "", 1, b"Operator ID is required."),
             ("name2", "command2", 1, 1, "", b"Datatype ID is required."),
-            ("name2", "command2", 9, 1, 1, b"Task already exists or test, operator or datatype ID invalid."),
-            ("name2", "command2", 1, 9, 1, b"Task already exists or test, operator or datatype ID invalid."),
-            ("name2", "command2", 1, 1, 9, b"Task already exists or test, operator or datatype ID invalid."),
+            (
+                "name2",
+                "command2",
+                9,
+                1,
+                1,
+                b"Task already exists or test, operator or datatype ID invalid.",
+            ),
+            (
+                "name2",
+                "command2",
+                1,
+                9,
+                1,
+                b"Task already exists or test, operator or datatype ID invalid.",
+            ),
+            (
+                "name2",
+                "command2",
+                1,
+                1,
+                9,
+                b"Task already exists or test, operator or datatype ID invalid.",
+            ),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):
@@ -62,12 +89,12 @@ class TestTestCase(TestCase):
                 response = self.client.post(
                     f"/api/task?token={data.json['access_token']}",
                     data={
-                      "name": name,
-                      "command": command,
-                      "test_id": test_id,
-                      "operator_id": operator_id,
-                      "datatype_id": datatype_id
-                    }
+                        "name": name,
+                        "command": command,
+                        "test_id": test_id,
+                        "operator_id": operator_id,
+                        "datatype_id": datatype_id,
+                    },
                 )
                 self.assertIn(message, response.data)
 
@@ -78,7 +105,6 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.get(f"/api/task/1?token={data.json['access_token']}")
         self.assertEqual(response.status_code, 200)
-
 
     def test_read_task_errors(self):
         db = connect(self.db)
@@ -95,7 +121,13 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.put(
             f"/api/task/1?token={data.json['access_token']}",
-            data={"name": "name1_", "command": "command1_", "test_id": 1, "operator_id": 1, "datatype_id": 1}
+            data={
+                "name": "name1_",
+                "command": "command1_",
+                "test_id": 1,
+                "operator_id": 1,
+                "datatype_id": 1,
+            },
         )
         self.assertEqual(response.status_code, 201)
 
@@ -110,9 +142,30 @@ class TestTestCase(TestCase):
             ("name2", "command2", "", 1, 1, b"Test ID is required."),
             ("name2", "command2", 1, "", 1, b"Operator ID is required."),
             ("name2", "command2", 1, 1, "", b"Datatype ID is required."),
-            ("name2", "command2", 9, 1, 1, b"Task already exists or test, operator or datatype ID invalid."),
-            ("name2", "command2", 1, 9, 1, b"Task already exists or test, operator or datatype ID invalid."),
-            ("name2", "command2", 1, 1, 9, b"Task already exists or test, operator or datatype ID invalid."),
+            (
+                "name2",
+                "command2",
+                9,
+                1,
+                1,
+                b"Task already exists or test, operator or datatype ID invalid.",
+            ),
+            (
+                "name2",
+                "command2",
+                1,
+                9,
+                1,
+                b"Task already exists or test, operator or datatype ID invalid.",
+            ),
+            (
+                "name2",
+                "command2",
+                1,
+                1,
+                9,
+                b"Task already exists or test, operator or datatype ID invalid.",
+            ),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):
@@ -120,12 +173,12 @@ class TestTestCase(TestCase):
                 response = self.client.put(
                     f"/api/task/2?token={data.json['access_token']}",
                     data={
-                      "name": name,
-                      "command": command,
-                      "test_id": test_id,
-                      "operator_id": operator_id,
-                      "datatype_id": datatype_id
-                    }
+                        "name": name,
+                        "command": command,
+                        "test_id": test_id,
+                        "operator_id": operator_id,
+                        "datatype_id": datatype_id,
+                    },
                 )
                 self.assertIn(message, response.data)
 
@@ -134,5 +187,7 @@ class TestTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        response = self.client.get(f"/api/task/1/delete?token={data.json['access_token']}")
+        response = self.client.get(
+            f"/api/task/1/delete?token={data.json['access_token']}"
+        )
         self.assertEqual(response.status_code, 200)

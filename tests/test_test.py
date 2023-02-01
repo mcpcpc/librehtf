@@ -37,7 +37,7 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.post(
             f"/api/test?token={data.json['access_token']}",
-            data={"name": "name3", "description": "description3", "device_id": 1}
+            data={"name": "name3", "description": "description3", "device_id": 1},
         )
         self.assertEqual(response.status_code, 201)
 
@@ -57,7 +57,11 @@ class TestTestCase(TestCase):
                 name, description, device_id, message = parameter
                 response = self.client.post(
                     f"/api/test?token={data.json['access_token']}",
-                    data={"name": name, "description": description, "device_id": device_id}
+                    data={
+                        "name": name,
+                        "description": description,
+                        "device_id": device_id,
+                    },
                 )
                 self.assertIn(message, response.data)
 
@@ -68,7 +72,6 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.get(f"/api/test/1?token={data.json['access_token']}")
         self.assertEqual(response.status_code, 200)
-
 
     def test_read_test_errors(self):
         db = connect(self.db)
@@ -85,7 +88,7 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.put(
             f"/api/test/1?token={data.json['access_token']}",
-            data={"name": "name1_", "description": "description1_", "device_id": 1}
+            data={"name": "name1_", "description": "description1_", "device_id": 1},
         )
         self.assertEqual(response.status_code, 201)
 
@@ -105,7 +108,11 @@ class TestTestCase(TestCase):
                 name, description, device_id, message = parameter
                 response = self.client.put(
                     f"/api/test/2?token={data.json['access_token']}",
-                    data={"name": name, "description": description, "device_id": device_id}
+                    data={
+                        "name": name,
+                        "description": description,
+                        "device_id": device_id,
+                    },
                 )
                 self.assertIn(message, response.data)
 
@@ -114,5 +121,7 @@ class TestTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        response = self.client.get(f"/api/test/1/delete?token={data.json['access_token']}")
+        response = self.client.get(
+            f"/api/test/1/delete?token={data.json['access_token']}"
+        )
         self.assertEqual(response.status_code, 200)

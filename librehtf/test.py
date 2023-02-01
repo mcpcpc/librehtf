@@ -14,7 +14,7 @@ test = Blueprint("test", __name__, url_prefix="/api")
 @token_required
 def create_test():
     """Create test."""
-    
+
     if not request.form.get("name"):
         return "Name is required.", 400
     elif not request.form.get("description"):
@@ -43,7 +43,7 @@ def create_test():
 @token_required
 def read_test(id: int):
     """Read test."""
-    
+
     row = get_db().execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
     if not row:
         return "Test does not exist.", 404
@@ -54,7 +54,7 @@ def read_test(id: int):
 @token_required
 def update_test(id: int):
     """Update test."""
-    
+
     if not request.form["name"]:
         return "Name is required.", 400
     elif not request.form.get("description"):
@@ -84,7 +84,7 @@ def update_test(id: int):
 @token_required
 def delete_test(id: int):
     """Delete test."""
-    
+
     db = get_db()
     db.execute("DELETE FROM test WHERE id = ?", (id,))
     db.commit()

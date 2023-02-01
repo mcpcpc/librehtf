@@ -14,13 +14,13 @@
                                 <small>{{ (tests|first)['device_description'] }}</small>
                         </th>
                 </tr>
-                {% for test in tests %}
-                <tr>
-                        <td>{{ test.test_name }}</td>
-                        <td style="text-align: center;"><a href="{{ url_for('evaluate.results', test_id=test['test_id']) }}">run</a></td>
-                </tr>
-                {% endfor %}
-        </table>
+		{% for test in tests %}
+		<tr>
+			<td>{{ test.test_name }}</td>
+			<td style="text-align: center;"><a href="{{ url_for('evaluate.results', test_id=test['test_id']) }}">run</a></td>
+		</tr>
+		{% endfor %}
+	</table>
 </section>
 {% endfor %}
 {% endblock %}

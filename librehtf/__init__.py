@@ -18,7 +18,7 @@ from librehtf.task import task
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
-    
+
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY="dev",
@@ -39,14 +39,14 @@ def create_app(test_config=None):
     app.register_blueprint(manage)
     app.register_blueprint(test)
     app.register_blueprint(task)
-    
+
     @app.route("/")
     def index():
         return render_template("index.html")
-    
+
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template("404.html")
-    
+
     app.add_url_rule("/", endpoint="index")
     return app

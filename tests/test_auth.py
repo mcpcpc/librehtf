@@ -35,7 +35,12 @@ class AuthTestCase(TestCase):
     def test_login_protected_endpoints(self):
         db = connect(self.db)
         db.executescript(self._preload)
-        parameters = ("/auth/register", "/auth/2/update", "/auth/2/delete", "/auth/token")
+        parameters = (
+            "/auth/register",
+            "/auth/2/update",
+            "/auth/2/delete",
+            "/auth/token",
+        )
         for parameter in parameters:
             with self.subTest(parameter=parameter):
                 response = self.client.get(parameter)
@@ -91,7 +96,9 @@ class AuthTestCase(TestCase):
         db = connect(self.db)
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        response = self.client.post("/auth/2/update", data={"role_id": 3, "password": "pass1_"})
+        response = self.client.post(
+            "/auth/2/update", data={"role_id": 3, "password": "pass1_"}
+        )
         self.assertEqual(response.headers["location"], "/auth/logout")
 
     def test_update_flash(self):

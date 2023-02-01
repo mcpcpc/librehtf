@@ -14,7 +14,7 @@ device = Blueprint("device", __name__, url_prefix="/api")
 @token_required
 def create_device():
     """Create task."""
-    
+
     if not request.form.get("name"):
         return "Name is required.", 400
     elif not request.form.get("description"):
@@ -39,7 +39,7 @@ def create_device():
 @token_required
 def read_device(id: int):
     """Read task."""
-    
+
     row = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
     if not row:
         return "Device does not exist.", 404
@@ -50,7 +50,7 @@ def read_device(id: int):
 @token_required
 def update_device(id: int):
     """Update task."""
-    
+
     if not request.form.get("name"):
         return "Name is required.", 400
     elif not request.form.get("description"):
@@ -59,11 +59,7 @@ def update_device(id: int):
         db = get_db()
         db.execute(
             "UPDATE device SET name = ?, description = ? WHERE id = ?",
-            (
-                request.form.get("name"),
-                request.form.get("description"),
-                id
-            ),
+            (request.form.get("name"), request.form.get("description"), id),
         )
         db.commit()
     except db.IntegrityError:
@@ -76,7 +72,7 @@ def update_device(id: int):
 @token_required
 def delete_device(id: int):
     """Delete task."""
-    
+
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")
     db.execute("DELETE FROM device WHERE id = ?", (id,))

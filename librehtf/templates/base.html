@@ -11,25 +11,25 @@
         <body>
                 <header>
                         <nav>
-                                <a class="{%if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Getting Started</a>
-                                <a class="{%if request.endpoint == 'evaluate.index' %}active{% endif %}" href="{{ url_for('evaluate.index') }}">Evaluate</a>
-                                <a class="{%if request.endpoint == 'manage.index' %}active{% endif %}" href="{{ url_for('manage.index') }}">Manage</a>
-                        </nav>
-                        {% if session['user_id'] %}
-                        <a class="button" href="{{ url_for('auth.logout') }}">Log Out</a>
-                        {% else %}
-                        <a class="button" href="{{ url_for('auth.login') }}">Log In</a>
-                        {% endif %}
-                </header>
-                <main>
-                        {% block main %}{% endblock %}
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                        {% for category, message in messages %}
-                        <div class="flash {{ category }}">{{ message }}</div>
-                        {% endfor %}
-                        {% endif %}
-                        {% endwith %}
-                </main>
-        </body>
+				<a class="{%if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Getting Started</a>
+				<a class="{%if request.endpoint == 'evaluate.index' %}active{% endif %}" href="{{ url_for('evaluate.index') }}">Evaluate</a>
+				<a class="{%if request.endpoint == 'manage.index' %}active{% endif %}" href="{{ url_for('manage.index') }}">Manage</a>
+			</nav>
+			{% if session['user_id'] %}
+			<a class="button" href="{{ url_for('auth.logout') }}">Log Out</a>
+			{% else %}
+			<a class="button" href="{{ url_for('auth.login') }}">Log In</a>
+			{% endif %}
+		</header>
+		<main>
+			{% block main %}{% endblock %}
+			{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+			{% for category, message in messages %}
+			<div class="flash {{ category }}">{{ message }}</div>
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
+		</main>
+	</body>
 </html>

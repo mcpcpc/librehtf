@@ -48,7 +48,7 @@ def token_required(view):
             id = decode(
                 request.args["token"],
                 current_app.config["SECRET_KEY"],
-                algorithms=["HS256"]
+                algorithms=["HS256"],
             ).get("confirm")
         except Exception as error:
             return f"{error}", 401
@@ -83,9 +83,13 @@ def login():
             error = "Username is required."
         elif not request.form["password"]:
             error = "Password is required."
-        user = get_db().execute(
-            "SELECT * FROM user WHERE username = ?", (request.form["username"],)
-        ).fetchone()
+        user = (
+            get_db()
+            .execute(
+                "SELECT * FROM user WHERE username = ?", (request.form["username"],)
+            )
+            .fetchone()
+        )
         if user is None:
             error = "Incorrect username or password."
         elif not check_password_hash(user["password"], request.form["password"]):
@@ -141,7 +145,9 @@ def update(id: int):
     """Update existing user."""
 
     db = get_db()
-    user = db.execute("SELECT username, role_id FROM user WHERE id = ?", (id,)).fetchone()
+    user = db.execute(
+        "SELECT username, role_id FROM user WHERE id = ?", (id,)
+    ).fetchone()
     roles = db.execute("SELECT * FROM role").fetchall()
     if request.method == "POST":
         error = None
@@ -200,7 +206,7 @@ def token():
             token = encode(
                 {"confirm": session.get("user_id"), "exp": expiration},
                 current_app.config["SECRET_KEY"],
-                algorithm="HS256"
+                algorithm="HS256",
             )
             return {"access_token": token}
         flash(error)

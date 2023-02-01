@@ -37,7 +37,7 @@ class DeviceTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.post(
             f"/api/device?token={data.json['access_token']}",
-            data={"name": "name2", "description": "description2"}
+            data={"name": "name2", "description": "description2"},
         )
         self.assertEqual(response.status_code, 201)
 
@@ -56,7 +56,7 @@ class DeviceTestCase(TestCase):
                 name, description, message = parameter
                 response = self.client.post(
                     f"/api/device?token={data.json['access_token']}",
-                    data={"name": name, "description": description}
+                    data={"name": name, "description": description},
                 )
                 self.assertIn(message, response.data)
 
@@ -83,7 +83,7 @@ class DeviceTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.put(
             f"/api/device/1?token={data.json['access_token']}",
-            data={"name": "name1_", "description": "description1_"}
+            data={"name": "name1_", "description": "description1_"},
         )
         self.assertEqual(response.status_code, 201)
 
@@ -94,7 +94,7 @@ class DeviceTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         self.client.post(
             f"/api/device?token={data.json['access_token']}",
-            data={"name": "name2", "description": "description2"}
+            data={"name": "name2", "description": "description2"},
         )
         parameters = [
             ("", "description2_", b"Name is required."),
@@ -106,7 +106,7 @@ class DeviceTestCase(TestCase):
                 name, description, message = parameter
                 response = self.client.put(
                     f"/api/device/2?token={data.json['access_token']}",
-                    data={"name": name, "description": description}
+                    data={"name": name, "description": description},
                 )
                 self.assertIn(message, response.data)
 
@@ -115,5 +115,7 @@ class DeviceTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        response = self.client.get(f"/api/device/1/delete?token={data.json['access_token']}")
+        response = self.client.get(
+            f"/api/device/1/delete?token={data.json['access_token']}"
+        )
         self.assertEqual(response.status_code, 200)

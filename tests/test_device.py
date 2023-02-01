@@ -43,6 +43,25 @@ class DeviceTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 201)
 
+    def test_create_device_errors(self):
+        db = connect(self.db)
+        db.executescript(self._preload)
+        self.client.post("/auth/login", data={"username": "test", "password": "test"})
+        data = self.client.post("/auth/token", data={"expires_in": 600})
+        parameters = [
+            ("", "description2", b"Name is required."),
+            ("name2", "", b"Description is required."),
+            ("name1", "description1", b"Device already exists."),
+        ]
+        for parameter in parameters:
+            with self.subTest(parameter=parameter):
+                name, description, message = parameter
+                response = self.client.post(
+                    f"/api/device?token={data.json['access_token']}",
+                    data={"name": name, "description": description}
+                )
+                self.assertIn(message, response.data)
+
     def test_read_device(self):
         db = connect(self.db)
         db.executescript(self._preload)

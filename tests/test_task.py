@@ -63,13 +63,13 @@ class TestTestCase(TestCase):
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):
-                name, description, device_id, operation_id, datatype_id, message = parameter
+                name, command, test_id, operation_id, datatype_id, message = parameter
                 response = self.client.post(
                     f"/api/task?token={data.json['access_token']}",
                     data={
                       "name": name,
-                      "description": description,
-                      "device_id": device_id,
+                      "command": command,
+                      "test_id": test_id,
                       "operation_id": operation_id,
                       "datatype_id": datatype_id
                     }
@@ -126,13 +126,13 @@ class TestTestCase(TestCase):
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):
-                name, description, device_id, operation_id, datatype_id, message = parameter
+                name, command, test_id, operation_id, datatype_id, message = parameter
                 response = self.client.put(
                     f"/api/task/2?token={data.json['access_token']}",
                     data={
                       "name": name,
-                      "description": description,
-                      "device_id": device_id,
+                      "command": command,
+                      "test_id": test_id,
                       "operation_id": operation_id,
                       "datatype_id": datatype_id
                     }

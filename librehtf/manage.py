@@ -65,7 +65,7 @@ def delete_task(id: int):
 
 @manage.route("/manage/device/create", methods=("GET", "POST"))
 @login_required
-def create_device(api: str):
+def create_device():
     if request.method == "POST":
         response = api_create_device.__wrapped__()
         if response[1] < 300:
@@ -76,7 +76,7 @@ def create_device(api: str):
 
 @manage.route("/manage/test/create", methods=("GET", "POST"))
 @login_required
-def create_test(api: str):
+def create_test():
     if request.method == "POST":
         response = api_create_test.__wrapped__()
         if response[1] < 300:
@@ -88,7 +88,7 @@ def create_test(api: str):
 
 @manage.route("/manage/task/create", methods=("GET", "POST"))
 @login_required
-def create_task(api: str):
+def create_task():
     if request.method == "POST":
         response = api_create_task.__wrapped__()
         if response[1] < 300:

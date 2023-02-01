@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Getting Started{% endblock %}
+{% block main %}
+<section>
+	<h1>Getting Started</h1>
+</section>
+<section>
+	{% if session['user_id'] %}
+	{% else %}
+	<p>Please <a href="{{ url_for('auth.login') }}">log in</a> in order to access the main test panel. If you do not have an account, please contact a system administrator.</p>
+	{% endif %}
+</section>
+{% endblock %}

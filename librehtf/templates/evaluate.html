@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Evaluate{% endblock %}
+{% block main %}
+<section class="banner-neutral">
+        <h1>Evaluation</h1>
+        <p>Main test evaluation panel.</p>
+</section>
+{% for device_name, tests in rows|groupby('device_name') %}
+<section>
+        <table>
+                <tr>
+                        <th colspan="2">
+                                <h4>{{ device_name }}</h4>
+                                <small>{{ (tests|first)['device_description'] }}</small>
+                        </th>
+                </tr>
+		{% for test in tests %}
+		<tr>
+			<td>{{ test.test_name }}</td>
+			<td style="text-align: center;"><a href="{{ url_for('evaluate.results', test_id=test['test_id']) }}">run</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+{% endfor %}
+{% endblock %}

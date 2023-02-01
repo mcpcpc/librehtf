@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block main %}
+<section>
+	<form method="post">
+		<h3>Register New User</h3>
+		<fieldset>
+			<div class="field-group">
+				<label for="username">User Name</label>
+				<input class="text" name="username" type="text" required>
+			</div>
+			<div class="field-group">
+				<label for="password">Password</label>
+				<input class="text" name="password" type="password" required>
+			</div>
+		</fieldset>
+		<div class="buttons-container">
+			<input class="button" type="submit" value="Register">
+			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
+		</div>
+	</form>
+</section>
+{% endblock %}

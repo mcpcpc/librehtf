@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %}Manage{% endblock %}
+{% block main %}
+<section class="banner-neutral">
+	<h1>Management</h1>
+	<p>Main administrative panel for creating, modifying devices, tests or tasks.</p>
+</section>
+<section>
+	<h2>Users</h2>
+	<table>
+		<tr>
+			<th>
+				<a href="{{ url_for('auth.register') }}">add</a>
+			</th>
+		</tr>
+		{% for user in users %}
+		<tr>
+			<td>
+				<p>{{ user.username }}</p>
+				<small>
+					<a href="{{ url_for('auth.update', id=user['id']) }}">update</a> | 
+					<a href="{{ url_for('auth.delete', id=user['id']) }}">delete</a>
+				</small>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+<section>
+	<h2>Devices</h2>
+	<table>
+		<tr>
+			<th>
+				<a href="{{ url_for('manage.create', api='device') }}">add</a>
+			</th>
+		</tr>
+		{% for device in devices %}
+		<tr>
+			<td>
+				<p>{{ device.name }}<br><small>{{ device.description }}</small></p>
+				<small>
+					<a href="{{ url_for('manage.update', api='device', id=device['id']) }}">update</a> | 
+					<a href="{{ url_for('manage.delete', api='device', id=device['id']) }}">delete</a>
+				</small>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+<section>
+	<h2>Tests</h2>
+	<table>
+		<tr>
+			<th>
+				<a href="{{ url_for('manage.create', api='test') }}">add</a>
+			</th>
+		</tr>
+		{% for test in tests %}
+		<tr>
+			<td>
+				<p>{{ test.name }}<br><small>{{ test.description }}</small></p>
+				<small>
+					<a href="{{ url_for('manage.update', api='test', id=test['id']) }}">update</a> | 
+					<a href="{{ url_for('manage.delete', api='test', id=test['id']) }}">delete</a>
+				</small>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+<section>
+	<h2>Tasks</h2>
+	<table>
+		<tr>
+			<th>
+				<a href="{{ url_for('manage.create', api='task') }}">add</a>
+			</th>
+		</tr>
+		{% for task in tasks %}
+		<tr>
+			<td>
+				<p>
+				{{ task.name }}
+				<br>
+				<b>
+					<small class="subtle">
+						Referenced Test ID: {{ task.test_id }}
+						{% if task.reference %}, Limit: {{ task.reference }}{% endif %}
+						{% if task.unit %}, Unit: {{ task.unit }}{% endif %}
+					</small>
+				</b>
+				</p>
+				<small>
+					<a href="{{ url_for('manage.update', api='task', id=task['id']) }}">update</a> | 
+					<a href="{{ url_for('manage.delete', api='task', id=task['id']) }}">delete</a>
+				</small>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+{% endblock %}

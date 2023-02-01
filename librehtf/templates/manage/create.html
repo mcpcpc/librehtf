@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}Create{% endblock %}
+{% block main %}
+<section>
+	{% if api == 'device' %}
+	<form method="post">
+		<h3>Create New Device</h3>
+		<fieldset>
+			<div class="field-group">
+				<label for="name">Name</label>
+				<input class="text long-field" name="name" type="text" required>
+			</div>
+			<div class="field-group">
+				<label for="description">Description</label>
+				<textarea class="text long-field" name="description" rows=5 required></textarea>
+			</div>
+		</fieldset>
+		<div class="buttons-container">
+			<input class="button submit" type="submit" value="Submit">
+			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
+		</div>
+	</form>
+	{% elif api == 'test' %}
+	<form method="post">
+		<h3>Create New Test</h3>
+		<fieldset>
+			<div class="field-group">
+				<label for="device_id">Device</label>
+				<select class="text long-field" name="device_id" required>
+					{% for device in devices %}
+					<option value={{ device.id }}>{{ device.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="field-group">
+				<label for="name">Name</label>
+				<input class="text long-field" name="name" type="text" required>
+				<div class="description">A short description name of the test class.</div>
+			</div>
+			<div class="field-group">
+				<label for="description">Description</label>
+				<textarea class="text long-field" name="description" rows=5 required></textarea>
+				<div class="description">A longer-format description of the test class.</div>
+			</div>
+		</fieldset>
+		<div class="buttons-container">
+			<input class="button submit" type="submit" value="Submit">
+			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
+		</div>
+	</form>
+	{% elif api == 'task' %}
+	<form method="post">
+		<h3>Create New Task</h3>
+		<fieldset>
+			<div class="field-group">
+				<label for="test_id">Test</label>
+				<select class="text long-field" name="test_id" required>
+					{% for test in tests %}
+					<option value={{ test.id }}>{{ test.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="field-group">
+				<label for="name">Name</label>
+				<input class="text long-field" name="name" type="text" required>
+			</div>
+			<div class="field-group">
+				<label for="command">Command</label>
+				<textarea class="text long-field" name="command" style="font-family: monospace" rows=5 required></textarea>
+				<div class="description">Must return a value for `measured`.</div>
+			</div>
+			<div class="field-group">
+				<label for="reference">Reference</label>
+				<input class="text long-field" name="reference" type="text">
+				<div class="description">Typically a limit value.</div>
+			</div>
+			<div class="field-group">
+				<label for="unit">Unit</label>
+				<input class="text short-field" name="unit" type="text">
+			</div>
+			<div class="field-group">
+				<label for="operator_is">Operator</label>
+				<select class="text short-field" name="operator_id" required>
+					{% for operator in operators %}
+					<option value={{ operator.id }}>{{ operator.title }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="field-group">
+				<label for="datatype_id">Data Type</label>
+				<select class="text short-field" name="datatype_id" required>
+					{% for datatype in datatypes %}
+					<option value={{ datatype.id }}>{{ datatype.title }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</fieldset>
+		<div class="buttons-container">
+			<input class="button submit" type="submit" value="Submit">
+			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
+		</div>
+	</form>
+	{% endif %}
+</section>
+{% endblock %}

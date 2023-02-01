@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Page Not Found{% endblock %}
+{% block main %}
+<section>
+	<h1>404</h1>
+	<p>Oops! Looks like you ended up in the wrong place.</p>
+	<p><a href="{{ url_for('index') }}">Go back to home -></a></p>
+</section>
+{% endblock %}

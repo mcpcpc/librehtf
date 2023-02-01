@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Results{% endblock %}
+{% block main %}
+<section>
+	<h1>Evaluation Results</h1>
+</section>
+<section>
+	<table>
+		<tr>
+			<th colspan="2">
+				<h4>{{ (results|first)['test_name'] }}</h4>
+				<small>{{ (results|first)['test_description'] }}</small>
+			</th>
+		</tr>
+		{% for res in results %}
+		<tr>
+			<td>{{ res.task_name }}</td>
+			<td class="{% if res.observation == 'PASS' %}success{% elif res.observation == 'FAIL' %}error{% else %}information{% endif %}" style="text-align: center; font-weight: 600;">{{ res.observation }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</section>
+{% endblock %}

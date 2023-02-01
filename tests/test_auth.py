@@ -35,7 +35,7 @@ class AuthTestCase(TestCase):
     def test_login_protected_endpoints(self):
         for endpoint in ("/auth/register", "/auth/update", "auth/delete", "auth/token"):
             with self.subTest(parameter=endpoint):
-                response = client.get(endpoint)
+                response = self.client.get(endpoint)
                 self.assertEqual(response.headers["Location"], "/auth/login")
 
     def test_register_get(self):

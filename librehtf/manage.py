@@ -10,15 +10,15 @@ from flask import url_for
 
 from librehtf.auth import login_required
 from librehtf.db import get_db
-from librehtf.device import create_device
-from librehtf.device import update_device
-from librehtf.device import delete_device
-from librehtf.test import create_test
-from librehtf.test import update_test
-from librehtf.test import delete_test
-from librehtf.task import create_task
-from librehtf.task import update_task
-from librehtf.task import delete_task
+from librehtf.device import api_create_device
+from librehtf.device import api_update_device
+from librehtf.device import api_delete_device
+from librehtf.test import api_create_test
+from librehtf.test import api_update_test
+from librehtf.test import api_delete_test
+from librehtf.task import api_create_task
+from librehtf.task import api_update_task
+from librehtf.task import api_delete_task
 
 manage = Blueprint("manage", __name__)
 
@@ -36,51 +36,69 @@ def index():
     )
 
 
-@manage.route("/manage/<api>/<int:id>/delete", methods=("GET",))
+@manage.route("/manage/device/<int:id>/delete", methods=("GET",))
 @login_required
-def delete(api: str, id: int):
-    if api == "device":
-        resp = delete_device.__wrapped__(id)
-    elif api == "test":
-        resp = delete_test.__wrapped__(id)
-    elif api == "task":
-        resp = delete_task.__wrapped__(id)
-    else:
-        flash("Invalid endpoint.", "error")
+def delete_device(id: int):
+    response = api_delete_device.__wrapped__(id)
+    if response[1] >= 300:
+        flash(response[0], "error")
     return redirect(url_for(".index"))
 
 
-@manage.route("/manage/<api>/create", methods=("GET", "POST"))
+@manage.route("/manage/test/<int:id>/delete", methods=("GET",))
 @login_required
-def create(api: str):
-    error = None
+def delete_test(id: int):
+    response = api_delete_test.__wrapped__(id)
+    if response[1] >= 300:
+        flash(response[0], "error")
+    return redirect(url_for(".index"))
+
+
+@manage.route("/manage/task/<int:id>/delete", methods=("GET",))
+@login_required
+def delete_task(id: int):
+    response = api_delete_task.__wrapped__(id)
+    if response[1] >= 300:
+        flash(response[0], "error")
+    return redirect(url_for(".index"))
+
+
+@manage.route("/manage/device/create", methods=("GET", "POST"))
+@login_required
+def create_device(api: str):
+    if request.method == "POST":
+        response = api_create_device.__wrapped__()
+        if response[1] < 300
+            return redirect(url_for(".index"))
+        flash(response[0])
+    return render_template("manage/create_device.html")
+
+
+@manage.route("/manage/test/create", methods=("GET", "POST"))
+@login_required
+def create_test(api: str):
+    if request.method == "POST":
+        response = api_create_test.__wrapped__()
+        if response[1] < 300
+            return redirect(url_for(".index"))
+        flash(response[0])
+    devices = get_db().execute("SELECT * FROM device").fetchall()
+    return render_template("manage/create_test.html",  devices=devices)
+
+
+@manage.route("/manage/task/create", methods=("GET", "POST"))
+@login_required
+def create_task(api: str):
+    if request.method == "POST":
+        response = api_create_task.__wrapped__()
+        if response[1] < 300
+            return redirect(url_for(".index"))
+        flash(response[0])
     db = get_db()
     tests = db.execute("SELECT * FROM test").fetchall()
-    devices = db.execute("SELECT * FROM device").fetchall()
     operators = db.execute("SELECT * FROM operator").fetchall()
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
-    if request.method == "POST":
-        if api == "device":
-            resp = create_device.__wrapped__()
-        elif api == "test":
-            resp = create_test.__wrapped__()
-        elif api == "task":
-            resp = create_task.__wrapped__()
-        else:
-            error = "Invalid endpoint."
-        if resp[1] >= 300:
-            error = resp[0]
-        if error is None:
-            return redirect(url_for(".index"))
-        flash(error, "error")
-    return render_template(
-        "manage/create.html",
-        api=api,
-        tests=tests,
-        devices=devices,
-        operators=operators,
-        datatypes=datatypes,
-    )
+    return render_template("manage/create_task.html", tests=tests, operators=operators, datatypes=datatypes)
 
 
 @manage.route("/manage/<api>/<int:id>/update", methods=("GET", "POST"))
@@ -100,11 +118,11 @@ def update(api: str, id: int):
         row = db.execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     if request.method == "POST":
         if api == "device":
-            resp = update_device.__wrapped__(id)
+            resp = api_update_device.__wrapped__(id)
         elif api == "test":
-            resp = update_test.__wrapped__(id)
+            resp = api_update_test.__wrapped__(id)
         elif api == "task":
-            resp = update_task.__wrapped__(id)
+            resp = api_update_task.__wrapped__(id)
         else:
             error = "Invalid endpoint."
         if resp[1] >= 300:

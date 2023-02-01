@@ -14,7 +14,7 @@ pip install -U librehtf
 
 ### Repository
 
-When using git, clone the repository and change your PWD.
+When using git, clone the repository and change your present working directory.
 
 ```shell
 git clone http://github.com/mcpcpc/librehtf

@@ -124,7 +124,7 @@ def update_test(id: int):
     db = get_db()
     row = db.execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
     devices = db.execute("SELECT * FROM device").fetchall()
-    return render_template("manage/update_device.html", row=row, devices=devices)
+    return render_template("manage/update_test.html", row=row, devices=devices)
 
 
 @manage.route("/manage/task/<int:id>/update", methods=("GET", "POST"))

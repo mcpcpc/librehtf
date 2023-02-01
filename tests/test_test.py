@@ -94,15 +94,15 @@ class TestTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        response = self.client.put(
-            f"/api/test/1?token={data.json['access_token']}",
+        response = self.client.post(
+            f"/api/test?token={data.json['access_token']}",
             data={"name": "name2_", "description": "description2_", "device_id": 1}
         )
         parameters = [
-            ("", "description2_", b"Name is required."),
-            ("name2_", "", b"Description is required."),
+            ("", "description2_", 1, b"Name is required."),
+            ("name2_", "", 1, b"Description is required."),
             ("name2_", "description2_", "", b"Device ID is required."),
-            ("name2", "description2", b"Test already exists."),
+            ("name1", "description1", 1, b"Test already exists."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):

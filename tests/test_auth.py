@@ -188,3 +188,7 @@ class AuthTestCase(TestCase):
                     follow_redirects=True,
                 )
                 self.assertIn(message, response.data)
+
+                
+if __name__ == "__main__":
+    main()

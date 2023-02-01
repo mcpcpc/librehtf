@@ -7,13 +7,13 @@ from os import makedirs
 from flask import Flask
 from flask import render_template
 
+from librehtf.api.device import device
+from librehtf.api.test import test
+from librehtf.api.task import task
 from librehtf.auth import auth
 from librehtf.db import init_app
-from librehtf.device import device
 from librehtf.evaluate import evaluate
 from librehtf.manage import manage
-from librehtf.test import test
-from librehtf.task import task
 
 
 def create_app(test_config=None):

@@ -77,4 +77,4 @@ def delete_device(id: int):
     db.execute("PRAGMA foreign_keys = ON")
     db.execute("DELETE FROM device WHERE id = ?", (id,))
     db.commit()
-    return "Device successfully deleted."
+    return "Device successfully deleted.", 200

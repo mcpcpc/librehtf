@@ -8,17 +8,17 @@ from flask import redirect
 from flask import request
 from flask import url_for
 
+from librehtf.api.device import create_device as api_create_device
+from librehtf.api.device import update_device as api_update_device
+from librehtf.api.device import delete_device as api_delete_device
+from librehtf.api.test import create_test as api_create_test
+from librehtf.api.test import update_test as api_update_test
+from librehtf.api.test import delete_test as api_delete_test
+from librehtf.api.task import create_task as api_create_task
+from librehtf.api.task import update_task as api_update_task
+from librehtf.api.task import delete_task as api_delete_task
 from librehtf.auth import login_required
 from librehtf.db import get_db
-from librehtf.device import create_device as api_create_device
-from librehtf.device import update_device as api_update_device
-from librehtf.device import delete_device as api_delete_device
-from librehtf.test import create_test as api_create_test
-from librehtf.test import update_test as api_update_test
-from librehtf.test import delete_test as api_delete_test
-from librehtf.task import create_task as api_create_task
-from librehtf.task import update_task as api_update_task
-from librehtf.task import delete_task as api_delete_task
 
 manage = Blueprint("manage", __name__)
 

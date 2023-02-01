@@ -54,7 +54,7 @@ class TestTestCase(TestCase):
             ("", "description2", 1, b"Name is required."),
             ("name2", "", 1, b"Description is required."),
             ("name2", "description2", "", b"Device ID is required."),
-            ("name1", "description1", 1, b"Test already exists."),
+            ("name1", "description1", 1, b"Test already exists or device ID invalid."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):
@@ -106,7 +106,7 @@ class TestTestCase(TestCase):
             ("", "description2_", 1, b"Name is required."),
             ("name2_", "", 1, b"Description is required."),
             ("name2_", "description2_", "", b"Device ID is required."),
-            ("name1", "description1", 1, b"Test already exists."),
+            ("name1", "description1", 1, b"Test already exists or device ID invalid."),
         ]
         for parameter in parameters:
             with self.subTest(parameter=parameter):

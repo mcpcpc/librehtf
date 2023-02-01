@@ -98,7 +98,7 @@ class TestTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        response = self.client.post(
+        self.client.post(
             f"/api/test?token={data.json['access_token']}",
             data={"name": "name2", "description": "description2", "device_id": 1}
         )

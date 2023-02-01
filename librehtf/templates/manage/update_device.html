@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Update Device{% endblock %}
+{% block main %}
+<section>
+	<form method="post">
+		<h3>Update Existing Device</h3>
+		<fieldset>
+			<div class="field-group">
+				<label for="name">Name</label>
+				<input class="text long-field" name="name" type="text" value="{{ row.name }}" required>
+			</div>
+			<div class="field-group">
+				<label for="description">Description</label>
+				<textarea class="text long-field" name="description" rows=5 required>{{ row.description }}</textarea>
+			</div>
+		</fieldset>
+		<div class="buttons-container">
+			<input class="button" type="submit" value="Update">
+			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
+		</div>
+	</form>
+</section>
+{% endblock %}

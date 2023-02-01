@@ -39,7 +39,7 @@
 			<td>
 				<p>{{ device.name }}<br><small>{{ device.description }}</small></p>
 				<small>
-					<a href="{{ url_for('manage.update', api='device', id=device['id']) }}">update</a> | 
+					<a href="{{ url_for('manage.update_device', id=device['id']) }}">update</a> | 
 					<a href="{{ url_for('manage.delete_device', id=device['id']) }}">delete</a>
 				</small>
 			</td>
@@ -60,7 +60,7 @@
 			<td>
 				<p>{{ test.name }}<br><small>{{ test.description }}</small></p>
 				<small>
-					<a href="{{ url_for('manage.update', api='test', id=test['id']) }}">update</a> | 
+					<a href="{{ url_for('manage.update_test', id=test['id']) }}">update</a> | 
 					<a href="{{ url_for('manage.delete_test', id=test['id']) }}">delete</a>
 				</small>
 			</td>
@@ -91,7 +91,7 @@
 				</b>
 				</p>
 				<small>
-					<a href="{{ url_for('manage.update', api='task', id=task['id']) }}">update</a> | 
+					<a href="{{ url_for('manage.update_task', id=task['id']) }}">update</a> | 
 					<a href="{{ url_for('manage.delete_task', id=task['id']) }}">delete</a>
 				</small>
 			</td>

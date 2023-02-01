@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Update Task{% endblock %}
+{% block main %}
+<section>
+	<form method="post">
+		<h3>Update Existing Task</h3>
+		<fieldset>
+			<div class="field-group">
+				<label for="test_id">Test ID</label>
+				<select class="text long-field" name="test_id" required>
+					{% for test in tests %}
+					<option value={{ test.id }} {% if row.test_id == test.id %}selected{% endif %}>{{ test.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="field-group">
+				<label for="name">Name</label>
+				<input class="text long-field" name="name" type="text" value="{{ row.name }}" required>
+			</div>
+			<div class="field-group">
+				<label for="command">Command</label>
+				<textarea class="text long-field" name="command" rows=5 style="font-family: monospace" required>{{ row.command }}</textarea>
+				<div class="description">Must return a value for `measured`.</div>
+			</div>
+			<div class="field-group">
+				<label for="reference">Reference</label>
+				<input class="text short-field" name="reference" type="text" value="{{ row.reference }}">
+				<div class="description">Typically a limit value.</div>
+			</div>
+			<div class="field-group">
+				<label for="unit">Unit</label>
+				<input class="text short-field" name="unit" type="text" value="{{ row.unit }}">
+			</div>
+			<div class="field-group">
+				<label for="operator_is">Operator</label>
+				<select class="text short-field" name="operator_id" required>
+					{% for operator in operators %}
+					<option value={{ operator.id }} {% if row.operator_id == operator.id %}selected{% endif %}>{{ operator.title }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="field-group">
+				<label for="datatype_id">Data Type</label>
+				<select class="short-field" name="datatype_id" required>
+					{% for datatype in datatypes %}
+					<option value={{ datatype.id }} {% if row.datatype_id == datatype.id %}selected{% endif %}>{{ datatype.title }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</fieldset>
+		<div class="buttons-container">
+			<input class="button" type="submit" value="Update">
+			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
+		</div>
+	</form>
+</section>
+{% endblock %}

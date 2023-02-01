@@ -101,41 +101,43 @@ def create_task():
     return render_template("manage/create_task.html", tests=tests, operators=operators, datatypes=datatypes)
 
 
-@manage.route("/manage/<api>/<int:id>/update", methods=("GET", "POST"))
+@manage.route("/manage/device/<int:id>/update", methods=("GET", "POST"))
 @login_required
-def update(api: str, id: int):
-    error = None
+def update_device(id: int):
+    if request.method == "POST":
+        response = api_update_device.__wrapped__(id)
+        if response[1] < 300:
+            return redirect(url_for(".index"))
+        flash(response[0])
+    row = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
+    return render_template("manage/update_device.html", row=row)
+
+
+@manage.route("/manage/test/<int:id>/update", methods=("GET", "POST"))
+@login_required
+def update_test(id: int):
+    if request.method == "POST":
+        response = api_update_test.__wrapped__(id)
+        if response[1] < 300:
+            return redirect(url_for(".index"))
+        flash(response[0])
     db = get_db()
-    tests = db.execute("SELECT * FROM test").fetchall()
+    row = db.execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
     devices = db.execute("SELECT * FROM device").fetchall()
+    return render_template("manage/update_device.html", row=row, devices=devices)
+
+
+@manage.route("/manage/task/<int:id>/update", methods=("GET", "POST"))
+@login_required
+def update_task(id: int):
+    if request.method == "POST":
+        response = api_update_task.__wrapped__(id)
+        if response[1] < 300:
+            return redirect(url_for(".index"))
+        flash(response[0])
+    db = get_db()
+    row = db.execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
+    tests = db.execute("SELECT * FROM test").fetchall()
     operators = db.execute("SELECT * FROM operator").fetchall()
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
-    if api == "device":
-        row = db.execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
-    elif api == "test":
-        row = db.execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
-    elif api == "task":
-        row = db.execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
-    if request.method == "POST":
-        if api == "device":
-            resp = api_update_device.__wrapped__(id)
-        elif api == "test":
-            resp = api_update_test.__wrapped__(id)
-        elif api == "task":
-            resp = api_update_task.__wrapped__(id)
-        else:
-            error = "Invalid endpoint."
-        if resp[1] >= 300:
-            error = resp[0]
-        if error is None:
-            return redirect(url_for(".index"))
-        flash(error, "error")
-    return render_template(
-        "manage/update.html",
-        api=api,
-        row=row,
-        tests=tests,
-        devices=devices,
-        operators=operators,
-        datatypes=datatypes,
-    )
+    return render_template("manage/update_task.html", row=row, tests=tests, operators=operators, datatypes=datatypes)

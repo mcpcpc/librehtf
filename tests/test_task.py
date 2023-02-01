@@ -37,7 +37,7 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.post(
             f"/api/task?token={data.json['access_token']}",
-            data={"name": "name2", "command": "command2", "test_id": 1, "operation_id", 1, "datatype_id": 1}
+            data={"name": "name2", "command": "command2", "test_id": 1, "operation_id": 1, "datatype_id": 1}
         )
         self.assertEqual(response.status_code, 201)
 
@@ -48,7 +48,7 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         self.client.post(
             f"/api/task?token={data.json['access_token']}",
-            data={"name": "name2", "command": "command2", "test_id": 1, "operation_id", 1, "datatype_id": 1}
+            data={"name": "name2", "command": "command2", "test_id": 1, "operation_id": 1, "datatype_id": 1}
         )
         parameters = [
             ("", "command2", 1, b"Name is required."),
@@ -100,7 +100,7 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.put(
             f"/api/task/1?token={data.json['access_token']}",
-            data={"name": "name1_", "command": "command1_", "test_id": 1, "operation_id", 1, "datatype_id": 1}
+            data={"name": "name1_", "command": "command1_", "test_id": 1, "operation_id": 1, "datatype_id": 1}
         )
         self.assertEqual(response.status_code, 201)
 
@@ -111,7 +111,7 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         self.client.post(
             f"/api/task?token={data.json['access_token']}",
-            data={"name": "name2", "command": "command2", "test_id": 1, "operation_id", 1, "datatype_id": 1}
+            data={"name": "name2", "command": "command2", "test_id": 1, "operation_id": 1, "datatype_id": 1}
         )
         parameters = [
             ("", "command2", 1, b"Name is required."),

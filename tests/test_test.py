@@ -61,7 +61,6 @@ class TestTestCase(TestCase):
                 )
                 self.assertIn(message, response.data)
 
-
     def test_read_test(self):
         db = connect(self.db)
         db.executescript(self._preload)
@@ -78,7 +77,6 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.get(f"/api/test/2?token={data.json['access_token']}")
         self.assertIn(b"Test does not exist.", response.data)
-
 
     def test_update_test(self):
         db = connect(self.db)

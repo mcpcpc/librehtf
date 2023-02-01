@@ -62,13 +62,10 @@ def create(api: str):
     if request.method == "POST":
         if api == "device":
             resp = create_device.__wrapped__()
-            print(resp)
         elif api == "test":
             resp = create_test.__wrapped__()
-            print(resp)
         elif api == "task":
             resp = create_task.__wrapped__()
-            print(resp)
         else:
             error = "Invalid endpoint."
         if resp[1] >= 300:

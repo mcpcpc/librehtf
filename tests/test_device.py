@@ -62,7 +62,7 @@ class DeviceTestCase(TestCase):
                 )
                 self.assertIn(message, response.data)
 
-def test_create_device(self):
+    def test_create_device(self):
         db = connect(self.db)
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})

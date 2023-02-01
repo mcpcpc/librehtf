@@ -51,7 +51,7 @@ class TestTestCase(TestCase):
             data={"name": "name2", "command": "command2", "test_id": 1, "operator_id": 1, "datatype_id": 1}
         )
         parameters = [
-            ("", "command2", 1, b"Name is required."),
+            ("", "command2", 1, 1, 1, b"Name is required."),
             ("name2", "", 1, 1, 1, b"Command is required."),
             ("name2", "command2", "", 1, 1, b"Test ID is required."),
             ("name2", "command2", 1, "", 1, b"Operator ID is required."),
@@ -113,7 +113,7 @@ class TestTestCase(TestCase):
             data={"name": "name2", "command": "command2", "test_id": 1, "operator_id": 1, "datatype_id": 1}
         )
         parameters = [
-            ("", "command2", 1, b"Name is required."),
+            ("", "command2", 1, 1, 1, b"Name is required."),
             ("name2", "", 1, 1, 1, b"Command is required."),
             ("name2", "command2", "", 1, 1, b"Test ID is required."),
             ("name2", "command2", 1, "", 1, b"Operator ID is required."),

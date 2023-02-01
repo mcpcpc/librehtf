@@ -125,3 +125,7 @@ class TestTestCase(TestCase):
             f"/api/test/1/delete?token={data.json['access_token']}"
         )
         self.assertEqual(response.status_code, 200)
+
+
+if __name__ == "__main__":
+    main()

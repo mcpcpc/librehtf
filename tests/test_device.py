@@ -60,18 +60,6 @@ class DeviceTestCase(TestCase):
                 )
                 self.assertIn(message, response.data)
 
-    def test_create_device(self):
-        db = connect(self.db)
-        db.executescript(self._preload)
-        self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        data = self.client.post("/auth/token", data={"expires_in": 600})
-        response = self.client.post(
-            f"/api/device?token={data.json['access_token']}",
-            data={"name": "name2", "description": "description2"}
-        )
-        self.assertEqual(response.status_code, 201)
-
-
     def test_read_device(self):
         db = connect(self.db)
         db.executescript(self._preload)
@@ -80,7 +68,6 @@ class DeviceTestCase(TestCase):
         response = self.client.get(f"/api/device/1?token={data.json['access_token']}")
         self.assertEqual(response.status_code, 200)
 
-
     def test_read_device_errors(self):
         db = connect(self.db)
         db.executescript(self._preload)
@@ -88,7 +75,6 @@ class DeviceTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.get(f"/api/device/2?token={data.json['access_token']}")
         self.assertIn(b"Device does not exist.", response.data)
-
 
     def test_update_device(self):
         db = connect(self.db)

@@ -21,7 +21,6 @@ def create_device():
         return "Description is required.", 400
     try:
         db = get_db()
-        db.execute("PRAGMA foreign_keys = ON")
         db.execute(
             "INSERT INTO device (name, description) VALUES (?, ?)",
             (
@@ -58,7 +57,6 @@ def update_device(id: int):
         return "Description is required.", 400
     try:
         db = get_db()
-        db.execute("PRAGMA foreign_keys = ON")
         db.execute(
             "UPDATE device SET name = ?, description = ? WHERE id = ?",
             (

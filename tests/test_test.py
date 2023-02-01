@@ -37,7 +37,7 @@ class TestTestCase(TestCase):
         data = self.client.post("/auth/token", data={"expires_in": 600})
         response = self.client.post(
             f"/api/test?token={data.json['access_token']}",
-            data={"name": "name2", "description": "description2", "device_id": 1}
+            data={"name": "name3", "description": "description3", "device_id": 1}
         )
         self.assertEqual(response.status_code, 201)
 
@@ -46,10 +46,6 @@ class TestTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        self.client.post(
-            f"/api/test?token={data.json['access_token']}",
-            data={"name": "name2", "description": "description2", "device_id": 1}
-        )
         parameters = [
             ("", "description2", 1, b"Name is required."),
             ("name2", "", 1, b"Description is required."),
@@ -98,10 +94,6 @@ class TestTestCase(TestCase):
         db.executescript(self._preload)
         self.client.post("/auth/login", data={"username": "test", "password": "test"})
         data = self.client.post("/auth/token", data={"expires_in": 600})
-        self.client.post(
-            f"/api/test?token={data.json['access_token']}",
-            data={"name": "name2", "description": "description2", "device_id": 1}
-        )
         parameters = [
             ("", "description2_", 1, b"Name is required."),
             ("name2_", "", 1, b"Description is required."),

@@ -94,7 +94,7 @@ INSERT INTO datatype (slug, title) VALUES
 CREATE TABLE device (
         id INTEGER PRIMARY KEY,
         name TEXT UNIQUE NOT NULL,
-        description TEXT NOT NULL
+        description TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE test (

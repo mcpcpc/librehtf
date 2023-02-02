@@ -47,10 +47,6 @@
         border: 0;
 }
 
-main {
-        padding-left: 200px;
-}
-
 input, .cancel, .button, select, textarea, nav a, label {
         /* padding: calc(1rem * 0.5); */
         padding: 0 calc(1rem * 0.5);

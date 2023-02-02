@@ -3,6 +3,7 @@
 
 from flask import Blueprint
 from flask import flash
+from flask import g
 from flask import render_template
 from flask import redirect
 from flask import request
@@ -17,6 +18,9 @@ from librehtf.api.test import delete_test as api_delete_test
 from librehtf.api.task import create_task as api_create_task
 from librehtf.api.task import update_task as api_update_task
 from librehtf.api.task import delete_task as api_delete_task
+from librehtf.api.user import create_user as api_create_user
+from librehtf.api.user import update_user as api_update_user
+from librehtf.api.user import delete_user as api_delete_user
 from librehtf.auth import login_required
 from librehtf.db import get_db
 
@@ -24,7 +28,7 @@ manage = Blueprint("manage", __name__)
 
 
 @manage.route("/manage", methods=("GET",))
-@login_required(permissions=None)
+@login_required(permissions=[1, 2])
 def index():
     db = get_db()
     users = db.execute("SELECT * FROM user").fetchall()
@@ -34,33 +38,6 @@ def index():
     return render_template(
         "manage.html", users=users, devices=devices, tests=tests, tasks=tasks
     )
-
-
-@manage.route("/manage/device/<int:id>/delete", methods=("GET",))
-@login_required(permissions=None)
-def delete_device(id: int):
-    response = api_delete_device.__wrapped__(id)
-    if response[1] >= 300:
-        flash(response[0], "error")
-    return redirect(url_for(".index"))
-
-
-@manage.route("/manage/test/<int:id>/delete", methods=("GET",))
-@login_required(permissions=None)
-def delete_test(id: int):
-    response = api_delete_test.__wrapped__(id)
-    if response[1] >= 300:
-        flash(response[0], "error")
-    return redirect(url_for(".index"))
-
-
-@manage.route("/manage/task/<int:id>/delete", methods=("GET",))
-@login_required(permissions=None)
-def delete_task(id: int):
-    response = api_delete_task.__wrapped__(id)
-    if response[1] >= 300:
-        flash(response[0], "error")
-    return redirect(url_for(".index"))
 
 
 @manage.route("/manage/device/create", methods=("GET", "POST"))
@@ -101,6 +78,17 @@ def create_task():
     return render_template(
         "manage/create_task.html", tests=tests, operators=operators, datatypes=datatypes
     )
+
+
+@manage.route("/manage/user/create", methods=("GET", "POST"))
+@login_required(permissions=None)
+def create_user():
+    if request.method == "POST":
+        response = api_create_user.__wrapped__()
+        if response[1] < 300:
+            return redirect(url_for(".index"))
+        flash(response[0])
+    return render_template("manage/create_user.html")
 
 
 @manage.route("/manage/device/<int:id>/update", methods=("GET", "POST"))
@@ -149,3 +137,54 @@ def update_task(id: int):
         operators=operators,
         datatypes=datatypes,
     )
+
+
+@manage.route("/manage/user/<int:id>/update", methods=("GET", "POST"))
+@login_required(permissions=None)
+def update_user(id: int):
+    if request.method == "POST":
+        response = api_update_user.__wrapped__(id)
+        if response[1] < 300:
+            return redirect(url_for(".index"))
+        flash(response[0])
+    row = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
+    roles = db.execute("SELECT * FROM role").fetchall()
+    return render_template("manage/update_user.html", row=row, roles=roles)
+
+
+@manage.route("/manage/device/<int:id>/delete", methods=("GET",))
+@login_required(permissions=[4])
+def delete_device(id: int):
+    response = api_delete_device.__wrapped__(id)
+    if response[1] >= 300:
+        flash(response[0], "error")
+    return redirect(url_for(".index"))
+
+
+@manage.route("/manage/test/<int:id>/delete", methods=("GET",))
+@login_required(permissions=[4])
+def delete_test(id: int):
+    response = api_delete_test.__wrapped__(id)
+    if response[1] >= 300:
+        flash(response[0], "error")
+    return redirect(url_for(".index"))
+
+
+@manage.route("/manage/task/<int:id>/delete", methods=("GET",))
+@login_required(permissions=[4])
+def delete_task(id: int):
+    response = api_delete_task.__wrapped__(id)
+    if response[1] >= 300:
+        flash(response[0], "error")
+    return redirect(url_for(".index"))
+
+
+@manage.route("/manage/user/<int:id>/delete", methods=("GET",))
+@login_required(permissions=[4])
+def delete_user(id: int):
+    response = api_delete_user.__wrapped__(id)
+    if response[1] >= 300:
+        flash(response[0], "error")
+    if g.user["id"] == id:
+        redirect(url_for("auth.logout"))
+    return redirect(url_for(".index"))

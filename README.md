@@ -103,3 +103,11 @@ OpenHTF is architected to allow inherent branching of tests.  At the core, there
 ### Device
 
 Devices refer to specific to hardware versions or product configurations. These are typically descriptive in nature and are useful when organizing hardware test interfaces that are intended to be used with multiple product offerings. Each device may have one or multiple *test* configurations. 
+
+### Test
+
+Tests are a collection of similar or related tasks. Thus, executing a test will execute all collected task operators.
+
+### Task
+
+The smallest unitdiscretized observation for a given test. The result of running a task can either be informative or comparative. When comparing the result of a task, the resulting outcome either yields PASS or FAIL.

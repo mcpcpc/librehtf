@@ -46,7 +46,7 @@ def login_required(permissions: list = None):
                 if not all(
                     [permission in permission_list for permission in permissions]
                 ):
-                    return "User is not authorized to access this endpoint", 401
+                    return "User is not authorized to access this endpoint.", 401
             return view(*args, **kwargs)
 
         return wrapped_view
@@ -125,83 +125,6 @@ def logout():
 
     session.clear()
     return redirect(url_for(".login"))
-
-
-@auth.route("/register", methods=("GET", "POST"))
-@login_required(permissions=None)
-def register():
-    """Register new user."""
-
-    if request.method == "POST":
-        error = None
-        if not request.form["username"]:
-            error = "Username is required."
-        elif not request.form["password"]:
-            error = "Password is required."
-        if error is None:
-            hashed_password = generate_password_hash(request.form["password"])
-            try:
-                db = get_db()
-                db.execute("PRAGMA foreign_keys = ON")
-                db.execute(
-                    "INSERT INTO user (username, password, role_id) VALUES (?, ?, 3)",
-                    (request.form["username"], hashed_password),
-                )
-                db.commit()
-            except db.IntegrityError:
-                error = f"User {request.form['username']} already exists."
-            else:
-                return redirect(url_for(".login"))
-        flash(error)
-    return render_template("auth/register.html")
-
-
-@auth.route("<int:id>/update", methods=("GET", "POST"))
-@login_required(permissions=None)
-def update(id: int):
-    """Update existing user."""
-
-    db = get_db()
-    user = db.execute(
-        "SELECT username, role_id FROM user WHERE id = ?", (id,)
-    ).fetchone()
-    roles = db.execute("SELECT * FROM role").fetchall()
-    if request.method == "POST":
-        error = None
-        if not request.form["password"]:
-            error = "Password is required."
-        elif not request.form["role_id"]:
-            error = "Role ID is required."
-        if error is None:
-            hashed_password = generate_password_hash(request.form["password"])
-            try:
-                db.execute("PRAGMA foreign_keys = ON")
-                db.execute(
-                    "UPDATE user SET password = ?, role_id = ? WHERE id = ?",
-                    (hashed_password, request.form["role_id"], id),
-                )
-                db.commit()
-            except db.IntegrityError:
-                error = f"Username or Role ID does not exist."
-            else:
-                if g.user["id"] == id:
-                    return redirect(url_for(".logout"))
-                return redirect(url_for(".login"))
-        flash(error)
-    return render_template("auth/update.html", user=user, roles=roles)
-
-
-@auth.route("<int:id>/delete", methods=("GET",))
-@login_required(permissions=None)
-def delete(id: int):
-    """Delete existing user."""
-
-    db = get_db()
-    db.execute("DELETE FROM user WHERE id = ?", (id,))
-    db.commit()
-    if g.user["id"] == id:
-        return redirect(url_for(".logout"))
-    return redirect(url_for("index"))
 
 
 @auth.route("/token", methods=("GET", "POST"))

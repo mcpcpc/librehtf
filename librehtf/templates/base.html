@@ -15,13 +15,19 @@
 				<a class="{%if request.endpoint == 'evaluate.index' %}active{% endif %}" href="{{ url_for('evaluate.index') }}">Evaluate</a>
 				<a class="{%if request.endpoint == 'manage.index' %}active{% endif %}" href="{{ url_for('manage.index') }}">Manage</a>
 			</nav>
-			{% if session['user_id'] %}
-			<a class="button" href="{{ url_for('auth.logout') }}">Log Out</a>
-			{% else %}
+			{% if not session['user_id'] %}
 			<a class="button" href="{{ url_for('auth.login') }}">Log In</a>
 			{% endif %}
 		</header>
 		<main>
+			{% if session['user_id'] %}
+			<section class="sidebar">
+				<div class="profile">
+					<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png">
+					<div>Temporary<br /><a href="{{ url_for('auth.login') }}">Log Out</a></div>
+				</profile>
+			</section>
+			{% endif %}
 			{% block main %}{% endblock %}
 			{% with messages = get_flashed_messages(with_categories=true) %}
 			{% if messages %}

@@ -104,7 +104,11 @@ class UserTestCase(TestCase):
                 username, password, role_id, message = parameter
                 response = self.client.put(
                     f"/api/user/2?token={data.json['access_token']}",
-                    data={"username": username, "password": password, "role_id": role_id},
+                    data={
+                        "username": username,
+                        "password": password,
+                        "role_id": role_id,
+                    },
                 )
                 self.assertIn(message, response.data)
 

@@ -35,9 +35,7 @@ class AuthTestCase(TestCase):
     def test_login_protected_endpoints(self):
         db = connect(self.db)
         db.executescript(self._preload)
-        parameters = (
-            "/auth/token",
-        )
+        parameters = ("/auth/token",)
         for parameter in parameters:
             with self.subTest(parameter=parameter):
                 response = self.client.get(parameter)

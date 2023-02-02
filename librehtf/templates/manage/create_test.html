@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Create Test{% endblock %}
+{% block main %}
+<section>
+	<form method="post">
+		<h3>Create New Test</h3>
+		<fieldset>
+			<div class="field-group">
+				<label for="device_id">Device</label>
+				<select class="text long-field" name="device_id" required>
+					{% for device in devices %}
+					<option value={{ device.id }}>{{ device.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="field-group">
+				<label for="name">Name</label>
+				<input class="text long-field" name="name" type="text" required>
+				<div class="description">A short description name of the test class.</div>
+			</div>
+			<div class="field-group">
+				<label for="description">Description</label>
+				<textarea class="text long-field" name="description" rows=5 required></textarea>
+				<div class="description">A longer-format description of the test class.</div>
+			</div>
+		</fieldset>
+		<div class="buttons-container">
+			<input class="button submit" type="submit" value="Submit">
+			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
+		</div>
+	</form>
+</section>
+{% endblock %}

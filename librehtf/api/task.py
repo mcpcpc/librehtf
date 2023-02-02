@@ -104,4 +104,4 @@ def delete_task(id: int):
     db = get_db()
     db.execute("DELETE FROM task WHERE id = ?", (id,))
     db.commit()
-    return "Task successfully deleted."
+    return "Task successfully deleted.", 200

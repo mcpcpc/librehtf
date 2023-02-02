@@ -13,7 +13,7 @@ device = Blueprint("device", __name__, url_prefix="/api")
 @device.route("/device", methods=("POST",))
 @token_required
 def create_device():
-    """Create task."""
+    """Create device."""
 
     if not request.form.get("name"):
         return "Name is required.", 400
@@ -38,7 +38,7 @@ def create_device():
 @device.route("/device/<int:id>", methods=("GET",))
 @token_required
 def read_device(id: int):
-    """Read task."""
+    """Read device."""
 
     row = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
     if not row:
@@ -49,7 +49,7 @@ def read_device(id: int):
 @device.route("/device/<int:id>", methods=("PUT",))
 @token_required
 def update_device(id: int):
-    """Update task."""
+    """Update device."""
 
     if not request.form.get("name"):
         return "Name is required.", 400
@@ -71,10 +71,10 @@ def update_device(id: int):
 @device.route("/device/<int:id>", methods=("DELETE",))
 @token_required
 def delete_device(id: int):
-    """Delete task."""
+    """Delete device."""
 
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")
     db.execute("DELETE FROM device WHERE id = ?", (id,))
     db.commit()
-    return "Device successfully deleted."
+    return "Device successfully deleted.", 200

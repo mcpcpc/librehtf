@@ -25,23 +25,40 @@ from librehtf.db import get_db
 auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 
-def login_required(view):
+def login_required(permissions: list = None):
     """Login required decorator function."""
 
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for("auth.login"))
-        return view(**kwargs)
+    def decorator(view):
+        @wraps(view)
+        def wrapped_view(*args, **kwargs):
+            if g.user is None:
+                return redirect(url_for("auth.login"))
+            if isinstance(permissions, list):
+                role_permission = (
+                    get_db()
+                    .execute(
+                        "SELECT * FROM role_permission WHERE role_id = ?",
+                        (g.user["role_id"]),
+                    )
+                    .fetchall()
+                )
+                permission_list = [x["permission_id"] for x in role_permission]
+                if not all(
+                    [permission in permission_list for permission in permissions]
+                ):
+                    return "User is not authorized to access this endpoint", 401
+            return view(*args, **kwargs)
 
-    return wrapped_view
+        return wrapped_view
+
+    return decorator
 
 
 def token_required(view):
     """Token required decorator function."""
 
     @wraps(view)
-    def wrapped_view(**kwargs):
+    def wrapped_view(*args, **kwargs):
         if not request.args.get("token", None):
             return "Token required.", 401
         try:
@@ -55,7 +72,7 @@ def token_required(view):
         user = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
         if not user:
             return "Invalid user token.", 401
-        return view(**kwargs)
+        return view(*args, **kwargs)
 
     return wrapped_view
 
@@ -111,7 +128,7 @@ def logout():
 
 
 @auth.route("/register", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def register():
     """Register new user."""
 
@@ -140,7 +157,7 @@ def register():
 
 
 @auth.route("<int:id>/update", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def update(id: int):
     """Update existing user."""
 
@@ -175,7 +192,7 @@ def update(id: int):
 
 
 @auth.route("<int:id>/delete", methods=("GET",))
-@login_required
+@login_required(permissions=None)
 def delete(id: int):
     """Delete existing user."""
 
@@ -188,7 +205,7 @@ def delete(id: int):
 
 
 @auth.route("/token", methods=("GET", "POST"))
-@login_required
+@login_required(permissions=None)
 def token():
     """Generate user token."""
 

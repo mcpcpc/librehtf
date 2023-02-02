@@ -1,52 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}Update{% endblock %}
+{% block title %}Update Task{% endblock %}
 {% block main %}
 <section>
-	{% if api == 'device' %}
-	<form method="post">
-		<h3>Update Existing Device</h3>
-		<fieldset>
-			<div class="field-group">
-				<label for="name">Name</label>
-				<input class="text long-field" name="name" type="text" value="{{ row.name }}" required>
-			</div>
-			<div class="field-group">
-				<label for="description">Description</label>
-				<textarea class="text long-field" name="description" rows=5 required>{{ row.description }}</textarea>
-			</div>
-		</fieldset>
-		<div class="buttons-container">
-			<input class="button" type="submit" value="Update">
-			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
-		</div>
-	</form>
-	{% elif api == 'test' %}
-	<form method="post">
-		<h3>Update Existing Test</h3>
-		<fieldset>
-			<div class="field-group">
-				<label for="device_id">Device ID</label>
-				<select class="text long-field" name="device_id" required>
-					{% for device in devices %}
-					<option value={{ device.id }} {% if row.device_id == device.id %}selected{% endif %}>{{ device.name }}</option>
-					{% endfor %}
-				</select>
-			</div>
-			<div class="field-group">
-				<label for="name">Name</label>
-				<input class="text long-field" name="name" type="text" value="{{ row.name }}" required>
-			</div>
-			<div class="field-group">
-				<label for="description">Description</label>
-				<textarea class="text long-field" name="description" rows=5 required>{{ row.description }}</textarea>
-			</div>
-		</fieldset>
-		<div class="buttons-container">
-			<input class="button" type="submit" value="Update">
-			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
-		</div>
-	</form>
-	{% elif api == 'task' %}
 	<form method="post">
 		<h3>Update Existing Task</h3>
 		<fieldset>
@@ -98,6 +53,5 @@
 			<a class="cancel" href="{{ url_for('manage.index') }}">Cancel</a>
 		</div>
 	</form>
-	{% endif %}
 </section>
 {% endblock %}

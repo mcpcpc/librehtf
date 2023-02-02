@@ -50,14 +50,14 @@ def measure(command: str):
 
 
 @evaluate.route("/evaluate", methods=("GET",))
-@login_required
+@login_required(permissions=None)
 def index():
     rows = get_db().execute(query_devices).fetchall()
     return render_template("evaluate.html", rows=rows)
 
 
 @evaluate.route("/evaluate/<int:test_id>", methods=("GET",))
-@login_required
+@login_required(permissions=None)
 def results(test_id: int):
     rows = get_db().execute(query_test_id, (test_id,)).fetchall()
     if rows is None:

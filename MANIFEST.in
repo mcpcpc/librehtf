@@ -1,5 +1,6 @@
 include LICENSE
 include librehtf/schema.sql
+graft librehtf/api
 graft librehtf/static
 graft librehtf/templates
 graft tests

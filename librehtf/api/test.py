@@ -88,4 +88,4 @@ def delete_test(id: int):
     db = get_db()
     db.execute("DELETE FROM test WHERE id = ?", (id,))
     db.commit()
-    return "Test successfully deleted."
+    return "Test successfully deleted.", 200

@@ -39,10 +39,10 @@ CREATE TABLE permission (
 );
 
 INSERT INTO permission (slug, title) VALUES
+        ("c", "create"),
         ("r", "read"),
         ("u", "update"),
-        ("i", "insert"),
-        ("x", "delete");
+        ("d", "delete");
 
 CREATE TABLE role_permission (
         role_id INTEGER NOT NULL,
@@ -53,6 +53,15 @@ CREATE TABLE role_permission (
         FOREIGN KEY(role_id) REFERENCES role(id) ON DELETE NO ACTION ON UPDATE NO ACTION
         FOREIGN KEY(permission_id) REFERENCES permission(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+INSERT INTO role_permission (role_id, permission_id) VALUES
+        (1, 1),
+        (1, 2),
+        (1, 3),
+        (1, 4),
+        (2, 1),
+        (2, 2),
+        (3, 2);
 
 CREATE TABLE user (
         id INTEGER PRIMARY KEY,

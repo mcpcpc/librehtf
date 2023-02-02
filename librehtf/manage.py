@@ -47,7 +47,7 @@ def create_device():
         response = api_create_device.__wrapped__()
         if response[1] < 300:
             return redirect(url_for(".index"))
-        flash(response[0])
+        flash(response[0], "error")
     return render_template("manage/create_device.html")
 
 
@@ -58,7 +58,7 @@ def create_test():
         response = api_create_test.__wrapped__()
         if response[1] < 300:
             return redirect(url_for(".index"))
-        flash(response[0])
+        flash(response[0], "error")
     devices = get_db().execute("SELECT * FROM device").fetchall()
     return render_template("manage/create_test.html", devices=devices)
 
@@ -70,7 +70,7 @@ def create_task():
         response = api_create_task.__wrapped__()
         if response[1] < 300:
             return redirect(url_for(".index"))
-        flash(response[0])
+        flash(response[0], "error")
     db = get_db()
     tests = db.execute("SELECT * FROM test").fetchall()
     operators = db.execute("SELECT * FROM operator").fetchall()
@@ -87,7 +87,7 @@ def create_user():
         response = api_create_user.__wrapped__()
         if response[1] < 300:
             return redirect(url_for(".index"))
-        flash(response[0])
+        flash(response[0], "error")
     return render_template("manage/create_user.html")
 
 
@@ -98,7 +98,7 @@ def update_device(id: int):
         response = api_update_device.__wrapped__(id)
         if response[1] < 300:
             return redirect(url_for(".index"))
-        flash(response[0])
+        flash(response[0], "error")
     row = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
     return render_template("manage/update_device.html", row=row)
 
@@ -110,7 +110,7 @@ def update_test(id: int):
         response = api_update_test.__wrapped__(id)
         if response[1] < 300:
             return redirect(url_for(".index"))
-        flash(response[0])
+        flash(response[0], "error")
     db = get_db()
     row = db.execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
     devices = db.execute("SELECT * FROM device").fetchall()
@@ -124,7 +124,7 @@ def update_task(id: int):
         response = api_update_task.__wrapped__(id)
         if response[1] < 300:
             return redirect(url_for(".index"))
-        flash(response[0])
+        flash(response[0], "error")
     db = get_db()
     row = db.execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     tests = db.execute("SELECT * FROM test").fetchall()
@@ -146,7 +146,7 @@ def update_user(id: int):
         response = api_update_user.__wrapped__(id)
         if response[1] < 300:
             return redirect(url_for(".index"))
-        flash(response[0])
+        flash(response[0], "error")
     db = get_db()
     row = db.execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
     roles = db.execute("SELECT * FROM role").fetchall()

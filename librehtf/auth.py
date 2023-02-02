@@ -58,7 +58,7 @@ def token_required(view):
     """Token required decorator function."""
 
     @wraps(view)
-    def wrapped_view(**kwargs):
+    def wrapped_view(*args, **kwargs):
         if not request.args.get("token", None):
             return "Token required.", 401
         try:
@@ -72,7 +72,7 @@ def token_required(view):
         user = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
         if not user:
             return "Invalid user token.", 401
-        return view(**kwargs)
+        return view(*args, **kwargs)
 
     return wrapped_view
 

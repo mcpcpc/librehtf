@@ -18,7 +18,6 @@ from flask import url_for
 from jwt import decode
 from jwt import encode
 from werkzeug.security import check_password_hash
-from werkzeug.security import generate_password_hash
 
 from librehtf.db import get_db
 

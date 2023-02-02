@@ -88,7 +88,7 @@ coverage html  # open htmlcov/index.html in a browser
 
 ## Authorization
 
-OpenHTF provides a simple role-based access control (RBAC) for protecting both APIs and environment configuration. There three levels user access controls, ranging from least restrictive to most restrictive: administrator, functional and public.
+OpenHTF provides a simple role-based access control (RBAC) for protecting both APIs and environment configuration. There are three levels of user access controls: administrator, functional and public. Responsibilities range from least restrictive to most restrictive, respectively.
 
 | Function      | Description                                                         | Evaluation | API Access | Management |
 |---------------|---------------------------------------------------------------------|------------|------------|------------|

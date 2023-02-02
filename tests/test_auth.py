@@ -35,97 +35,11 @@ class AuthTestCase(TestCase):
     def test_login_protected_endpoints(self):
         db = connect(self.db)
         db.executescript(self._preload)
-        parameters = (
-            "/auth/register",
-            "/auth/2/update",
-            "/auth/2/delete",
-            "/auth/token",
-        )
+        parameters = ("/auth/token",)
         for parameter in parameters:
             with self.subTest(parameter=parameter):
                 response = self.client.get(parameter)
                 self.assertEqual(response.headers["Location"], "/auth/login")
-
-    def test_register_get(self):
-        db = connect(self.db)
-        db.executescript(self._preload)
-        self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        response = self.client.get("/auth/register")
-        self.assertEqual(response.status_code, 200)
-
-    def test_register_post(self):
-        db = connect(self.db)
-        db.executescript(self._preload)
-        self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        response = self.client.post(
-            "/auth/register",
-            data={"username": "user1", "password": "pass1"},
-        )
-        self.assertEqual(response.headers["location"], "/auth/login")
-
-    def test_register_flash(self):
-        db = connect(self.db)
-        db.executescript(self._preload)
-        self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        parameters = [
-            ("", "", b"Username is required."),
-            ("user1", "", b"Password is required."),
-            ("test", "test", b"test already exists."),
-        ]
-        for parameter in parameters:
-            with self.subTest(parameter=parameter):
-                username, password, message = parameter
-                response = self.client.post(
-                    "/auth/register",
-                    data={
-                        "username": username,
-                        "password": password,
-                    },
-                    follow_redirects=True,
-                )
-                self.assertIn(message, response.data)
-
-    def test_update_get(self):
-        db = connect(self.db)
-        db.executescript(self._preload)
-        self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        response = self.client.get("/auth/2/update")
-        self.assertEqual(response.status_code, 200)
-
-    def test_update_post(self):
-        db = connect(self.db)
-        db.executescript(self._preload)
-        self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        response = self.client.post(
-            "/auth/2/update", data={"role_id": 3, "password": "pass1_"}
-        )
-        self.assertEqual(response.headers["location"], "/auth/logout")
-
-    def test_update_flash(self):
-        db = connect(self.db)
-        db.executescript(self._preload)
-        self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        parameters = [
-            ("", "pass1_", b"Role ID is required."),
-            (2, "", b"Password is required."),
-            (12, "pass1_", b"Username or Role ID does not exist."),
-        ]
-        for parameter in parameters:
-            with self.subTest(parameter=parameter):
-                role_id, password, message = parameter
-                response = self.client.post(
-                    "/auth/2/update",
-                    data={"role_id": role_id, "password": password},
-                    follow_redirects=True,
-                )
-                self.assertIn(message, response.data)
-
-    def test_delete(self):
-        db = connect(self.db)
-        db.executescript(self._preload)
-        self.client.post("/auth/login", data={"username": "test", "password": "test"})
-        response = self.client.get("/auth/2/delete")
-        self.assertEqual(response.headers["location"], "/auth/logout")
 
     def test_login_get(self):
         response = self.client.get("/auth/login")

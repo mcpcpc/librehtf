@@ -41,7 +41,7 @@ def index():
 
 
 @manage.route("/manage/device/create", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[1])
 def create_device():
     if request.method == "POST":
         response = api_create_device.__wrapped__()
@@ -52,7 +52,7 @@ def create_device():
 
 
 @manage.route("/manage/test/create", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[1])
 def create_test():
     if request.method == "POST":
         response = api_create_test.__wrapped__()
@@ -64,7 +64,7 @@ def create_test():
 
 
 @manage.route("/manage/task/create", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[1])
 def create_task():
     if request.method == "POST":
         response = api_create_task.__wrapped__()
@@ -81,7 +81,7 @@ def create_task():
 
 
 @manage.route("/manage/user/create", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[1])
 def create_user():
     if request.method == "POST":
         response = api_create_user.__wrapped__()
@@ -92,7 +92,7 @@ def create_user():
 
 
 @manage.route("/manage/device/<int:id>/update", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[3])
 def update_device(id: int):
     if request.method == "POST":
         response = api_update_device.__wrapped__(id)
@@ -104,7 +104,7 @@ def update_device(id: int):
 
 
 @manage.route("/manage/test/<int:id>/update", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[3])
 def update_test(id: int):
     if request.method == "POST":
         response = api_update_test.__wrapped__(id)
@@ -118,7 +118,7 @@ def update_test(id: int):
 
 
 @manage.route("/manage/task/<int:id>/update", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[3])
 def update_task(id: int):
     if request.method == "POST":
         response = api_update_task.__wrapped__(id)
@@ -140,7 +140,7 @@ def update_task(id: int):
 
 
 @manage.route("/manage/user/<int:id>/update", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[3])
 def update_user(id: int):
     if request.method == "POST":
         response = api_update_user.__wrapped__(id)

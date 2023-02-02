@@ -127,7 +127,7 @@ def logout():
 
 
 @auth.route("/token", methods=("GET", "POST"))
-@login_required(permissions=None)
+@login_required(permissions=[1, 2])
 def token():
     """Generate user token."""
 

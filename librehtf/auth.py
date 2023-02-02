@@ -37,7 +37,7 @@ def login_required(permissions: list = None):
                     get_db()
                     .execute(
                         "SELECT * FROM role_permission WHERE role_id = ?",
-                        (g.user["role_id"]),
+                        (g.user["role_id"],),
                     )
                     .fetchall()
                 )

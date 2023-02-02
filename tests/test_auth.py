@@ -189,6 +189,6 @@ class AuthTestCase(TestCase):
                 )
                 self.assertIn(message, response.data)
 
-                
+
 if __name__ == "__main__":
     main()

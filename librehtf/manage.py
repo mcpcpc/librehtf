@@ -83,7 +83,7 @@ def create_test():
             return redirect(url_for(".index"))
         flash(response[0])
     devices = get_db().execute("SELECT * FROM device").fetchall()
-    return render_template("manage/create_test.html",  devices=devices)
+    return render_template("manage/create_test.html", devices=devices)
 
 
 @manage.route("/manage/task/create", methods=("GET", "POST"))
@@ -98,7 +98,9 @@ def create_task():
     tests = db.execute("SELECT * FROM test").fetchall()
     operators = db.execute("SELECT * FROM operator").fetchall()
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
-    return render_template("manage/create_task.html", tests=tests, operators=operators, datatypes=datatypes)
+    return render_template(
+        "manage/create_task.html", tests=tests, operators=operators, datatypes=datatypes
+    )
 
 
 @manage.route("/manage/device/<int:id>/update", methods=("GET", "POST"))
@@ -140,4 +142,10 @@ def update_task(id: int):
     tests = db.execute("SELECT * FROM test").fetchall()
     operators = db.execute("SELECT * FROM operator").fetchall()
     datatypes = db.execute("SELECT * FROM datatype").fetchall()
-    return render_template("manage/update_task.html", row=row, tests=tests, operators=operators, datatypes=datatypes)
+    return render_template(
+        "manage/update_task.html",
+        row=row,
+        tests=tests,
+        operators=operators,
+        datatypes=datatypes,
+    )

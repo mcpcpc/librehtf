@@ -41,7 +41,6 @@ def create_app(test_config=None):
     app.register_blueprint(test)
     app.register_blueprint(task)
     app.register_blueprint(user)
-    
 
     @app.route("/")
     def index():

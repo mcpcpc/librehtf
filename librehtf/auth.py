@@ -34,17 +34,23 @@ def login_required(permissions: list = None):
             if g.user is None:
                 return redirect(url_for("auth.login"))
             if isinstance(permissions, list):
-                role_permission = get_db().execute(
-                    "SELECT * FROM role_permission WHERE role_id = ?",
-                    (g.user["role_id"])
-                ).fetchall()
+                role_permission = (
+                    get_db()
+                    .execute(
+                        "SELECT * FROM role_permission WHERE role_id = ?",
+                        (g.user["role_id"]),
+                    )
+                    .fetchall()
+                )
                 permission_list = [x["permission_id"] for x in role_permission]
-                if not all([permission in permission_list for permission in permissions]):
+                if not all(
+                    [permission in permission_list for permission in permissions]
+                ):
                     return "User is not authorized to access this endpoint", 401
             return view(*args, **kwargs)
 
         return wrapped_view
-    
+
     return decorator
 
 

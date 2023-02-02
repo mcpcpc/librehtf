@@ -147,7 +147,8 @@ def update_user(id: int):
         if response[1] < 300:
             return redirect(url_for(".index"))
         flash(response[0])
-    row = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
+    db = get_db()
+    row = db.execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
     roles = db.execute("SELECT * FROM role").fetchall()
     return render_template("manage/update_user.html", row=row, roles=roles)
 

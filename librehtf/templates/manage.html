@@ -10,7 +10,7 @@
 	<table>
 		<tr>
 			<th>
-				<a href="{{ url_for('auth.register') }}">add</a>
+				<a href="{{ url_for('manage.create_user') }}">add</a>
 			</th>
 		</tr>
 		{% for user in users %}
@@ -18,8 +18,8 @@
 			<td>
 				<p>{{ user.username }}</p>
 				<small>
-					<a href="{{ url_for('auth.update', id=user['id']) }}">update</a> | 
-					<a href="{{ url_for('auth.delete', id=user['id']) }}">delete</a>
+					<a href="{{ url_for('manage.update_user', id=user['id']) }}">update</a> | 
+					<a href="{{ url_for('manage.delete_user', id=user['id']) }}">delete</a>
 				</small>
 			</td>
 		</tr>

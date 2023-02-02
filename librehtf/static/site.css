@@ -141,9 +141,7 @@ header {
 }
 
 
-.leftbar .profile img {
-        height: 2.5rem;
-        border-radius: 100%;
+.leftbar .profile svg {
         margin-right: 2rem;
 }
 

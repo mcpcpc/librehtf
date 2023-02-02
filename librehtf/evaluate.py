@@ -67,8 +67,8 @@ def results(test_id: int):
         result = dict(row)
         try:
             measured = measure(row["task_command"])
-        except Exception as e:
-            return f"{e}", 400
+        except SyntaxError:
+            return "Command string contains syntax error.", 400
         if "measured" not in measured:
             return "Measure value is missing from result.", 400
         result["measured"] = measured["measured"]

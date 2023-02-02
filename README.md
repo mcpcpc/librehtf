@@ -86,6 +86,16 @@ coverage report
 coverage html  # open htmlcov/index.html in a browser
 ```
 
+## Authorization
+
+OpenHTF provides a simple role-based access control (RBAC) for protecting both APIs and environment configuration. There three levels user access controls, ranging from least restrictive to most restrictive: administrator, functional and public.
+
+| Function      | Description                                                         | Evaluation | API Access | Management |
+|---------------|---------------------------------------------------------------------|------------|------------|------------|
+| Administrator | An individual for system administration and user management.        | Yes        | Yes        | Yes        |
+| Functional    | A non-human interface, typically for machine integration.           | Yes        | Yes        | Limited    |
+| Public        | Typically an operator or technician responsible for test execution. | Yes        | No         | No         |
+
 ## Nomenclature 
 
 OpenHTF is architected to allow inherent branching of tests.  At the core, there are three tiers of organization: device, test and task.

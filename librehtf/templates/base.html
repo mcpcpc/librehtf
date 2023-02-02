@@ -19,7 +19,7 @@
 			<a class="button" href="{{ url_for('auth.login') }}">Log In</a>
 			{% endif %}
 		</header>
-		<main>
+		<main {% if session['user_id'] %}style="margin-left: 200px"{% endif %}>
 			{% if session['user_id'] %}
 			<section class="leftbar">
 				<div class="profile">

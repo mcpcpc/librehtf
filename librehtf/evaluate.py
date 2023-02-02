@@ -45,7 +45,7 @@ WHERE
 def measure(command: str):
     result = {}
     cc = compile(command, "<string>", "exec")
-    exec(cc, globals(), result)
+    exec(cc, {}, result)
     return result
 
 

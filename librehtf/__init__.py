@@ -4,6 +4,8 @@
 from os import path
 from os import makedirs
 
+from dash import Dash
+from dash import page_registry
 from flask import Flask
 from flask import render_template
 
@@ -13,8 +15,7 @@ from librehtf.api.task import task
 from librehtf.api.user import user
 from librehtf.auth import auth
 from librehtf.db import init_app
-from librehtf.evaluate import evaluate
-from librehtf.manage import manage
+from librehtf.layout.default import layout
 
 
 def create_app(test_config=None):
@@ -36,19 +37,10 @@ def create_app(test_config=None):
     init_app(app)
     app.register_blueprint(auth)
     app.register_blueprint(device)
-    app.register_blueprint(evaluate)
-    app.register_blueprint(manage)
     app.register_blueprint(test)
     app.register_blueprint(task)
     app.register_blueprint(user)
-
-    @app.route("/")
-    def index():
-        return render_template("index.html")
-
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template("404.html")
-
-    app.add_url_rule("/", endpoint="index")
-    return app
+    dashapp = Dash(__name__, server=app, use_pages=True)
+    values = page_registry.values()
+    dashapp.layout = layout(values)
+    return dashapp.server

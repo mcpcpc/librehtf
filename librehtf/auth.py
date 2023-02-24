@@ -119,6 +119,7 @@ def login():
 
 
 @auth.route("/logout", methods=("GET",))
+@login_required(permissions=[3])
 def logout():
     """Clear current session, including the stored user ID."""
 

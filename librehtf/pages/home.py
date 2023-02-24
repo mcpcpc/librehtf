@@ -1,4 +1,5 @@
 from dash import register_page
+from dash_iconify import DashIconify
 from dash_mantine_components import Container
 from dash_mantine_components import Button
 from dash_mantine_components import PasswordInput

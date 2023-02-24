@@ -29,24 +29,33 @@ header = Header(
             children=[
                 Group(
                     children=[
-                        Button(
-                            id="home",
-                            variant="subtle",
-                            children="LibreHTF",
-                            compact=True,
-                            leftIcon=DashIconify(icon="game-icons:feather-wound"),
+                        Anchor(
+                            Button(
+                                id="home",
+                                variant="subtle",
+                                children="LibreHTF",
+                                compact=True,
+                                leftIcon=DashIconify(icon="game-icons:feather-wound"),
+                            ),
+                            href="/",
                         ),
-                        Button(
-                            id="evaluate",
-                            variant="light",
-                            children="Evaluate",
-                            compact=True,
+                        Anchor(
+                            Button(
+                                id="evaluate",
+                                variant="light",
+                                children="Evaluate",
+                                compact=True,
+                            ),
+                            href="/evaluate",
                         ),
-                        Button(
-                            id="manage",
-                            variant="light",
-                            children="Manage",
-                            compact=True,
+                        Anchor(
+                            Button(
+                                id="manage",
+                                variant="light",
+                                children="Manage",
+                                compact=True,
+                            ),
+                            href="/manage",
                         ),
                     ]
                 ),

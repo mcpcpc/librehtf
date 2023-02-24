@@ -66,6 +66,14 @@ header = Header(
                             variant="transparent",
                             children=DashIconify(icon="radix-icons:blending-mode"),
                         ),
+                        Anchor(
+                            ActionIcon(
+                                id="login",
+                                variant="transparent",
+                                children=DashIconify(icon="ic:baseline-log-in"),
+                            ),
+                            htef="/login",
+                        ),
                     ]
                 ),
             ]

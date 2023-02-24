@@ -54,7 +54,7 @@ header = Header(
                     children=[
                         ActionIcon(
                             id="color-scheme-toggle",
-                            variant="filled",
+                            variant="transparent",
                             children=DashIconify(icon="radix-icons:blending-mode"),
                         ),
                     ]

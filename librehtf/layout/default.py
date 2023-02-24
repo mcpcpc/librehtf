@@ -89,7 +89,7 @@ def layout(data):
         children=[
             MantineProvider(
                 theme={
-                    "primaryColor": "grape",
+                    "primaryColor": "indigo",
                     "fontFamily": "system-ui, sans-serif",
                 },
                 inherit=True,

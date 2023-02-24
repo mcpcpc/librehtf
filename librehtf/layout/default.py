@@ -72,7 +72,7 @@ header = Header(
                                 variant="transparent",
                                 children=DashIconify(icon="ic:baseline-log-in"),
                             ),
-                            htef="/login",
+                            href="/login",
                         ),
                     ]
                 ),

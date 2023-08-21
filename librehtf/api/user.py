@@ -7,15 +7,17 @@ from flask import request
 from werkzeug.security import generate_password_hash
 
 from librehtf.db import get_db
-from librehtf.auth import token_required
+from librehtf.token import token_required
 
 user = Blueprint("user", __name__, url_prefix="/api")
 
 
-@user.route("/user", methods=("POST",))
+@user.post("/user")
 @token_required
 def create_user():
-    """Create user."""
+    """
+    Create user.
+    """
 
     if not request.form.get("username"):
         return "Username is required.", 400
@@ -37,10 +39,12 @@ def create_user():
         return "User successfully created.", 201
 
 
-@user.route("/user/<int:id>", methods=("GET",))
+@user.get("/user/<int:id>")
 @token_required
 def read_user(id: int):
-    """Read user."""
+    """
+    Read user.
+    """
 
     row = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
     if not row:
@@ -48,10 +52,12 @@ def read_user(id: int):
     return dict(row)
 
 
-@user.route("/user/<int:id>", methods=("PUT",))
+@user.put("/user/<int:id>")
 @token_required
 def update_user(id: int):
-    """Update user."""
+    """
+    Update user.
+    """
 
     if not request.form.get("username"):
         return "Username is required.", 400
@@ -78,10 +84,12 @@ def update_user(id: int):
         return "User successfully updated.", 201
 
 
-@user.route("/user/<int:id>", methods=("DELETE",))
+@user.delete("/user/<int:id>")
 @token_required
 def delete_user(id: int):
-    """Delete user."""
+    """
+    Delete user.
+    """
 
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")

@@ -5,15 +5,17 @@ from flask import Blueprint
 from flask import request
 
 from librehtf.db import get_db
-from librehtf.auth import token_required
+from librehtf.token import token_required
 
 test = Blueprint("test", __name__, url_prefix="/api")
 
 
-@test.route("/test", methods=("POST",))
+@test.post("/test")
 @token_required
 def create_test():
-    """Create test."""
+    """
+    Create test.
+    """
 
     if not request.form.get("name"):
         return "Name is required.", 400
@@ -39,10 +41,12 @@ def create_test():
         return "Test successfully created.", 201
 
 
-@test.route("/test/<int:id>", methods=("GET",))
+@test.get("/test/<int:id>")
 @token_required
 def read_test(id: int):
-    """Read test."""
+    """
+    Read test.
+    """
 
     row = get_db().execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
     if not row:
@@ -50,7 +54,7 @@ def read_test(id: int):
     return dict(row)
 
 
-@test.route("/test/<int:id>", methods=("PUT",))
+@test.put("/test/<int:id>")
 @token_required
 def update_test(id: int):
     """Update test."""
@@ -80,10 +84,12 @@ def update_test(id: int):
         return "Test successfully updated.", 201
 
 
-@test.route("/test/<int:id>", methods=("DELETE",))
+@test.delete("/test/<int:id>")
 @token_required
 def delete_test(id: int):
-    """Delete test."""
+    """
+    Delete test.
+    """
 
     db = get_db()
     db.execute("DELETE FROM test WHERE id = ?", (id,))

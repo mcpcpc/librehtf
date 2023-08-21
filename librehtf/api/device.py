@@ -5,15 +5,17 @@ from flask import Blueprint
 from flask import request
 
 from librehtf.db import get_db
-from librehtf.auth import token_required
+from librehtf.token import token_required
 
 device = Blueprint("device", __name__, url_prefix="/api")
 
 
-@device.route("/device", methods=("POST",))
+@device.post("/device")
 @token_required
 def create_device():
-    """Create device."""
+    """
+    Create device.
+    """
 
     if not request.form.get("name"):
         return "Name is required.", 400
@@ -35,10 +37,12 @@ def create_device():
         return "Device successfully created.", 201
 
 
-@device.route("/device/<int:id>", methods=("GET",))
+@device.get("/device/<int:id>")
 @token_required
 def read_device(id: int):
-    """Read device."""
+    """
+    Read device.
+    """
 
     row = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
     if not row:
@@ -46,10 +50,12 @@ def read_device(id: int):
     return dict(row)
 
 
-@device.route("/device/<int:id>", methods=("PUT",))
+@device.put("/device/<int:id>")
 @token_required
 def update_device(id: int):
-    """Update device."""
+    """
+    Update device.
+    """
 
     if not request.form.get("name"):
         return "Name is required.", 400
@@ -68,10 +74,12 @@ def update_device(id: int):
         return "Device successfully updated.", 201
 
 
-@device.route("/device/<int:id>", methods=("DELETE",))
+@device.delete("/device/<int:id>")
 @token_required
 def delete_device(id: int):
-    """Delete device."""
+    """
+    Delete device.
+    """
 
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")

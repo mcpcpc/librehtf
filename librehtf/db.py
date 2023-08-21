@@ -13,9 +13,8 @@ from flask import g
 
 def get_db():
     """
-    Connect to the application's configured database. The connection
-    is unique for each request and will be reused if this is called
-    again.
+    Connect to the application's configured database. The connection is unique
+    for each request and will be reused if this is called again.
     """
 
     if "db" not in g:
@@ -26,8 +25,7 @@ def get_db():
 
 def close_db(exception=None):
     """
-    If this request connected to the database, close the
-    connection.
+    If this request connected to the database, close the connection.
     """
 
     db = g.pop("db", None)
@@ -36,7 +34,9 @@ def close_db(exception=None):
 
 
 def init_db():
-    """Clear existing data and create new tables."""
+    """
+    Clear existing data and create new tables.
+    """
 
     db = get_db()
     with current_app.open_resource("schema.sql") as file:
@@ -45,7 +45,9 @@ def init_db():
 
 @command("init-db")
 def init_db_command():
-    """Clear existing data and create new tables."""
+    """
+    Clear existing data and create new tables.
+    """
 
     init_db()
     echo("Initialized the database.")
@@ -53,8 +55,8 @@ def init_db_command():
 
 def init_app(app):
     """
-    Register database functions with the Flask app. This is called by
-    the application factory.
+    Register database functions with the Flask app. This is called by the
+    application factory.
     """
 
     app.teardown_appcontext(close_db)

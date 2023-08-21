@@ -5,15 +5,17 @@ from flask import Blueprint
 from flask import request
 
 from librehtf.db import get_db
-from librehtf.auth import token_required
+from librehtf.token import token_required
 
 task = Blueprint("task", __name__, url_prefix="/api")
 
 
-@task.route("/task", methods=("POST",))
+@task.post("/task")
 @token_required
 def create_task():
-    """Create task."""
+    """
+    Create task.
+    """
 
     if not request.form.get("name"):
         return "Name is required.", 400
@@ -47,10 +49,12 @@ def create_task():
         return "Task successfully created.", 201
 
 
-@task.route("/task/<int:id>", methods=("GET",))
+@task.get("/task/<int:id>")
 @token_required
 def read_task(id: int):
-    """Read task."""
+    """
+    Read task.
+    """
 
     row = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     if not row:
@@ -58,10 +62,12 @@ def read_task(id: int):
     return dict(row)
 
 
-@task.route("/task/<int:id>", methods=("PUT",))
+@task.put("/task/<int:id>")
 @token_required
 def update_task(id: int):
-    """Update task."""
+    """
+    Update task.
+    """
 
     if not request.form.get("name"):
         return "Name is required.", 400
@@ -96,10 +102,12 @@ def update_task(id: int):
         return "Task successfully updated.", 201
 
 
-@task.route("/task/<int:id>", methods=("DELETE",))
+@task.delete("/task/<int:id>")
 @token_required
 def delete_task(id: int):
-    """Delete task."""
+    """
+    Delete task.
+    """
 
     db = get_db()
     db.execute("DELETE FROM task WHERE id = ?", (id,))

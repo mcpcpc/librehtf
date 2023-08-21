@@ -1,7 +1,8 @@
 include LICENSE
 include librehtf/schema.sql
 graft librehtf/api
-graft librehtf/static
-graft librehtf/templates
-graft tests
+graft librehtf/assets
+graft librehtf/layout
+graft librehtf/pages
+graft librehtf/utils
 global-exclude *.pyc

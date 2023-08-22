@@ -6,6 +6,7 @@ from dash import Input
 from dash import no_update
 from dash import Output
 from dash import register_page
+from dash import State
 from dash_iconify import DashIconify
 from dash.dcc import Store
 from dash_mantine_components import Col
@@ -66,7 +67,7 @@ def update_navbar(device: str):
 
 @callback(
     Output("test_tree", "children"),
-    Input("device", "data"),
+    State("device", "data"),
     Input("test", "data"),
 )
 def update_navbar(device: str, test: str):

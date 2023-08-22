@@ -3,6 +3,7 @@
 
 from dash import callback
 from dash import Input
+from dash import no_update
 from dash import Output
 from dash import register_page
 from dash_iconify import DashIconify
@@ -31,3 +32,11 @@ layout = [
         children=None,
     ),
 ]
+
+
+@callback(
+    Output("accordion", "children"),
+    Input("accordion", "children"),
+)
+def update_accordion(children):
+    return no_update

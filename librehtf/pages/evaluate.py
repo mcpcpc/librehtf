@@ -23,6 +23,7 @@ register_page(__name__, path="/evaluate")
 def layout(device: str = None, test: str = None):
     return [
         Store(id="device", data=device),
+        Store(id="test", data=test),
         Grid(
             children=[
                 Col(

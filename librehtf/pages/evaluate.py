@@ -39,7 +39,12 @@ def layout(device: str = None, test: str = None):
                 Col(
                     span=3,
                     id="test_tree",
-                    children=None,
+                    children=[
+                        Navbar(
+                            id="test_tree",
+                            children=None,
+                        ),
+                    ],
                 ),
                 Col(
                     span=9,

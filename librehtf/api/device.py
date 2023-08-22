@@ -89,3 +89,16 @@ def delete_device(id: int):
     db.execute("DELETE FROM device WHERE id = ?", (id,))
     db.commit()
     return "Device successfully deleted.", 200
+
+
+@device.get("/device")
+@token_required
+def list_devices():
+    """List devices."""
+
+    rows = get_db().execute(
+        "SELECT * FROM device"
+    ).fetchall()
+    if not rows:
+        return "Devices do not exist.", 404
+    return list(map(dict, rows)), 200

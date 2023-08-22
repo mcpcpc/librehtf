@@ -54,8 +54,7 @@ def update_navbar(test: str):
     records = list(map(dict, rows))
     return [
         NavLink(
-            label=record["name"],
-            description=record["name"],
-        )
-        for record in records
+            label=r["name"],
+            description=r["name"],
+        ) for r in records
     ]

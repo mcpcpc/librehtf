@@ -43,7 +43,7 @@ class MeasurementPlugin:
 
         if not isinstance(self.datatype, type):
             raise DataTypeNotSet(self.datatype)
-        if operator not in self.datatype.__dict__:
+        if hasattr(self.datatype, operator):
             raise OperatorInvalid(operator)
         self.operator = getattr(self.datatype, operator)
 

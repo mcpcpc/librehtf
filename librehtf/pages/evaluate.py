@@ -48,7 +48,7 @@ def layout(device: str = None, test: str = None):
     Output("device_tree", "children"),
     Input("device", "data"),
 )
-def update_navbar(device: str):
+def update_device_tree(device: str):
     rows = get_db().execute(
         "SELECT * FROM device"
     ).fetchall()
@@ -70,7 +70,7 @@ def update_navbar(device: str):
     State("device", "data"),
     Input("test", "data"),
 )
-def update_navbar(device: str, test: str):
+def update_test_tree(device: str, test: str):
     rows = get_db().execute(
         "SELECT * FROM test WHERE device_id = ?",
         (device,),

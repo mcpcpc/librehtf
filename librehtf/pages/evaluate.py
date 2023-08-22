@@ -75,7 +75,7 @@ def update_navbar(device: str, test: str):
         (device,),
     ).fetchall()
     if not rows:
-        return no_update
+        return "No device selected"
     records = list(map(dict, rows))
     return [
         NavLink(

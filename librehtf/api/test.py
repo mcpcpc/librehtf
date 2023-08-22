@@ -52,7 +52,7 @@ def read_test(id: int):
     ).fetchone()
     if not row:
         return "Test does not exist.", 404
-    return dict(row)
+    return dict(row), 200
 
 
 @test.put("/test/<int:id>")
@@ -94,3 +94,16 @@ def delete_test(id: int):
     db.execute("DELETE FROM test WHERE id = ?", (id,))
     db.commit()
     return "Test successfully deleted.", 200
+
+
+@test.get("/test")
+@token_required
+def list_tests():
+    """List tests."""
+
+    rows = get_db().execute(
+        "SELECT * FROM test",
+    ).fetchall()
+    if not rows:
+        return "Tests do not exist.", 404
+    return list(map(dict, rows)), 200

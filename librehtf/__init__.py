@@ -10,7 +10,6 @@ from dash import Dash
 from librehtf.api.device import device
 from librehtf.api.test import test
 from librehtf.api.task import task
-from librehtf.api.user import user
 from librehtf.cache import create_cache_manager
 from librehtf.db import init_app
 from librehtf.layout.default import layout
@@ -51,7 +50,6 @@ def create_app(test_config=None):
     app.register_blueprint(device)
     app.register_blueprint(task)
     app.register_blueprint(test)
-    app.register_blueprint(user)
     manager = create_cache_manager(app)
     dashapp = Dash(
         __name__,

@@ -19,19 +19,20 @@ from librehtf.utils.plugin import MeasurementPlugin
 
 register_page(__name__, path="/evaluate")
 
-def layout(test: str = None, **parameters):
+def layout(device: str = None, test: str = None):
     return [
-        Store(id="test", data=test),
+        Store(id="device", data=device),
         Grid(
             children=[
                 Col(
-                    span=3,
-                    children=[
-                        Navbar(
-                            id="navbar",
-                            children=None,
-                        ),
-                    ],
+                    span=3, 
+                    id="device_tree",
+                    children=None,
+                ),
+                Col(
+                    span=3, 
+                    id="test_tree",
+                    children=None,
                 ),
                 Col(
                     span=9,
@@ -41,13 +42,14 @@ def layout(test: str = None, **parameters):
         ),
     ]
 
+
 @callback(
-    Output("navbar", "children"),
-    Input("test", "data"),
+    Output("device_tree", "children"),
+    Input("device", "data"),
 )
-def update_navbar(test: str):
+def update_navbar(device: str):
     rows = get_db().execute(
-        "SELECT * FROM test"
+        "SELECT * FROM device"
     ).fetchall()
     if not rows:
         return no_update
@@ -56,5 +58,30 @@ def update_navbar(test: str):
         NavLink(
             label=r["name"],
             description=r["name"],
+            href=f"/evaluate?device={r['id']}",
+            active=device is str(r["id"]),
+        ) for r in records
+    ]
+
+
+@callback(
+    Output("test_tree", "children"),
+    Input("device", "data"),
+    Input("test", "data"),
+)
+def update_navbar(device: str, test: str):
+    rows = get_db().execute(
+        "SELECT * FROM test WHERE device_id = ?"
+        (device,),
+    ).fetchall()
+    if not rows:
+        return no_update
+    records = list(map(dict, rows))
+    return [
+        NavLink(
+            label=r["name"],
+            description=r["name"],
+            href=f"/evaluate?device={device}&test={r['id']}",
+            active=test is str(r["id"]),
         ) for r in records
     ]

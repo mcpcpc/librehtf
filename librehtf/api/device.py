@@ -49,7 +49,7 @@ def read_device(id: int):
     ).fetchone()
     if not row:
         return "Device does not exist.", 404
-    return dict(row)
+    return dict(row), 200
 
 
 @device.put("/device/<int:id>")
@@ -97,7 +97,7 @@ def list_devices():
     """List devices."""
 
     rows = get_db().execute(
-        "SELECT * FROM device"
+        "SELECT * FROM device",
     ).fetchall()
     if not rows:
         return "Devices do not exist.", 404

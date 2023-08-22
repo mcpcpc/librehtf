@@ -54,10 +54,13 @@ def create_task():
 def read_task(id: int):
     """Read task."""
 
-    row = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
+    row = get_db().execute(
+        "SELECT * FROM task WHERE id = ?", 
+        (id,),
+    ).fetchone()
     if not row:
         return "Task does not exist.", 404
-    return dict(row)
+    return dict(row), 200
 
 
 @task.put("/task/<int:id>")
@@ -103,3 +106,16 @@ def delete_task(id: int):
     db.execute("DELETE FROM task WHERE id = ?", (id,))
     db.commit()
     return "Task successfully deleted.", 200
+
+
+@task.get("/task")
+@token_required
+def list_tasks():
+    """List tasks."""
+
+    rows = get_db().execute(
+        "SELECT * FROM task",
+    ).fetchall()
+    if not rows:
+        return "Tasks do not exist.", 404
+    return list(map(dict, rows)), 200

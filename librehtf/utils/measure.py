@@ -1,0 +1,67 @@
+from dataclasses import dataclass
+
+
+@dataclass
+class DataTypeInvalid(Exception):
+    dataclass: str
+
+
+@dataclass
+class DataTypeNotSet(Exception):
+    operator: str
+
+
+@dataclass
+class ExecResultValueMissing(Exception):
+    result: dict
+
+
+@dataclass
+class MeasurementPlugin:
+    """Measurement plugin representation."""
+
+    source: str
+    datatype: object = None
+    operator: object = None
+    reference: object = None
+
+    def set_datatype(self, datatype: str) -> None:
+        """Set data type of measurement object."""
+
+        builtins_dict = __builtins__.__dict__.copy()
+        if builtins_dict.get(datatype) is None:
+            raise DataTypeInvalid(datatype)
+        self.datatype = builtins_dict[datatype]
+
+    def set_operator(self, operator: str) -> None:
+        """Set operator of measurement object data type."""
+
+        if self.datatype is None:
+            raise DataTypeNotSet(self.datatype)
+        self.operator = getattr(self.datatype, operator)
+
+    def set_reference(self, reference) -> None:
+        """Set reference value of measurement object."""
+
+        self.reference = reference
+
+    def evaluate(self) -> tuple:
+        """
+        Evaluate measurement object and return a tuple
+        of the measured value and conditional results.
+        """
+
+        result = {}
+        cc = compile(self.source, "<string>", "exec")
+        exec(cc, {}, result)
+        measurement = result.get("result")
+        if not measurement:
+            raise ExecResultValueMissing(result)
+        if self.operator is None:
+            return (measurement, None)
+        if self.operator(
+            self.datatype(measurement),
+            self.datatype(self.reference),
+        ):
+            return (measurement, "PASS")
+        return (measurement, "FAIL")

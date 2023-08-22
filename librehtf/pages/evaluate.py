@@ -76,7 +76,7 @@ def update_test_tree(device: str, test: str):
         (device,),
     ).fetchall()
     if not rows:
-        return "No device selected"
+        return no_update
     records = list(map(dict, rows))
     return [
         NavLink(

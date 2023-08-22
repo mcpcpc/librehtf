@@ -28,10 +28,12 @@ def layout(device: str = None, test: str = None):
             children=[
                 Col(
                     span=3,
-                    Navbar(
-                        id="device_tree",
-                        children=None,
-                    ),
+                    children=[
+                        Navbar(
+                            id="device_tree",
+                            children=None,
+                        ),
+                    ],
                 ),
                 Col(
                     span=3,

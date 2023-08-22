@@ -15,7 +15,7 @@ from dash_mantine_components import Stack
 from dash_mantine_components import Text
 from dash_mantine_components import Title
 
-from librehtf.utils.measure import MeasurementPlugin
+from librehtf.utils.plugin import MeasurementPlugin
 
 register_page(__name__, path="/evaluate")
 

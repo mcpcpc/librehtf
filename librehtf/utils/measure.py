@@ -33,17 +33,16 @@ class MeasurementPlugin:
     def set_datatype(self, datatype: str) -> None:
         """Set data type of measurement object."""
 
-        builtins_dict = __builtins__.__dict__.copy()
-        if builtins_dict.get(datatype) is None:
+        if not hasattr(__builtins__, datatype):
             raise DataTypeInvalid(datatype)
-        self.datatype = builtins_dict[datatype]
+        self.datatype = __builtins__.__dict__[datatype]
 
     def set_operator(self, operator: str) -> None:
         """Set operator of measurement object data type."""
 
         if not isinstance(self.datatype, type):
             raise DataTypeNotSet(self.datatype)
-        if hasattr(self.datatype, operator):
+        if not hasattr(self.datatype, operator):
             raise OperatorInvalid(operator)
         self.operator = getattr(self.datatype, operator)
 

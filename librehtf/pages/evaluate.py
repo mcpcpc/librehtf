@@ -23,5 +23,5 @@ layout = [
             Text(""),
         ]
     ),
-    Accordion(id="accordion"),
+    #Accordion(id="accordion"),
 ]

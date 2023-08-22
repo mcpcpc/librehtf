@@ -25,6 +25,7 @@ def layout(device: str = None, test: str = None):
         Store(id="device", data=device),
         Store(id="test", data=test),
         Grid(
+            gutter=0,
             children=[
                 Col(
                     span=3,

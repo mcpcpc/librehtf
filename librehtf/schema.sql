@@ -17,8 +17,6 @@ CREATE TABLE role (
         slug TEXT UNIQUE NOT NULL,
         description TEXT DEFAULT NULL,
         active INTEGER NOT NULL DEFAULT 0,
-        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT NULL,
         content TEXT DEFAULT NULL
 );
 
@@ -47,8 +45,6 @@ INSERT INTO permission (slug, title) VALUES
 CREATE TABLE role_permission (
         role_id INTEGER NOT NULL,
         permission_id INTEGER NOT NULL,
-        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT NULL,
         PRIMARY KEY(role_id, permission_id)
         FOREIGN KEY(role_id) REFERENCES role(id) ON DELETE NO ACTION ON UPDATE NO ACTION
         FOREIGN KEY(permission_id) REFERENCES permission(id) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -65,9 +61,11 @@ INSERT INTO role_permission (role_id, permission_id) VALUES
 
 CREATE TABLE user (
         id INTEGER PRIMARY KEY,
-        role_id INTEGER NOT NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT NULL, 
         username TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL UNIQUE,
+        role_id INTEGER NOT NULL,
         FOREIGN KEY(role_id) REFERENCES role(id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
@@ -102,12 +100,16 @@ INSERT INTO datatype (slug, title) VALUES
 
 CREATE TABLE device (
         id INTEGER PRIMARY KEY,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT NULL,
         name TEXT UNIQUE NOT NULL,
         description TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE test (
         id INTEGER PRIMARY KEY,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT NULL,
         name TEXT UNIQUE NOT NULL,
         description TEXT NOT NULL,
         device_id INTEGER NOT NULL,
@@ -116,6 +118,8 @@ CREATE TABLE test (
 
 CREATE TABLE task (
         id INTEGER PRIMARY KEY,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT NULL,
         name TEXT NOT NULL,
         reference TEXT DEFAULT NULL,
         unit TEXT DEFAULT NULL,

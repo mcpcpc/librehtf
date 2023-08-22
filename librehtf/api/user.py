@@ -15,38 +15,43 @@ user = Blueprint("user", __name__, url_prefix="/api")
 @user.post("/user")
 @token_required
 def create_user():
-    """
-    Create user.
-    """
+    """Create user."""
 
-    if not request.form.get("username"):
-        return "Username is required.", 400
-    elif not request.form.get("password"):
-        return "Password is required.", 400
+    form = request.form.copy().to_dict()
+    form["password"] = generate_password_hash(form["password"])
     try:
         db = get_db()
         db.execute(
-            "INSERT INTO user (username, password, role_id) VALUES (?, ?, 3)",
-            (
-                request.form.get("username"),
-                generate_password_hash(request.form["password"]),
-            ),
+            """
+            INSERT INTO user (
+                username,
+                password,
+                role_id
+            ) VALUES (
+                :username,
+                :password,
+                3
+            )
+            """,
+            form,
         )
         db.commit()
+    except db.ProgrammingError:
+        return "Missing parameter(s).", 400
     except db.IntegrityError:
-        return "User already exists.", 400
-    else:
-        return "User successfully created.", 201
+        return "Invalid parameter(s).", 400
+    return "User successfully created.", 201
 
 
 @user.get("/user/<int:id>")
 @token_required
 def read_user(id: int):
-    """
-    Read user.
-    """
+    """Read user."""
 
-    row = get_db().execute("SELECT * FROM user WHERE id = ?", (id,)).fetchone()
+    row = get_db().execute(
+        "SELECT * FROM user WHERE id = ?",
+        (id,),
+    ).fetchone()
     if not row:
         return "User does not exist.", 404
     return dict(row)
@@ -55,41 +60,37 @@ def read_user(id: int):
 @user.put("/user/<int:id>")
 @token_required
 def update_user(id: int):
-    """
-    Update user.
-    """
+    """Update user."""
 
-    if not request.form.get("username"):
-        return "Username is required.", 400
-    elif not request.form.get("password"):
-        return "Password is required.", 400
-    elif not request.form.get("role_id"):
-        return "Role ID is required.", 400
+    form = request.form.copy().to_dict()
+    form["password"] = generate_password_hash(form["password"])
+    form["id"] = id
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "UPDATE user SET username = ?, password = ?, role_id = ? WHERE id = ?",
-            (
-                request.form.get("username"),
-                generate_password_hash(request.form["password"]),
-                request.form.get("role_id"),
-                id,
-            ),
+            """
+            UPDATE user SET
+                updated_at = CURRENT_TIMESTAMP,
+                username = :username,
+                password = :password,
+                role_id = :role_id
+            WHERE id = :id
+            """,
+            form,
         )
         db.commit()
+    except db.ProgrammingError:
+        return "Missing parameter(s).", 400
     except db.IntegrityError:
-        return "User already exists.", 400
-    else:
-        return "User successfully updated.", 201
+        return "Invalid parameter(s).", 400
+    return "User successfully updated.", 201
 
 
 @user.delete("/user/<int:id>")
 @token_required
 def delete_user(id: int):
-    """
-    Delete user.
-    """
+    """Delete user."""
 
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")

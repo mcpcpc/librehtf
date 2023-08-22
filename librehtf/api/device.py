@@ -13,38 +13,40 @@ device = Blueprint("device", __name__, url_prefix="/api")
 @device.post("/device")
 @token_required
 def create_device():
-    """
-    Create device.
-    """
+    """Create device."""
 
-    if not request.form.get("name"):
-        return "Name is required.", 400
-    elif not request.form.get("description"):
-        return "Description is required.", 400
+    form = request.form.copy().to_dict()
     try:
         db = get_db()
         db.execute(
-            "INSERT INTO device (name, description) VALUES (?, ?)",
-            (
-                request.form.get("name"),
-                request.form.get("description"),
-            ),
+            """
+            INSERT INTO device (
+                name,
+                description
+            ) VALUES (
+                :name,
+                :description
+            )
+            """,
+            form,
         )
         db.commit()
+    except db.ProgrammingError:
+        return "Missing parameter(s).", 400
     except db.IntegrityError:
-        return "Device already exists.", 400
-    else:
-        return "Device successfully created.", 201
+        return "Invalid parameter(s).", 400
+    return "Device successfully created.", 201
 
 
 @device.get("/device/<int:id>")
 @token_required
 def read_device(id: int):
-    """
-    Read device.
-    """
+    """Read device."""
 
-    row = get_db().execute("SELECT * FROM device WHERE id = ?", (id,)).fetchone()
+    row = get_db().execute(
+        "SELECT * FROM device WHERE id = ?",
+        (id,),
+    ).fetchone()
     if not row:
         return "Device does not exist.", 404
     return dict(row)
@@ -53,33 +55,34 @@ def read_device(id: int):
 @device.put("/device/<int:id>")
 @token_required
 def update_device(id: int):
-    """
-    Update device.
-    """
+    """Update device."""
 
-    if not request.form.get("name"):
-        return "Name is required.", 400
-    elif not request.form.get("description"):
-        return "Description is required.", 400
+    form = request.form.copy().to_dict()
+    form["id"] = id
     try:
         db = get_db()
         db.execute(
-            "UPDATE device SET name = ?, description = ? WHERE id = ?",
-            (request.form.get("name"), request.form.get("description"), id),
+            """
+            UPDATE device SET
+                updated_at = CURRENT_TIMESTAMP,
+                name = :name,
+                description = :description
+            WHERE id = :id
+            """,
+            form,
         )
         db.commit()
+    except db.ProgrammingError:
+        return "Missing parameter(s).", 400
     except db.IntegrityError:
-        return "Device already exists.", 400
-    else:
-        return "Device successfully updated.", 201
+        return "Invalid parameter(s).", 400
+    return "Device successfully updated.", 201
 
 
 @device.delete("/device/<int:id>")
 @token_required
 def delete_device(id: int):
-    """
-    Delete device.
-    """
+    """Delete device."""
 
     db = get_db()
     db.execute("PRAGMA foreign_keys = ON")

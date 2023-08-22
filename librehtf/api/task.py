@@ -13,48 +13,46 @@ task = Blueprint("task", __name__, url_prefix="/api")
 @task.post("/task")
 @token_required
 def create_task():
-    """
-    Create task.
-    """
+    """Create task."""
 
-    if not request.form.get("name"):
-        return "Name is required.", 400
-    elif not request.form.get("command"):
-        return "Command is required.", 400
-    elif not request.form.get("test_id"):
-        return "Test ID is required.", 400
-    elif not request.form.get("operator_id"):
-        return "Operator ID is required.", 400
-    elif not request.form.get("datatype_id"):
-        return "Datatype ID is required.", 400
+    form = request.form.copy().to_dict()
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "INSERT INTO task (name, reference, unit, command, test_id, operator_id, datatype_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (
-                request.form.get("name"),
-                request.form.get("reference", None),
-                request.form.get("unit", None),
-                request.form.get("command"),
-                request.form.get("test_id"),
-                request.form.get("operator_id"),
-                request.form.get("datatype_id"),
-            ),
+            """
+            INSERT INTO task (
+                name,
+                reference,
+                unit,
+                command,
+                test_id,
+                operator_id,
+                datatype_id
+            ) VALUES (
+                :name,
+                :reference,
+                :unit,
+                :command,
+                :test_id,
+                :operator_id,
+                :datatype_id
+            )
+            """,
+            form,
         )
         db.commit()
+    except db.ProgrammingError:
+        return "Missing parameter(s).", 400
     except db.IntegrityError:
-        return "Task already exists or test, operator or datatype ID invalid.", 400
-    else:
-        return "Task successfully created.", 201
+        return "Invalid parameter(s).", 400
+    return "Task successfully created.", 201
 
 
 @task.get("/task/<int:id>")
 @token_required
 def read_task(id: int):
-    """
-    Read task.
-    """
+    """Read task."""
 
     row = get_db().execute("SELECT * FROM task WHERE id = ?", (id,)).fetchone()
     if not row:
@@ -65,51 +63,43 @@ def read_task(id: int):
 @task.put("/task/<int:id>")
 @token_required
 def update_task(id: int):
-    """
-    Update task.
-    """
+    """Update task."""
 
-    if not request.form.get("name"):
-        return "Name is required.", 400
-    elif not request.form.get("command"):
-        return "Command is required.", 400
-    elif not request.form.get("test_id"):
-        return "Test ID is required.", 400
-    elif not request.form.get("operator_id"):
-        return "Operator ID is required.", 400
-    elif not request.form.get("datatype_id"):
-        return "Datatype ID is required.", 400
+    form = request.form.copy().to_dict()
+    form["id"] = id
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "UPDATE task SET name = ?, reference = ?, unit = ?, command = ?, test_id = ?, operator_id = ?, datatype_id = ? WHERE id = ?",
-            (
-                request.form.get("name"),
-                request.form.get("reference", None),
-                request.form.get("unit", None),
-                request.form.get("command"),
-                request.form.get("test_id"),
-                request.form.get("operator_id"),
-                request.form.get("datatype_id"),
-                id,
-            ),
+            """
+            UPDATE task SET
+                updated_at = CURRENT_TIMESTAMP,
+                name = :name,
+                reference = :reference,
+                unit = :unit,
+                command = :command,
+                test_id = :test_id,
+                operator_id = :operator_id,
+                datatype_id = :datatype_id
+            WHERE id = ?
+            """,
+            form,
         )
         db.commit()
+    except db.ProgrammingError:
+        return "Missing parameter(s).", 400
     except db.IntegrityError:
-        return "Task already exists or test, operator or datatype ID invalid.", 400
-    else:
-        return "Task successfully updated.", 201
+        return "Invalid parameter(s).", 400
+    return "Task successfully updated.", 201
 
 
 @task.delete("/task/<int:id>")
 @token_required
 def delete_task(id: int):
-    """
-    Delete task.
-    """
+    """Delete task."""
 
     db = get_db()
+    db.execute("PRAGMA foreign_keys = ON")
     db.execute("DELETE FROM task WHERE id = ?", (id,))
     db.commit()
     return "Task successfully deleted.", 200

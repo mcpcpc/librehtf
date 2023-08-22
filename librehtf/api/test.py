@@ -13,42 +13,43 @@ test = Blueprint("test", __name__, url_prefix="/api")
 @test.post("/test")
 @token_required
 def create_test():
-    """
-    Create test.
-    """
+    """Create test."""
 
-    if not request.form.get("name"):
-        return "Name is required.", 400
-    elif not request.form.get("description"):
-        return "Description is required.", 400
-    elif not request.form.get("device_id"):
-        return "Device ID is required.", 400
+    form = request.form.copy().to_dict()
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "INSERT INTO test (name, description, device_id) VALUES (?, ?, ?)",
-            (
-                request.form.get("name"),
-                request.form.get("description"),
-                request.form.get("device_id"),
-            ),
+            """
+            INSERT INTO test (
+                name,
+                description,
+                device_id
+            ) VALUES (
+                :name,
+                :description,
+                :device_id
+            )
+            """,
+            form,
         )
         db.commit()
+    except db.ProgrammingError:
+        return "Missing parameter(s).", 400
     except db.IntegrityError:
-        return "Test already exists or device ID invalid.", 400
-    else:
-        return "Test successfully created.", 201
+        return "Invalid parameter(s).", 400
+    return "Test successfully created.", 201
 
 
 @test.get("/test/<int:id>")
 @token_required
 def read_test(id: int):
-    """
-    Read test.
-    """
+    """Read test."""
 
-    row = get_db().execute("SELECT * FROM test WHERE id = ?", (id,)).fetchone()
+    row = get_db().execute(
+        "SELECT * FROM test WHERE id = ?",
+        (id,),
+    ).fetchone()
     if not row:
         return "Test does not exist.", 404
     return dict(row)
@@ -59,39 +60,37 @@ def read_test(id: int):
 def update_test(id: int):
     """Update test."""
 
-    if not request.form["name"]:
-        return "Name is required.", 400
-    elif not request.form.get("description"):
-        return "Description is required.", 400
-    elif not request.form.get("device_id"):
-        return "Device ID is required.", 400
+    form = request.form.copy().to_dict()
+    form["id"] = id
     try:
         db = get_db()
         db.execute("PRAGMA foreign_keys = ON")
         db.execute(
-            "UPDATE test SET name = ?, description = ?, device_id = ? WHERE id = ?",
-            (
-                request.form.get("name"),
-                request.form.get("description"),
-                request.form.get("device_id"),
-                id,
-            ),
+            """
+            UPDATE test SET
+                updated_at = CURRENT_TIMESTAMP,
+                name = :name,
+                description = :description,
+                device_id = :device_id
+            WHERE id = :id
+            """,
+            form,
         )
         db.commit()
+    except db.ProgrammingError:
+        return "Missing parameter(s).", 400
     except db.IntegrityError:
-        return "Test already exists or device ID invalid.", 400
-    else:
-        return "Test successfully updated.", 201
+        return "Invalid parameter(s).", 400
+    return "Test successfully updated.", 201
 
 
 @test.delete("/test/<int:id>")
 @token_required
 def delete_test(id: int):
-    """
-    Delete test.
-    """
+    """Delete test."""
 
     db = get_db()
+    db.execute("PRAGMA foreign_keys = ON")
     db.execute("DELETE FROM test WHERE id = ?", (id,))
     db.commit()
     return "Test successfully deleted.", 200

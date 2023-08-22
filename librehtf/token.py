@@ -44,7 +44,8 @@ def init_token_command(expires_in):
     is 300 seconds (5 minutes).
     """
 
-    exp = datetime.now(tz=timezone.utc) + timedelta(seconds=expires_in)
+    delta = timedelta(seconds=expires_in)
+    exp = datetime.now(tz=timezone.utc) + delta
     token = encode(
         {"confirm": "42", "exp": exp},
         current_app.config["SECRET_KEY"],

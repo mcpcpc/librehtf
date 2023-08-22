@@ -7,10 +7,6 @@ from dash import no_update
 from dash import Output
 from dash import register_page
 from dash_iconify import DashIconify
-from dash_mantine_components import Accordion
-from dash_mantine_components import AccordionItem
-from dash_mantine_components import AccordionControl
-from dash_mantine_components import AccordionPanel
 from dash_mantine_components import Stack
 from dash_mantine_components import Text
 from dash_mantine_components import Title
@@ -27,16 +23,4 @@ layout = [
             Text(""),
         ]
     ),
-    Accordion(
-        id="accordion",
-        children=None,
-    ),
 ]
-
-
-@callback(
-    Output("accordion", "children"),
-    Input("accordion", "children"),
-)
-def update_accordion(children):
-    return no_update

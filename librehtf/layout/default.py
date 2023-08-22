@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from dash import clientside_callback
-from dash import dcc
 from dash import Input
 from dash import Output
 from dash import page_container
 from dash import page_registry
 from dash import State
+from dash.dcc import Store
 from dash_iconify import DashIconify
 from dash_mantine_components import ActionIcon
 from dash_mantine_components import Group
@@ -65,10 +65,7 @@ layout = MantineProvider(
             },
             inherit=True,
             children=[
-                dcc.Store(
-                    id="theme-store",
-                    storage_type="local"
-                ),
+                Store(id="theme-store", storage_type="local"),
                 Notifications(id="notifications"),
                 header,
                 wrapper,

@@ -27,12 +27,14 @@ def layout(device: str = None, test: str = None):
         Grid(
             children=[
                 Col(
-                    span=3, 
-                    id="device_tree",
-                    children=None,
+                    span=3,
+                    Navbar(
+                        id="device_tree",
+                        children=None,
+                    ),
                 ),
                 Col(
-                    span=3, 
+                    span=3,
                     id="test_tree",
                     children=None,
                 ),

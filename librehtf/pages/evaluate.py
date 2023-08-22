@@ -13,14 +13,15 @@ from dash_mantine_components import Title
 
 from librehtf.utils.plugin import MeasurementPlugin
 
-register_page(__name__, path="/evaluate")
+register_page(__name__, path="/evaluate/<device>")
 
-layout = [
-    Stack(
-        p="xl",
-        children=[
-            Title("Evaluate"),
-            Text(""),
-        ]
-    ),
-]
+def layout(device: str = None):
+    return [
+        Stack(
+            p="xl",
+            children=[
+                Title("Evaluate"),
+                Text(""),
+            ]
+        ),
+    ]

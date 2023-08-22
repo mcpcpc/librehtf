@@ -60,7 +60,7 @@ def update_navbar(device: str):
             label=r["name"],
             description=r["description"],
             href=f"/evaluate?device={r['id']}",
-            active=device is str(r["id"]),
+            active=device == str(r["id"]),
         ) for r in records
     ]
 
@@ -83,6 +83,6 @@ def update_navbar(device: str, test: str):
             label=r["name"],
             description=r["description"],
             href=f"/evaluate?device={device}&test={r['id']}",
-            active=test is str(r["id"]),
+            active=test == str(r["id"]),
         ) for r in records
     ]

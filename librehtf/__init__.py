@@ -18,7 +18,10 @@ from librehtf.token import init_token
 
 
 def create_app(test_config=None):
-    """Create and configure an instance of the Flask application."""
+    """
+    Create and configure an instance of the Flask
+    application.
+    """
 
     app = Flask(
         __name__,

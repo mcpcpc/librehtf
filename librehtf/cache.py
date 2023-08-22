@@ -13,9 +13,7 @@ launch_uid = uuid4()
 
 
 def create_cache_manager(app):
-    """
-    Create new cache manager.
-    """
+    """Create new cache manager."""
 
     if isinstance(app.config.get("REDIS_URL"), str):
         celery_app = Celery(

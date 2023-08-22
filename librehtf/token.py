@@ -16,9 +16,7 @@ from jwt import encode
 
 
 def token_required(view):
-    """
-    Token required decorator function.
-    """
+    """Token required decorator function."""
 
     @wraps(view)
     def wrapped_view(*args, **kwargs):
@@ -41,8 +39,9 @@ def token_required(view):
 @argument("expires_in", type=int, default=300)
 def init_token_command(expires_in):
     """
-    Initialize and generate new token key given a specified expiration timeframe
-    where the default expiration time is 300 seconds (5 minutes).
+    Initialize and generate new token key given a specified
+    expiration timeframe where the default expiration time
+    is 300 seconds (5 minutes).
     """
 
     exp = datetime.now(tz=timezone.utc) + timedelta(seconds=expires_in)
@@ -56,8 +55,8 @@ def init_token_command(expires_in):
 
 def init_token(app):
     """
-    Add command to Flask application instance to initialize and generate a new
-    token key. 
+    Add command to Flask application instance to initialize
+    and generate a new token key. 
     """
 
     app.cli.add_command(init_token_command)

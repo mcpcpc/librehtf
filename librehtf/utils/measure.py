@@ -12,16 +12,21 @@ class DataTypeNotSet(Exception):
 
 
 @dataclass
+class OperatorInvalid(Exception):
+    operator: str
+
+
+@dataclass
 class ExecResultValueMissing(Exception):
     result: dict
 
 
 @dataclass
 class MeasurementPlugin:
-    """Measurement plugin representation."""
+    """Measurement representation."""
 
     source: str
-    datatype: object = None
+    datatype: type = None
     operator: object = None
     reference: object = None
 
@@ -36,8 +41,10 @@ class MeasurementPlugin:
     def set_operator(self, operator: str) -> None:
         """Set operator of measurement object data type."""
 
-        if self.datatype is None:
+        if not isinstance(self.datatype, type):
             raise DataTypeNotSet(self.datatype)
+        if operator not in self.datatype.__dict__:
+            raise OperatorInvalid(operator)
         self.operator = getattr(self.datatype, operator)
 
     def set_reference(self, reference) -> None:

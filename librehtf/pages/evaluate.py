@@ -67,7 +67,7 @@ def update_device_tree(device: str):
 
 @callback(
     Output("test_tree", "children"),
-    State("device", "data"),
+    Input("device", "data"),
     Input("test", "data"),
 )
 def update_test_tree(device: str, test: str):

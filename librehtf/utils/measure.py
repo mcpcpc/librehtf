@@ -56,8 +56,8 @@ class MeasurementPlugin:
 
     def evaluate(self) -> tuple:
         """
-        Evaluate measurement object and return a tuple
-        of the measured value and conditional results.
+        Evaluate measurement object and return a tuple of
+        the measured value and conditional results.
         """
 
         result = {}

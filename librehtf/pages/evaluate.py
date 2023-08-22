@@ -3,7 +3,7 @@
 
 from dash import callback
 from dash import Input
-from dasg import Output
+from dash import Output
 from dash import register_page
 from dash_iconify import DashIconify
 from dash_mantine_components import Accordion

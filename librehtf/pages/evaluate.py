@@ -71,7 +71,7 @@ def update_navbar(device: str):
 )
 def update_navbar(device: str, test: str):
     rows = get_db().execute(
-        "SELECT * FROM test WHERE device_id = ?"
+        "SELECT * FROM test WHERE device_id = ?",
         (device,),
     ).fetchall()
     if not rows:

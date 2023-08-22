@@ -7,6 +7,12 @@ DROP TABLE IF EXISTS device;
 DROP TABLE IF EXISTS test;
 DROP TABLE IF EXISTS task;
 
+CREATE TABLE datatype (
+        id INTEGER PRIMARY KEY,
+        title TEXT UNIQUE NOT NULL,
+        slug TEXT UNIQUE NOT NULL
+);
+
 INSERT INTO datatype (slug, title) VALUES
         ("str", "string"),
         ("int", "integer"),
@@ -26,12 +32,6 @@ INSERT INTO operator (slug, title) VALUES
         ("__le__", "less than or equal"),
         ("__eq__", "equal"),
         ("__ne__", "not equal");
-
-CREATE TABLE datatype (
-        id INTEGER PRIMARY KEY,
-        title TEXT UNIQUE NOT NULL,
-        slug TEXT UNIQUE NOT NULL
-);
 
 CREATE TABLE device (
         id INTEGER PRIMARY KEY,

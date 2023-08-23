@@ -84,7 +84,7 @@ def update_navbar(children):
                 },
             }
     return [
-        Navlink(
+        NavLink(
             label=device_name,
             description=nested[device_name]["description"],
             noWrap=True,

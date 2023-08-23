@@ -67,8 +67,8 @@ def update_navbar(children):
     print(records)
     return [
         NavLink(
-            label=r["name"],
-            description=r["description"],
+            label=r["device_name"],
+            description=r["device_description"],
             noWrap=True,
         ) for r in records
     ]

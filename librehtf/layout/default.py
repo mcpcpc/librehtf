@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from dash import callback
 from dash import clientside_callback
 from dash import Input
 from dash import Output
@@ -13,8 +14,10 @@ from dash_mantine_components import ActionIcon
 from dash_mantine_components import Group
 from dash_mantine_components import Header
 from dash_mantine_components import Container
+from dash_mantine_components import Location
 from dash_mantine_components import MantineProvider
 from dash_mantine_components import Notifications
+from dash_mantine_components import Select
 from dash_mantine_components import Text
 
 header = Header(
@@ -28,6 +31,14 @@ header = Header(
                 Text("LibreHTF"),
                 Group(
                     children=[
+                        Select(
+                            id="select",
+                            clearable=True,
+                            data=None,
+                            nothingFound="No match found",
+                            placeholder="Search Devices",
+                            searchable=True,
+                        ),
                         ActionIcon(
                             id="color-scheme-toggle",
                             variant="transparent",
@@ -65,12 +76,25 @@ layout = MantineProvider(
             inherit=True,
             children=[
                 Store(id="theme-store", storage_type="local"),
+                Location(id="location"),
                 Notifications(id="notifications"),
                 header,
                 wrapper,
             ],
         ),
     ],
+)
+
+clientside_callback(
+    """
+    function(value) {
+        if (value) {
+            return value
+        }
+    }
+    """,
+    Output("location", "pathname"),
+    Input("select", "value"),
 )
 
 clientside_callback(
@@ -95,3 +119,22 @@ clientside_callback(
     Input("color-scheme-toggle", "n_clicks"),
     State("theme-store", "data"),
 )
+
+
+@callback(
+    Output("select", "data"),
+    Input("select", "data"),
+)
+def update_select(data):
+    rows = get_db().execute(
+        "SELECT * FROM device"
+    ).fetchall()
+    if not rows:
+        return None
+    records = list(map(dict, rows))
+    return [
+        {
+            "label": record["name"],
+            "value": record["id"],
+        } for record in records
+    ]

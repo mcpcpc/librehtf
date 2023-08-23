@@ -20,9 +20,10 @@ from librehtf.utils.plugin import MeasurementPlugin
 
 register_page(__name__, path="/evaluate")
 
-def layout(test: str = None):
+
+def layout(device_id: str = None):
     return [
-        Store(id="test", data=test),
+        Store(id="device_id", data=device_id),
         Grid(
             gutter=0,
             children=[
@@ -46,62 +47,20 @@ def layout(test: str = None):
 
 @callback(
     Output("navbar", "children"),
-    Input("navbar", "children"),
+    Input("device_id", "data"),
 )
-def update_navbar(children):
+def update_navbar(device_id):
     rows = get_db().execute(
-        """
-        SELECT
-            device.name AS device_name,
-            device.description AS device_description,
-            test.name AS test_name,
-            test.description AS test_description,
-            test.id AS test_id
-        FROM test
-            INNER JOIN device ON device.id = test.device_id
-        """
+        "SELECT * FROM test WHERE device_id = ?",
+        (device_id,),
     ).fetchall()
     if not rows:
         return no_update
     records = list(map(dict, rows))
-    nested = {}
-    for r in records:
-        if r["device_name"] in nested:
-            nested[r["device_name"]]["tests"].append(
-                {
-                    "name": r["test_name"],
-                    "description": r["test_description"],
-                    "id": r["test_id"],
-                }
-            )
-        else:
-            nested[r["device_name"]] = {
-                "description": r["device_description"],
-                "tests" : [
-                    {
-                        "name": r["test_name"],
-                        "description": r["test_description"],
-                        "id": r["test_id"],
-                    },
-                ],
-            }
     return [
         NavLink(
-            label=device_name,
-            description=nested[device_name]["description"],
+            label=record["name"],
+            description=record["description"],
             noWrap=True,
-            children=[
-                NavLink(
-                    label=t["name"],
-                    description=t["description"]
-                ) for t in nested[device_name]["tests"]
-            ]
-        ) for device_name in nested
+        ) for record in records
     ]
-    #return [
-    #    NavLink(
-    #        label=r["device_name"],
-    #        description=r["device_description"],
-    #        noWrap=True,
-    #    ) for r in records
-    #]

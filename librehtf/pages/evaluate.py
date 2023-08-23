@@ -64,7 +64,25 @@ def update_navbar(children):
     if not rows:
         return no_update
     records = list(map(dict, rows))
-    print(records)
+    nested = {}
+    for r in records:
+        if r["device_name"] in nested:
+            nested[r["device_name"]]["tests"].append(
+                {
+                    "name": r["test_name"],
+                    "description": r["test_description"],
+                    "id": r["test_id"],
+                }
+            )
+        else:
+            nested[r["device_name"]]["description"] = r["device_description"]
+            nested[r["device_name"]]["tests"] = [
+                {
+                    "name": r["test_name"],
+                    "description": r["test_description"],
+                    "id": r["test_id"],
+                }
+            ]
     return [
         NavLink(
             label=r["device_name"],

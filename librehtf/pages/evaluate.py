@@ -88,6 +88,12 @@ def update_navbar(children):
             label=device_name,
             description=nested[device_name]["description"],
             noWrap=True,
+            children=[
+                NavLink(
+                    label=t["name"],
+                    description=t["description"]
+                ) for t in nested[device_name]["tests"]
+            ]
         ) for device_name in nested
     ]
     #return [

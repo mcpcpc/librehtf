@@ -84,9 +84,16 @@ def update_navbar(children):
                 },
             }
     return [
-        NavLink(
-            label=r["device_name"],
-            description=r["device_description"],
+        Navlink(
+            label=device_name,
+            description=nested[device_name]["description"],
             noWrap=True,
-        ) for r in records
+        ) for device_name in nested
     ]
+    #return [
+    #    NavLink(
+    #        label=r["device_name"],
+    #        description=r["device_description"],
+    #        noWrap=True,
+    #    ) for r in records
+    #]

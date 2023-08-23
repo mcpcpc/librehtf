@@ -52,11 +52,11 @@ def update_navbar(children):
     rows = get_db().execute(
         """
         SELECT
-            device.name,
-            device.description,
-            test.name,
-            test.description,
-            test.id
+            device.name AS device_name,
+            device.description AS device_description,
+            test.name AS test_name,
+            test.description AS test_description,
+            test.id AS test_id
         FROM test
             INNER JOIN device ON device.id = test.device_id
         """

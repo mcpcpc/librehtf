@@ -77,11 +77,11 @@ def update_navbar(children):
         else:
             nested[r["device_name"]] = {
                 "description": r["device_description"],
-                "tests" : {
+                "tests" : [
                     "name": r["test_name"],
                     "description": r["test_description"],
                     "id": r["test_id"],
-                },
+                ],
             }
     return [
         NavLink(

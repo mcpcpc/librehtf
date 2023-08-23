@@ -45,7 +45,6 @@ header = Header(
 )
 
 wrapper = Container(
-    id="wrapper",
     fluid=True,
     pt=50,
     px="0px",
@@ -72,18 +71,6 @@ layout = MantineProvider(
             ],
         ),
     ],
-)
-
-clientside_callback(
-    """
-    function(value) {
-        if (value) {
-            return value
-        }
-    }
-    """,
-    Output("url", "pathname"),
-    Input("select", "value"),
 )
 
 clientside_callback(

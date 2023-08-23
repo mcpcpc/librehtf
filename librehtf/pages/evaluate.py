@@ -20,34 +20,23 @@ from librehtf.utils.plugin import MeasurementPlugin
 
 register_page(__name__, path="/evaluate")
 
-def layout(device: str = None, test: str = None):
+def layout(test: str = None):
     return [
-        Store(id="device", data=device),
         Store(id="test", data=test),
         Grid(
             gutter=0,
             children=[
                 Col(
-                    span=3,
+                    span=4,
                     children=[
                         Navbar(
-                            id="device_tree",
+                            id="navbar",
                             children=None,
                         ),
                     ],
                 ),
                 Col(
-                    span=3,
-                    id="test_tree",
-                    children=[
-                        Navbar(
-                            id="test_tree",
-                            children=None,
-                        ),
-                    ],
-                ),
-                Col(
-                    span=9,
+                    span=8,
                     id="tasklist",
                 ),
             ],
@@ -56,46 +45,30 @@ def layout(device: str = None, test: str = None):
 
 
 @callback(
-    Output("device_tree", "children"),
-    Input("device", "data"),
+    Output("navbar", "children"),
+    Input("navbar", "children"),
 )
-def update_device_tree(device: str):
+def update_navbar(children):
     rows = get_db().execute(
-        "SELECT * FROM device"
+        """
+        SELECT
+            device.name,
+            device.description,
+            test.name,
+            test.description,
+            test.id
+        FROM test
+            INNER JOIN device ON device.id = test.device_id
+        """
     ).fetchall()
     if not rows:
         return no_update
     records = list(map(dict, rows))
+    print(records)
     return [
         NavLink(
             label=r["name"],
             description=r["description"],
-            href=f"/evaluate?device={r['id']}",
-            active=device == str(r["id"]),
-            noWrap=True,
-        ) for r in records
-    ]
-
-
-@callback(
-    Output("test_tree", "children"),
-    Input("device", "data"),
-    Input("test", "data"),
-)
-def update_test_tree(device: str, test: str):
-    rows = get_db().execute(
-        "SELECT * FROM test WHERE device_id = ?",
-        (device,),
-    ).fetchall()
-    if not rows:
-        return no_update
-    records = list(map(dict, rows))
-    return [
-        NavLink(
-            label=r["name"],
-            description=r["description"],
-            href=f"/evaluate?device={device}&test={r['id']}",
-            active=test == str(r["id"]),
             noWrap=True,
         ) for r in records
     ]

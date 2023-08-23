@@ -72,6 +72,7 @@ def update_device_tree(device: str):
             description=r["description"],
             href=f"/evaluate?device={r['id']}",
             active=device == str(r["id"]),
+            noWrap=True,
         ) for r in records
     ]
 
@@ -95,5 +96,6 @@ def update_test_tree(device: str, test: str):
             description=r["description"],
             href=f"/evaluate?device={device}&test={r['id']}",
             active=test == str(r["id"]),
+            noWrap=True,
         ) for r in records
     ]

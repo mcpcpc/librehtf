@@ -14,6 +14,8 @@ from dash_mantine_components import Grid
 from dash_mantine_components import Card
 from dash_mantine_components import Navbar
 from dash_mantine_components import NavLink
+from dash_mantine_components import Stepper
+from dash_mantine_components import StepperStep
 
 from librehtf.db import get_db
 from librehtf.utils.plugin import MeasurementPlugin
@@ -21,9 +23,10 @@ from librehtf.utils.plugin import MeasurementPlugin
 register_page(__name__, path_template="/eval/<device_id>")
 
 
-def layout(device_id: str = None):
+def layout(device_id: str = None, test_id: str = None):
     return [
         Store(id="device_id", data=device_id),
+        Store(id="test_id", data=device_id),
         Grid(
             gutter=0,
             children=[
@@ -65,5 +68,6 @@ def update_navbar(device_id):
             rightSection=DashIconify(
                 icon="ic:baseline-chevron-right",
             ),
+            href=f"/eval/{device_id}?test_id={test_id}",
         ) for record in records
     ]

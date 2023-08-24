@@ -62,5 +62,8 @@ def update_navbar(device_id):
             label=record["name"],
             description=record["description"],
             noWrap=True,
+            rightSection=DashIconify(
+                icon="ic:baseline-chevron-right",
+            ),
         ) for record in records
     ]

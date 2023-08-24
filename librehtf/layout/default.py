@@ -8,13 +8,13 @@ from dash import Output
 from dash import page_container
 from dash import page_registry
 from dash import State
+from dash.dcc import Location
 from dash.dcc import Store
 from dash_iconify import DashIconify
 from dash_mantine_components import ActionIcon
 from dash_mantine_components import Group
 from dash_mantine_components import Header
 from dash_mantine_components import Container
-from dash_mantine_components import Location
 from dash_mantine_components import MantineProvider
 from dash_mantine_components import Notifications
 from dash_mantine_components import Select

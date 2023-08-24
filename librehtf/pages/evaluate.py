@@ -11,11 +11,11 @@ from dash_iconify import DashIconify
 from dash.dcc import Store
 from dash_mantine_components import Col
 from dash_mantine_components import Grid
-from dash_mantine_components import Card
+from dash_mantine_components import Group
 from dash_mantine_components import Navbar
 from dash_mantine_components import NavLink
-from dash_mantine_components import Stepper
-from dash_mantine_components import StepperStep
+from dash_mantine_components import Stack
+from dash_mantine_components import Text
 
 from librehtf.db import get_db
 from librehtf.utils.plugin import MeasurementPlugin
@@ -40,14 +40,8 @@ def layout(device_id: str = None, test_id: str = None):
                 ),
                 Col(
                     span=8,
-                    children=[
-                        Stepper(
-                            id="stepper",
-                            orientation="vertical",
-                            active=1,
-                            children=[],
-                        ), 
-                    ],
+                    id="tasks",
+                    children=[],
                 ),
             ],
         ),
@@ -80,7 +74,7 @@ def update_navbar(device_id):
 
 
 @callback(
-    Output("stepper", "children"),
+    Output("tasks", "children"),
     Input("test_id", "data"),
 )
 def update_stepper(test_id):
@@ -92,8 +86,20 @@ def update_stepper(test_id):
         return no_update
     records = list(map(dict, rows))
     return [
-        StepperStep(
-            label=record["name"],
-            description="",
+        Group(
+            p="lg",
+            children=[
+                Stack(
+                    children=[
+                        Text(record["name"]),
+                        Text(
+                            f"{record['reference']}"
+                            size="sm",
+                            color="dimmed",
+                        ),
+                    ]
+                ),
+            ]
         ) for record in records
+        
     ]

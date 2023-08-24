@@ -43,7 +43,6 @@ def layout(device_id: str = None, test_id: str = None):
                     children=[
                         Stepper(
                             id="stepper",
-                            active=1,
                             children=[],
                         ), 
                     ],

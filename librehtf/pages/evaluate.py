@@ -68,6 +68,6 @@ def update_navbar(device_id):
             rightSection=DashIconify(
                 icon="ic:baseline-chevron-right",
             ),
-            href=f"/eval/{device_id}?test_id={test_id}",
+            href=f"/eval/{device_id}?test_id={record['id']}",
         ) for record in records
     ]

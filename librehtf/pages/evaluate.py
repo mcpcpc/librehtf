@@ -101,5 +101,4 @@ def update_stepper(test_id):
                 ),
             ]
         ) for record in records
-        
     ]

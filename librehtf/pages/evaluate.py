@@ -26,7 +26,7 @@ register_page(__name__, path_template="/eval/<device_id>")
 def layout(device_id: str = None, test_id: str = None):
     return [
         Store(id="device_id", data=device_id),
-        Store(id="test_id", data=device_id),
+        Store(id="test_id", data=test_id),
         Grid(
             gutter=0,
             children=[

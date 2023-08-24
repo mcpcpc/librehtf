@@ -24,7 +24,7 @@ from librehtf.db import get_db
 
 header = Header(
     height=70,
-    p="sm",
+    p="md",
     fixed=True,
     children=[
         Group(

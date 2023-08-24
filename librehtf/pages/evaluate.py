@@ -94,7 +94,10 @@ def update_stepper(test_id):
                     children=[
                         Text(record["name"]),
                         Text(
-                            f"{record['reference']}",
+                            [
+                                "unit: " + record["unit"],
+                                "reference: " + record["reference"],
+                            ]
                             size="sm",
                             color="dimmed",
                         ),

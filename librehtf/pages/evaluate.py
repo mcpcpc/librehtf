@@ -18,7 +18,7 @@ from dash_mantine_components import NavLink
 from librehtf.db import get_db
 from librehtf.utils.plugin import MeasurementPlugin
 
-register_page(__name__, path="/evaluate")
+register_page(__name__, path_template="/eval/<device_id>")
 
 
 def layout(device_id: str = None):

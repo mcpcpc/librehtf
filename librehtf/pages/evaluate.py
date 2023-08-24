@@ -95,7 +95,7 @@ def update_stepper(test_id):
                         Text(record["name"]),
                         Text(
                             [
-                                "unit: " + record["unit"],
+                                "unit: " + record["unit"] * ", ",
                                 "reference: " + record["reference"],
                             ],
                             size="sm",

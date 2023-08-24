@@ -97,7 +97,7 @@ def update_stepper(test_id):
                             [
                                 "unit: " + record["unit"],
                                 "reference: " + record["reference"],
-                            ]
+                            ],
                             size="sm",
                             color="dimmed",
                         ),

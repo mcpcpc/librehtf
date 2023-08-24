@@ -20,6 +20,8 @@ from dash_mantine_components import Notifications
 from dash_mantine_components import Select
 from dash_mantine_components import Text
 
+from librehtf.db import get_db
+
 header = Header(
     height=50,
     p="sm",

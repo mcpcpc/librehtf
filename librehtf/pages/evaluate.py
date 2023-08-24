@@ -90,6 +90,7 @@ def update_stepper(test_id):
             p="lg",
             children=[
                 Stack(
+                    spacing="xs",
                     children=[
                         Text(record["name"]),
                         Text(

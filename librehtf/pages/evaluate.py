@@ -43,6 +43,7 @@ def layout(device_id: str = None, test_id: str = None):
                     children=[
                         Stepper(
                             id="stepper",
+                            active=1,
                             children=[],
                         ), 
                     ],
@@ -78,7 +79,7 @@ def update_navbar(device_id):
 
 
 @callback(
-    Output("navbar", "children"),
+    Output("stepper", "children"),
     Input("test_id", "data"),
 )
 def update_stepper(test_id):

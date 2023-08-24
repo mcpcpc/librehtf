@@ -40,7 +40,12 @@ def layout(device_id: str = None, test_id: str = None):
                 ),
                 Col(
                     span=8,
-                    id="tasklist",
+                    children=[
+                        Stepper(
+                            id="stepper",
+                            active=1,
+                        ), 
+                    ],
                 ),
             ],
         ),
@@ -50,9 +55,8 @@ def layout(device_id: str = None, test_id: str = None):
 @callback(
     Output("navbar", "children"),
     Input("device_id", "data"),
-    Input("test_id", "data"),
 )
-def update_navbar(device_id, test_id):
+def update_navbar(device_id):
     rows = get_db().execute(
         "SELECT * FROM test WHERE device_id = ?",
         (device_id,),
@@ -69,6 +73,25 @@ def update_navbar(device_id, test_id):
                 icon="ic:baseline-chevron-right",
             ),
             href=f"/eval/{device_id}?test_id={record['id']}",
-            active=test_id == str(record['id']),
+        ) for record in records
+    ]
+
+
+@callback(
+    Output("navbar", "children"),
+    Input("test_id", "data"),
+)
+def update_stepper(test_id):
+    rows = get_db().execute(
+        "SELECT * FROM task WHERE test_id = ?",
+        (test_id,),
+    ).fetchall()
+    if not rows:
+        return no_update
+    records = list(map(dict, rows))
+    return [
+        StepperStep(
+            label=record["name"],
+            description="",
         ) for record in records
     ]

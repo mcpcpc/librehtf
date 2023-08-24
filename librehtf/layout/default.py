@@ -36,9 +36,8 @@ header = Header(
                         Select(
                             id="select",
                             clearable=True,
-                            data=None,
                             nothingFound="No match found",
-                            placeholder="Search Devices",
+                            placeholder="Search",
                             searchable=True,
                         ),
                         ActionIcon(

@@ -23,7 +23,7 @@ from dash_mantine_components import Text
 from librehtf.db import get_db
 
 header = Header(
-    height=50,
+    height=70,
     p="sm",
     fixed=True,
     children=[
@@ -59,7 +59,7 @@ header = Header(
 
 wrapper = Container(
     fluid=True,
-    pt=50,
+    pt=70,
     px="0px",
     children=page_container,
 )

@@ -1,9 +1,10 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "librehtf"
+version = "0.0.4"
 authors = [
     {name = "Michael Czigler", email = "michaelczigler@icloud.com"},
 ]
@@ -26,7 +27,6 @@ dependencies = [
     "dash-mantine-components>=0.13.0a2",
     "pyjwt",
 ]
-dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = ["coverage", "black"]

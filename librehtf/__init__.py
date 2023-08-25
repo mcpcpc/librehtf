@@ -7,13 +7,13 @@ from os import makedirs
 from flask import Flask
 from dash import Dash
 
-from api.device import device
-from api.test import test
-from api.task import task
-from cache import create_cache_manager
-from db import init_app
-from layout.default import layout
-from token import init_token
+from librehtf.api.device import device
+from librehtf.api.test import test
+from librehtf.api.task import task
+from librehtf.cache import create_cache_manager
+from librehtf.db import init_app
+from librehtf.layout.default import layout
+from librehtf.token import init_token
 
 
 def create_app(test_config=None):

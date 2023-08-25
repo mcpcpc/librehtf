@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "librehtf"
+authors = [
+    {name = "Michael Czigler", email = "michaelczigler@icloud.com"},
+]
+description = "An open hardware test framework."
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = ["hardware", "test", "framework"]
+license = {text = "BSD-3-Clause"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Flask",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+]
+dependencies = [
+    "dash[celery,diskcache]",
+    "dash-iconify",
+    "dash-mantine-components>=0.13.0a2",
+    "pyjwt",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["coverage", "black"]
+prod = ["waitress"]

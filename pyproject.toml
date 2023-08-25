@@ -15,7 +15,7 @@ license = {file = "LICENSE"}
 keywords = [
     "hardware",
     "test",
-    "framework"
+    "framework",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",

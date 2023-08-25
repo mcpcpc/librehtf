@@ -34,3 +34,7 @@ prod = ["waitress"]
 
 [tool.setuptools]
 packages = ["librehtf"]
+
+[tool.coverage.run]
+branch = true
+source = ["librehtf", "tests"]

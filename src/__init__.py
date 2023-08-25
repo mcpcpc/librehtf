@@ -11,7 +11,7 @@ from api.device import device
 from librehtf.api.test import test
 from librehtf.api.task import task
 from librehtf.cache import create_cache_manager
-from librehtf.db import init_app
+from db import init_app
 from librehtf.layout.default import layout
 from librehtf.token import init_token
 

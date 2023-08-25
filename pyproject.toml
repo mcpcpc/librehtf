@@ -11,8 +11,12 @@ authors = [
 description = "An open hardware test framework."
 readme = "README.md"
 requires-python = ">=3.11"
-keywords = ["hardware", "test", "framework"]
 license = {file = "LICENSE"}
+keywords = [
+    "hardware",
+    "test",
+    "framework"
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Framework :: Flask",

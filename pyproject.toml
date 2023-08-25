@@ -11,7 +11,7 @@ description = "An open hardware test framework."
 readme = "README.md"
 requires-python = ">=3.11"
 keywords = ["hardware", "test", "framework"]
-license = {text = "BSD-3-Clause"}
+license = {file = "LICENSE"}
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Framework :: Flask",

@@ -31,3 +31,6 @@ dynamic = ["version"]
 [project.optional-dependencies]
 dev = ["coverage", "black"]
 prod = ["waitress"]
+
+[tool.setuptools.packages.find]
+where = ["librehtf"]

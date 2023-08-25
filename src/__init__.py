@@ -7,7 +7,7 @@ from os import makedirs
 from flask import Flask
 from dash import Dash
 
-from librehtf.api.device import device
+from api.device import device
 from librehtf.api.test import test
 from librehtf.api.task import task
 from librehtf.cache import create_cache_manager

@@ -2,10 +2,7 @@
 name = "librehtf"
 version = "0.0.4"
 authors = [
-    {
-        name = "Michael Czigler",
-        email = "michaelczigler@icloud.com",
-    },
+    {name = "Michael Czigler", email = "michaelczigler@icloud.com"},
 ]
 description = "An open hardware test framework."
 readme = "README.md"

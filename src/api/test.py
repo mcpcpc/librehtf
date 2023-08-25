@@ -4,8 +4,8 @@
 from flask import Blueprint
 from flask import request
 
-from librehtf.db import get_db
-from librehtf.token import token_required
+from db import get_db
+from token import token_required
 
 test = Blueprint("test", __name__, url_prefix="/api")
 

@@ -17,8 +17,8 @@ from dash_mantine_components import NavLink
 from dash_mantine_components import Stack
 from dash_mantine_components import Text
 
-from librehtf.db import get_db
-from librehtf.utils.plugin import MeasurementPlugin
+from db import get_db
+from utils.plugin import MeasurementPlugin
 
 register_page(__name__, path_template="/eval/<device_id>")
 

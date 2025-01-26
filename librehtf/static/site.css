@@ -121,6 +121,30 @@ header {
         border-bottom: 1px solid var(--color-border);
 }
 
+.leftbar {
+        width: 200px;
+        height: 100%;
+        position: absolute;
+        top: 57px;
+        left: 0;
+        background-color: var(--color-background);
+        padding: 0;
+        border-right: 1px solid var(--color-border);
+}
+
+.leftbar .profile {
+        padding: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+}
+
+
+.leftbar .profile svg {
+        margin-right: 1rem;
+}
+
 .button {
         background-color: var(--color-background-neutral);
         transition: background-color 0.1s ease-out;
@@ -210,10 +234,6 @@ form label {
         border: 2px solid var(--color-border);
         color: var(--color-form-field-text);
         transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-}
-
-.text:active {
-
 }
 
 .text:focus {
